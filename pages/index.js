@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material"
-import { MainLayout } from "components/layouts/MainLayout"
+import { MainLayout } from "components/layouts"
 import { Dots } from "components/loaders/Dots"
 import { Loader } from "components/loaders/Loader"
 import { LoaderPage } from "components/loaders/LoaderPage"

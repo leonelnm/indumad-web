@@ -1,19 +1,18 @@
+import { Box } from "@mui/material"
 import Head from "next/head"
-import { Navbar } from "components/Navbar"
-import styles from "./mainlayout.module.scss"
+import { Navbar, Sidebar } from "../../ui"
 
-export const MainLayout = ({ children, title = "" }) => {
+export const MainLayout = ({ children, title = "Indumad" }) => {
   return (
-    <main>
+    <Box sx={{ flexFlow: 1 }}>
       <Head>
         <title>{title}</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <header className={styles.header}>
-        <Navbar />
-      </header>
 
-      <main className="container mt-4">{children}</main>
-    </main>
+      <Navbar />
+      <Sidebar />
+
+      <Box sx={{ padding: "1rem 1.5rem" }}>{children}</Box>
+    </Box>
   )
 }
