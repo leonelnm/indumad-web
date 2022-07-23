@@ -1,0 +1,11 @@
+.vl {
+  border: 1px solid green;
+  border-radius: 5px;
+  margin: 0.75rem;
+}
+
+@media (max-width: 1024px) {
+  .vl {
+    display: none;
+  }
+}

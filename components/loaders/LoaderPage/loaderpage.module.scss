@@ -1,0 +1,20 @@
+@import "../../../styles/colors.scss";
+@import "../Loaders.module.scss";
+
+.loader {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 5px solid $navbar-color;
+  border-top: 4px solid darken($color: $navbar-color, $amount: 20);
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

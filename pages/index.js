@@ -1,5 +1,20 @@
-import { Header } from "components/Header"
+import { Typography } from "@mui/material"
+import { MainLayout } from "components/layouts/MainLayout"
+import { Dots } from "components/loaders/Dots"
+import { Loader } from "components/loaders/Loader"
+import { LoaderPage } from "components/loaders/LoaderPage"
+import { Searcher } from "components/loaders/Searcher"
 
 export default function HomePage() {
-  return <Header />
+  return (
+    <MainLayout>
+      <Typography variant="h1" color="primary">
+        Home
+      </Typography>
+      <Loader />
+      <LoaderPage />
+      <Searcher />
+      <Dots />
+    </MainLayout>
+  )
 }
