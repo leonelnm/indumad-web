@@ -1,5 +1,10 @@
+import { AuthLayout } from "components/layouts"
 import { Login } from "components/Login"
 
 export default function LoginPage() {
-  return <Login />
+  return (
+    <AuthLayout title="Acceso">
+      <Login />
+    </AuthLayout>
+  )
 }

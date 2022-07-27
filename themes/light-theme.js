@@ -1,20 +1,20 @@
 import { createTheme } from "@mui/material"
-import { grey, red } from "@mui/material/colors"
+import { red } from "@mui/material/colors"
 
 export const lightTheme = createTheme({
   palette: {
     mode: "light",
-    background: {
-      default: grey[200],
-    },
     primary: {
-      main: "#4a148c",
+      main: "#3f51b5",
     },
     secondary: {
-      main: "#19857b",
+      main: "#e65100",
     },
     error: {
-      main: red[300],
+      main: red[700],
+    },
+    warning: {
+      main: "#ff9800",
     },
   },
   components: {
@@ -23,6 +23,26 @@ export const lightTheme = createTheme({
         elevation: 0,
       },
       styleOverrides: {},
+    },
+    MuiButton: {
+      defaultProps: {
+        variant: "contained",
+      },
+    },
+    MuiTypography: {
+      styleOverrides: {
+        h1: {
+          fontSize: "4rem",
+          fontWeight: 500,
+        },
+        h2: {
+          fontSize: "3.3rem",
+          fontWeight: 400,
+        },
+        h3: {
+          fontSize: "2.7rem",
+        },
+      },
     },
   },
 })

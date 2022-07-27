@@ -1,9 +1,9 @@
-import "../styles/globals.scss"
+import "../styles/globals.css"
 
 import { CssBaseline, ThemeProvider } from "@mui/material"
 import { SWRConfig } from "swr"
-import { darkTheme } from "themes"
-import { UIProvider } from "context"
+import { lightTheme } from "themes"
+import { AuthProvider, UIProvider } from "context"
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -13,12 +13,14 @@ function MyApp({ Component, pageProps }) {
           fetch(resource, init).then((res) => res.json()),
       }}
     >
-      <UIProvider>
-        <ThemeProvider theme={darkTheme}>
-          <CssBaseline />
-          <Component {...pageProps} />
-        </ThemeProvider>
-      </UIProvider>
+      <AuthProvider>
+        <UIProvider>
+          <ThemeProvider theme={lightTheme}>
+            <CssBaseline />
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </UIProvider>
+      </AuthProvider>
     </SWRConfig>
   )
 }
