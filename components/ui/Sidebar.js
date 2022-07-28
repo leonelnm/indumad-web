@@ -9,8 +9,7 @@ import {
 } from "@mui/material"
 import { Box } from "@mui/system"
 import WorkIcon from "@mui/icons-material/Work"
-import { useContext } from "react"
-import { UIContext } from "context"
+import { useUiContext } from "hooks/context"
 
 const menuItems = [
   "Trabajos",
@@ -21,7 +20,7 @@ const menuItems = [
 ]
 
 export const Sidebar = () => {
-  const { sideMenuOpen, closeSideBar } = useContext(UIContext)
+  const { sideMenuOpen, closeSideBar } = useUiContext()
 
   return (
     <Drawer anchor="left" open={sideMenuOpen} onClose={closeSideBar}>

@@ -10,13 +10,13 @@ import { LoadingButton } from "components/ui"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 
-import { useAuth } from "hooks/auth/useAuth"
 import { MESSAGES } from "utils/messages"
 import { useRouter } from "next/router"
+import { useAuthContext } from "hooks/context"
 
 export const Login = () => {
   const router = useRouter()
-  const { loginUser } = useAuth()
+  const { loginUser } = useAuthContext()
 
   const [error, setError] = useState(false)
   const [msgError, setMsgError] = useState("")
