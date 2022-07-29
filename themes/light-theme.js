@@ -1,5 +1,5 @@
 import { createTheme } from "@mui/material"
-import { red } from "@mui/material/colors"
+import { red, grey } from "@mui/material/colors"
 
 export const lightTheme = createTheme({
   palette: {
@@ -41,6 +41,15 @@ export const lightTheme = createTheme({
         },
         h3: {
           fontSize: "2.7rem",
+        },
+      },
+    },
+    MuiDivider: {
+      styleOverrides: {
+        vertical: {
+          marginLeft: "0.25rem",
+          marginRight: "0.25rem",
+          backgroundColor: grey[500],
         },
       },
     },

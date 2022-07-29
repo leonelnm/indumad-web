@@ -1,6 +1,4 @@
 import { MainLayout } from "components/layouts/MainLayout"
-import { Loader } from "components/loaders/Loader"
-import { UserList } from "components/ui/users/userList"
 import { useFetch } from "hooks/useFetch"
 
 export default function FacturacionPage() {
@@ -12,12 +10,10 @@ export default function FacturacionPage() {
 
   return (
     <MainLayout>
-      {isLoading && <Loader />}
+      <h1>Facturacion</h1>
       <div>
         <p>Error</p>
-        <p>{isError}</p>
       </div>
-      <UserList users={users} />
     </MainLayout>
   )
 }

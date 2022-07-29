@@ -3,6 +3,7 @@ import { UIContext, uiReducer, STATES } from "./"
 
 const INITIAL_STATE = {
   sideMenuOpen: false,
+  sideMenuAdministrationOpen: false,
 }
 
 export const UIProvider = ({ children }) => {
@@ -16,6 +17,13 @@ export const UIProvider = ({ children }) => {
     dispatch({ type: STATES.CLOSE })
   }
 
+  const handleSideBarAdministration = () => {
+    dispatch({
+      type: STATES.HANDLE_ADMINISTRATION,
+      payload: !state.sideMenuAdministrationOpen,
+    })
+  }
+
   return (
     <UIContext.Provider
       value={{
@@ -24,6 +32,7 @@ export const UIProvider = ({ children }) => {
         // functions
         openSideBar,
         closeSideBar,
+        handleSideBarAdministration,
       }}
     >
       {children}
