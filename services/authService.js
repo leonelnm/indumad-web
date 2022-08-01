@@ -33,7 +33,7 @@ export async function login({ username, password }) {
     })
 }
 
-export async function validateToken({ token = "" }) {
+export async function validateToken() {
   return await indumadApi
     .get(indumadRoutes.auth.VALIDA_TOKEN, {
       withCredentials: true,
@@ -54,7 +54,6 @@ export async function validateToken({ token = "" }) {
       }
 
       console.log("AuthService - validateToken")
-      console.error(error)
       console.error(error.message)
       console.log("END - AuthService - validateToken")
       return {

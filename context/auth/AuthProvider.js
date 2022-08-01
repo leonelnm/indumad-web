@@ -16,8 +16,12 @@ export const AuthProvider = ({ children }) => {
   }, [])
 
   const validateTokenHandler = async () => {
+    if (!Cookies.get("token")) {
+      return
+    }
+
     try {
-      const { ok, data } = await validateToken({ token: "" })
+      const { ok, data } = await validateToken()
 
       if (ok) {
         const { token, user } = data
@@ -32,11 +36,7 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       console.error("STEP: AuthProvider - validateTokenHandler")
       // TODO add sentry
-      // Cookies.remove("token")
-      return {
-        ok: false,
-        status: 500,
-      }
+      Cookies.remove("token")
     }
   }
 
