@@ -1,20 +1,14 @@
 import { Typography } from "@mui/material"
+import { Coding } from "components/Coding"
 import { MainLayout } from "components/layouts"
-import { Dots } from "components/loaders/Dots"
-import { Loader } from "components/loaders/Loader"
-import { LoaderPage } from "components/loaders/LoaderPage"
-import { Searcher } from "components/loaders/Searcher"
 
 export default function HomePage() {
   return (
-    <MainLayout>
+    <MainLayout title="Trabajos">
       <Typography variant="h1" color="primary">
-        Home
+        Trabajos
       </Typography>
-      <Loader />
-      <LoaderPage />
-      <Searcher />
-      <Dots />
+      <Coding />
     </MainLayout>
   )
 }

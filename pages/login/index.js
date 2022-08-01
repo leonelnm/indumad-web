@@ -1,10 +1,11 @@
 import { AuthLayout } from "components/layouts"
-import { Login } from "components/Login"
+import { Login2 } from "components/Login/Login2"
 
 export default function LoginPage() {
   return (
     <AuthLayout title="Acceso">
-      <Login />
+      {/* <Login /> */}
+      <Login2 />
     </AuthLayout>
   )
 }

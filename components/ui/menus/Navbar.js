@@ -13,7 +13,7 @@ import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNone
 import { useContext } from "react"
 import { UIContext } from "context"
 import { NavMenu } from "./NavMenu"
-import { userMenu } from "./menus"
+import { userMenu } from "../menus"
 import Link from "next/link"
 
 export const Navbar = () => {
@@ -46,7 +46,7 @@ export const Navbar = () => {
 
         <Box sx={{ display: { xs: "flex" } }}>
           <Link href="/calendar" passHref>
-            <IconButton component={"a"}>
+            <IconButton component={"a"} color="inherit">
               <CalendarMonthIcon />
             </IconButton>
           </Link>
@@ -54,7 +54,7 @@ export const Navbar = () => {
           <Divider orientation="vertical" flexItem variant="middle" />
 
           <Link href="/notifications" passHref>
-            <IconButton component={"a"}>
+            <IconButton component={"a"} color="inherit">
               <Badge badgeContent={4} color="secondary">
                 <NotificationsNoneOutlinedIcon />
               </Badge>

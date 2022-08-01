@@ -11,7 +11,7 @@ import {
 import ConstructionIcon from "@mui/icons-material/Construction"
 import SettingsIcon from "@mui/icons-material/Settings"
 import { Box } from "@mui/system"
-import { mainMenu, adminMenu, calendarMenu } from "./menus"
+import { mainMenu, adminMenu, calendarMenu } from "../menus"
 import { useUiContext } from "hooks/context"
 import { NavList } from "./NavList"
 import { NavLinkList } from "./NavLinkList"

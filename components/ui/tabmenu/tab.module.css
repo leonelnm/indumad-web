@@ -1,0 +1,9 @@
+.selectedTab {
+  text-decoration: none;
+  background-color: rgba(0, 0, 0, 0.04);
+  border-bottom: 1px outset #e65100;
+}
+
+.selectedTab:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
