@@ -1,10 +1,12 @@
-import { Avatar, IconButton, Menu } from "@mui/material"
+import { Avatar, IconButton, Menu, MenuItem } from "@mui/material"
+import { useAuthContext } from "hooks/context"
 import { useState } from "react"
 import { NavMenuItem } from "./NavMenuItem"
 
 export const NavMenu = ({ list = [] }) => {
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
+  const { logout } = useAuthContext()
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget)
@@ -12,6 +14,10 @@ export const NavMenu = ({ list = [] }) => {
 
   const handleClose = () => {
     setAnchorEl(null)
+  }
+
+  const handleLogout = () => {
+    logout()
   }
 
   return (
@@ -36,6 +42,9 @@ export const NavMenu = ({ list = [] }) => {
         onClose={handleClose}
       >
         <NavMenuItem list={list} handleClose={handleClose} />
+        <MenuItem component="button" onClick={handleLogout}>
+          Cerrar Sesion
+        </MenuItem>
       </Menu>
     </>
   )

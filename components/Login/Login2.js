@@ -10,9 +10,9 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
 import { LoadingButton } from "components/ui"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
+import { useRouter } from "next/router"
 
 import { MESSAGES } from "utils/messages"
-import { useRouter } from "next/router"
 import { useAuthContext } from "hooks/context"
 import { Copyright } from "components/Copyright"
 
@@ -42,7 +42,9 @@ export const Login2 = () => {
 
       if (ok) {
         setError(false)
-        router.replace("/")
+        const destination = router.query.p?.toString() || "/"
+        console.log({ destination })
+        router.replace(destination)
       } else {
         setError(true)
         setMsgError(

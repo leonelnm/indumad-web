@@ -5,7 +5,7 @@ export const AuthLayout = ({ children, title }) => {
   return (
     <>
       <Head>
-        <title>Indumad | {title}</title>
+        <title>{`Indumad | ${title}`}</title>
       </Head>
       <Container component="main" maxWidth="xs">
         {children}

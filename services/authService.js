@@ -33,7 +33,8 @@ export async function login({ username, password }) {
     })
 }
 
-export async function validateToken() {
+export async function validateToken({ token = "" }) {
+  indumadApi.defaults.headers.Authorization = `Bearer ${token}`
   return await indumadApi
     .get(indumadRoutes.auth.VALIDA_TOKEN, {
       withCredentials: true,

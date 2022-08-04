@@ -1,4 +1,4 @@
-import { Box, IconButton, Typography } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 import DashboardIcon from "@mui/icons-material/Dashboard"
 
 import style from "./coding.module.css"
@@ -23,9 +23,9 @@ export const Coding = () => {
       >
         <Box className={style.loader} />
       </Box>
-      <IconButton>
+      <Box>
         <DashboardIcon sx={{ fontSize: 100 }} />
-      </IconButton>
+      </Box>
       <Typography variant="h5">Página en Construcción!</Typography>
     </Box>
   )

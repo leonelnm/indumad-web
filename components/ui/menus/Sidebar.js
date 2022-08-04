@@ -1,29 +1,18 @@
-import {
-  Collapse,
-  Divider,
-  Drawer,
-  List,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Typography,
-} from "@mui/material"
+import { Divider, Drawer, List, Typography } from "@mui/material"
 import ConstructionIcon from "@mui/icons-material/Construction"
-import SettingsIcon from "@mui/icons-material/Settings"
 import { Box } from "@mui/system"
-import { mainMenu, adminMenu, calendarMenu } from "../menus"
-import { useUiContext } from "hooks/context"
+import { mainMenu, calendarMenu } from "../menus"
+import { useAuthContext, useUiContext } from "hooks/context"
 import { NavList } from "./NavList"
 import { NavLinkList } from "./NavLinkList"
-import { ExpandLess, ExpandMore } from "@mui/icons-material"
+import { isGestor } from "utils/roles"
+import { AdminMenuSidebar } from "./AdminMenuSidebar"
 
 export const Sidebar = () => {
-  const {
-    sideMenuOpen,
-    closeSideBar,
-    sideMenuAdministrationOpen: openAdministration,
-    handleSideBarAdministration,
-  } = useUiContext()
+  const { user } = useAuthContext()
+  const isGEstor = isGestor({ roles: user?.roles })
+
+  const { sideMenuOpen, closeSideBar } = useUiContext()
 
   return (
     <Drawer anchor="left" open={sideMenuOpen} onClose={closeSideBar}>
@@ -47,37 +36,10 @@ export const Sidebar = () => {
         <List disablePadding>
           <NavLinkList list={calendarMenu} />
         </List>
-        <Divider />
 
         {/* Administracion */}
-        <List>
-          <ListItemButton onClick={handleSideBarAdministration}>
-            <ListItemIcon>
-              <SettingsIcon />
-            </ListItemIcon>
-            <ListItemText primary="Administración" />
-            {openAdministration ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-          <Collapse in={openAdministration} timeout="auto" unmountOnExit>
-            <List disablePadding>
-              <NavLinkList list={adminMenu} pl={4} />
-            </List>
-          </Collapse>
-        </List>
-
-        <Divider />
+        {isGEstor && <AdminMenuSidebar />}
       </Box>
     </Drawer>
   )
 }
-
-/* <Link href={profile} passHref>
-            <ListItem
-              className={asPath === profile ? "activeLink" : ""}
-              button
-              component="a"
-              onClick={closeSideBar}
-            >
-              <ListItemText primary="Mi Perfil" />
-            </ListItem>
-          </Link> */

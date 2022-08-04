@@ -11,7 +11,6 @@ export const NavMenuItem = ({ list = [], handleClose }) => {
         <Link key={text} href={path} passHref>
           <MenuItem
             className={asPath === path ? "activeLink" : ""}
-            button
             component="a"
             onClick={handleClose}
           >

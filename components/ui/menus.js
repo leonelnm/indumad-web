@@ -25,10 +25,7 @@ export const calendarMenu = [
   { text: "Ver Agenda", path: "/calendar", icon: <CalendarMonthIcon /> },
 ]
 
-export const userMenu = [
-  { text: "Ver Perfil", path: "/user/newprofile" },
-  { text: "Cerrar Sesión", path: "/logout" },
-]
+export const userMenu = [{ text: "Ver Perfil", path: "/user/newprofile" }]
 
 export const userProfileTabMenu = [
   {
