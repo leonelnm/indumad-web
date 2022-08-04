@@ -40,7 +40,7 @@ export function middleware(req, event) {
   }
 
   if (pathname.startsWith("/admin")) {
-    console.log("middleware", "admin")
+    // TODO revisar role
     return NextResponse.next()
   }
 

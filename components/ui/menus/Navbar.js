@@ -20,7 +20,12 @@ export const Navbar = () => {
   const { openSideBar } = useContext(UIContext)
 
   return (
-    <AppBar position="sticky" component="nav">
+    <AppBar
+      position="sticky"
+      component="nav"
+      role="navigation"
+      aria-labelledby="main-navigation"
+    >
       <Toolbar>
         <Box sx={{ display: { xs: "block" } }}>
           <IconButton

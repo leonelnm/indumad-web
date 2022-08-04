@@ -4,13 +4,16 @@ import { CssBaseline, ThemeProvider } from "@mui/material"
 import { SWRConfig } from "swr"
 import { lightTheme } from "themes"
 import { AuthProvider, UIProvider } from "context"
+import { indumadApi } from "api"
 
 function MyApp({ Component, pageProps }) {
   return (
     <SWRConfig
       value={{
-        fetcher: (resource, init) =>
-          fetch(resource, init).then((res) => res.json()),
+        fetcher: async (url, token) =>
+          await indumadApi
+            .get(url, { headers: { Authorization: `Bearer ${token}` } })
+            .then((res) => res.data),
       }}
     >
       <AuthProvider>

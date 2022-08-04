@@ -22,7 +22,9 @@ export const TabsBar = ({ list = [] }) => {
   return (
     <>
       <TabMenu list={list} />
-      <Box sx={{ padding: "1rem" }}>{componentToDraw}</Box>
+      <Box component="section" sx={{ pt: "1rem", pb: "1rem" }}>
+        {componentToDraw}
+      </Box>
     </>
   )
 }

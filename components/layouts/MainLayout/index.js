@@ -9,10 +9,14 @@ export const MainLayout = ({ children, title = "Indumad" }) => {
         <title>{title}</title>
       </Head>
 
-      <Navbar />
+      <header>
+        <Navbar />
+      </header>
       <Sidebar />
 
-      <Box sx={{ padding: "1rem 1.5rem" }}>{children}</Box>
+      <Box component="main" p={2}>
+        {children}
+      </Box>
     </Box>
   )
 }

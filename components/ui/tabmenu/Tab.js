@@ -5,24 +5,21 @@ import { useEffect, useState } from "react"
 import styles from "./tab.module.css"
 
 export const Tab = (props) => {
-  // TODO extrar el username logueado para crear rutas dinámicas
-
   const [active, setactive] = useState(false)
 
   const router = useRouter()
-
   const path = `${props.path}${props.query ? `?tab=${props.query}` : ""}`
 
-  const validateActive = () => {
-    const { tab } = router.query
-    router.asPath === path || (!tab && router.asPath === props.default?.path)
-      ? setactive(true)
-      : setactive(false)
-  }
-
   useEffect(() => {
+    const validateActive = () => {
+      const { tab } = router.query
+      router.asPath === path || (!tab && router.asPath === props.default?.path)
+        ? setactive(true)
+        : setactive(false)
+    }
+
     validateActive()
-  }, [router])
+  }, [path, router, props])
 
   return (
     <Link
@@ -35,6 +32,7 @@ export const Tab = (props) => {
         className={active ? styles.selectedTab : ""}
         component={"a"}
         label={props.text}
+        sx={{ fontSize: ".8em", padding: ".5rem 1rem", minHeight: 0 }}
       />
     </Link>
   )
