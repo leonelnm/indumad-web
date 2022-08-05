@@ -8,7 +8,6 @@ export const Dots = () => {
         <div className={styles.line}></div>
         <div className={styles.line}></div>
       </div>
-      <span>Cargando...</span>
     </div>
   )
 }

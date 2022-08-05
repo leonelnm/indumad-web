@@ -1,10 +1,11 @@
-import styles from "./loader.module.scss"
+import { Box } from "@mui/material"
+import styles from "./loader.module.css"
 
 export const Loader = () => {
   return (
-    <div className={styles["container-loader"]}>
+    <Box className={styles["container-loader"]}>
       <span className={styles.loader}></span>
       <span>Cargando...</span>
-    </div>
+    </Box>
   )
 }

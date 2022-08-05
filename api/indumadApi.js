@@ -13,7 +13,5 @@ export const indumadRoutes = {
     LOGIN: "/auth/login",
     VALIDA_TOKEN: "/auth/validateToken",
   },
-  user: {
-    FINDALL: "/user",
-  },
+  user: "/user",
 }

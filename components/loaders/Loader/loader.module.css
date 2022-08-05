@@ -1,6 +1,12 @@
-@import "../Loaders.module.scss";
-
 /*From: https://cssloaders.github.io */
+
+.container-loader {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  margin: 0;
+}
 
 .loader {
   width: 64px;

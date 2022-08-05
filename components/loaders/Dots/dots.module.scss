@@ -1,11 +1,17 @@
-@import "../Loaders.module.scss";
+.container-loader {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  margin: 0;
+}
 
 .line {
   display: inline-block;
   width: 30px;
   height: 30px;
   border-radius: 15px;
-  background: linear-gradient(30deg, #f69d3c, #3f87a6);
+  background: lighten($color: #e65100, $amount: 20);
 }
 
 .load .line:nth-last-child(1) {
