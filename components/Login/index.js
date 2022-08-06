@@ -10,7 +10,7 @@ import { LoadingButton } from "components/ui"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 
-import { MESSAGES } from "utils/messages"
+import { messages } from "utils/messages"
 import { useRouter } from "next/router"
 import { useAuthContext } from "hooks/context"
 
@@ -44,14 +44,14 @@ export const Login = () => {
       } else {
         setError(true)
         setMsgError(
-          status === 500 ? MESSAGES[500] : "Credenciales incorrectas!"
+          status === 500 ? messages[500] : "Credenciales incorrectas!"
         )
         setTimeout(() => setError(false), 5000)
       }
     } catch (error) {
       console.log("LOGIN Component")
       setError(true)
-      setMsgError(MESSAGES[500])
+      setMsgError(messages[500])
     }
     setLoading(false)
   }

@@ -1,6 +1,7 @@
-import { Avatar, IconButton, Menu, MenuItem } from "@mui/material"
+import { IconButton, Menu, MenuItem } from "@mui/material"
 import { useAuthContext } from "hooks/context"
 import { useState } from "react"
+import { AvatarLetter } from "./AvatarLetter"
 import { NavMenuItem } from "./NavMenuItem"
 
 export const NavMenu = ({ list = [] }) => {
@@ -23,7 +24,7 @@ export const NavMenu = ({ list = [] }) => {
   return (
     <>
       <IconButton onClick={handleMenu} sx={{ pr: 0, mr: 0 }}>
-        <Avatar sx={{ width: 30, height: 30 }}>E</Avatar>
+        <AvatarLetter />
       </IconButton>
       <Menu
         sx={{ mt: "2rem" }}

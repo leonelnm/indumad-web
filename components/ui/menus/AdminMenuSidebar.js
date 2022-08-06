@@ -21,7 +21,7 @@ export const AdminMenuSidebar = () => {
   return (
     <>
       <Divider />
-      <List>
+      <List disablePadding>
         <ListItemButton onClick={handleSideBarAdministration}>
           <ListItemIcon>
             <SettingsIcon />
@@ -29,6 +29,7 @@ export const AdminMenuSidebar = () => {
           <ListItemText primary="Administración" />
           {openAdministration ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
+
         <Collapse in={openAdministration} timeout="auto" unmountOnExit>
           <List disablePadding>
             <NavLinkList list={adminMenu} pl={4} />

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server"
+import { cookieNames } from "utils/cookies"
 
 const routesToken = [
   { path: "/" },
@@ -17,7 +18,7 @@ const isPathInRoutes = ({ pathname }) => {
 }
 
 export function middleware(req, event) {
-  const token = req.cookies.get("token")
+  const token = req.cookies.get(cookieNames.token)
   const pathname = req.nextUrl.pathname
 
   if (pathname.startsWith("/login")) {

@@ -12,7 +12,7 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { useRouter } from "next/router"
 
-import { MESSAGES } from "utils/messages"
+import { messages } from "utils/messages"
 import { useAuthContext } from "hooks/context"
 import { Copyright } from "components/Copyright"
 
@@ -48,14 +48,14 @@ export const Login2 = () => {
       } else {
         setError(true)
         setMsgError(
-          status === 500 ? MESSAGES[500] : "Credenciales incorrectas!"
+          status === 500 ? messages[500] : "Credenciales incorrectas!"
         )
         setTimeout(() => setError(false), 5000)
       }
     } catch (error) {
       console.log("LOGIN Component")
       setError(true)
-      setMsgError(MESSAGES[500])
+      setMsgError(messages[500])
     }
     setLoading(false)
   }

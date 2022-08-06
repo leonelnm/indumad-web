@@ -1,29 +1,24 @@
 import { Alert, Box, Typography } from "@mui/material"
 import { Container } from "@mui/system"
-import Cookies from "js-cookie"
 
 import { indumadRoutes } from "api"
 import { useAxios } from "hooks/useAxios"
 import { DotFlash } from "components/loaders/DotFlash"
+import { cookieNames, getCookie } from "utils/cookies"
+import { messages } from "utils/messages"
 
 export const ListUsers = () => {
-  const token = Cookies.get("token")
   const { error, isLoading, data } = useAxios({
     url: indumadRoutes.user,
-    token,
+    token: getCookie(cookieNames.token),
   })
-
-  console.log(data)
 
   return (
     <Container>
       {isLoading && <DotFlash />}
       {error && (
         <Box>
-          <Alert severity="warning">
-            En estos momentos no es posible encontrar usuarios, espere unos
-            minutos y vuelva a intentar
-          </Alert>
+          <Alert severity="warning">{messages.user.ERROR_LIST}</Alert>
         </Box>
       )}
 
@@ -31,7 +26,7 @@ export const ListUsers = () => {
         data.map((user) => (
           <Typography
             key={user.id}
-          >{`${user.username}·${user.name}·${user.lastname}`}</Typography>
+          >{`${user.username}·${user.name}·${user.lastname}·[${user.roles}]`}</Typography>
         ))}
     </Container>
   )
