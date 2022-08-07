@@ -7,7 +7,7 @@ export default function UsersPage(params) {
   // TODO Validate user auth and token
 
   return (
-    <MainLayout title="Usuarios">
+    <MainLayout title="Gestión Usuarios">
       <CustomTitle title={"Usuarios"} icon={<PeopleIcon />} />
 
       <TabsBar list={adminUserTabMenu} />

@@ -9,7 +9,7 @@ export const TabMenu = ({ list = [] }) => {
       aria-labelledby="tabs-navigation"
       sx={{
         borderBottom: 1,
-        borderColor: "divider",
+        borderColor: "#e65100",
         display: { xs: "flex" },
         width: "100%",
       }}
