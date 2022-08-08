@@ -8,7 +8,7 @@ export default function Document() {
           rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
         />
-        <link rel="shortcut ico" href="/favicon.ico" />
+        <link rel="icon" type="image/png" href="/favicon.png" />
       </Head>
       <body>
         <Main />
