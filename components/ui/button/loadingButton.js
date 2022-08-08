@@ -7,6 +7,7 @@ export const LoadingButton = ({
   type = "submit",
   color = "primary",
   size = "large",
+  disabled = false,
   fullWidth = false,
 }) => {
   return (
@@ -15,7 +16,7 @@ export const LoadingButton = ({
       color={color}
       size={size}
       fullWidth={fullWidth}
-      disabled={loading}
+      disabled={disabled || loading}
     >
       {loading && (
         <CircularProgress color="secondary" size={26} thickness={5} />
