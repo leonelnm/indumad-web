@@ -15,3 +15,26 @@ export const indumadRoutes = {
   },
   user: "/user",
 }
+
+export const indumadClient = async ({
+  method = "get",
+  url,
+  body = {},
+  config = {},
+  token = "",
+}) => {
+  try {
+    indumadApi.defaults.headers.Authorization = `Bearer ${token}`
+    const data = await indumadApi[method](url, body, config)
+    return { data }
+  } catch (error) {
+    if (error.response) {
+      return { error: error.response.data }
+    } else if (error.request) {
+      return { error: error.request }
+    }
+
+    console.log("error on client", error)
+    return { error: error.message }
+  }
+}
