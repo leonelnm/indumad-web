@@ -6,6 +6,8 @@ export const RoleEnumType = {
   SUPERADMIN: "SUPERADMIN", // exclusivo para funciones especiales (sabe lo q hace)
 }
 
+export const RoleEnumTypeAsSimpleList = Object.values(RoleEnumType)
+
 const authorizedRoles = {
   administrador: [RoleEnumType.ADMINISTRADOR, RoleEnumType.SUPERADMIN],
   autonomo: [
@@ -26,51 +28,72 @@ const authorizedRoles = {
   superAdmin: [RoleEnumType.SUPERADMIN],
 }
 
-export const isSuperAdmin = ({ roles = [] }) => {
+export const isSuperAdmin = ({ role = "" }) => {
   return validateRole({
-    userRoles: roles,
+    userRole: role,
     authorizedRoles: authorizedRoles.superAdmin,
   })
 }
 
-export const isAdministrador = ({ roles = [] }) => {
+export const isAdministrador = ({ role = "" }) => {
   return validateRole({
-    userRoles: roles,
+    userRole: role,
     authorizedRoles: authorizedRoles.administrador,
   })
 }
 
-export const isGestor = ({ roles = [] }) => {
+export const isGestor = ({ role = "" }) => {
   return validateRole({
-    userRoles: roles,
+    userRole: role,
     authorizedRoles: authorizedRoles.gestor,
   })
 }
 
-export const isAutonomo = ({ roles = [] }) => {
+export const isAutonomo = ({ role = "" }) => {
   return validateRole({
-    userRoles: roles,
+    userRole: role,
     authorizedRoles: authorizedRoles.autonomo,
   })
 }
 
-export const isContratado = ({ roles = [] }) => {
+export const isContratado = ({ role = "" }) => {
   return validateRole({
-    userRoles: roles,
+    userRole: role,
     authorizedRoles: authorizedRoles.contratado,
   })
 }
 
-const validateRole = ({ userRoles = [], authorizedRoles = [] }) => {
-  let authorized = false
-  if (!userRoles) {
+const validateRole = ({ userRole = "", authorizedRoles = [] }) => {
+  if (!userRole) {
     return false
   }
-  for (const role of authorizedRoles) {
-    if (userRoles.includes(role)) {
-      authorized = true
-      break
-    }
+
+  return authorizedRoles.includes(userRole)
+}
+
+export const getRolesManagedByRole = ({ role = "" }) => {
+  if (isSuperAdmin({ role })) {
+    return [
+      RoleEnumType.ADMINISTRADOR,
+      RoleEnumType.AUTONOMO,
+      RoleEnumType.CONTRATADO,
+      RoleEnumType.GESTOR,
+      RoleEnumType.SUPERADMIN,
+    ]
   }
-  return authorized
+
+  if (isAdministrador({ role })) {
+    return [
+      RoleEnumType.ADMINISTRADOR,
+      RoleEnumType.AUTONOMO,
+      RoleEnumType.CONTRATADO,
+      RoleEnumType.GESTOR,
+    ]
+  }
+
+  if (isGestor({ role })) {
+    return [RoleEnumType.AUTONOMO, RoleEnumType.CONTRATADO, RoleEnumType.GESTOR]
+  }
+
+  return []
 }

@@ -10,7 +10,7 @@ import { AdminMenuSidebar } from "./AdminMenuSidebar"
 
 export const Sidebar = () => {
   const { user } = useAuthContext()
-  const isGEstor = isGestor({ roles: user?.roles })
+  const isGEstor = isGestor({ role: user?.role })
 
   const { sideMenuOpen, closeSideBar } = useUiContext()
 
