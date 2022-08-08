@@ -27,7 +27,7 @@ export const ListUsers = () => {
       sortable: false,
       filterable: false,
       renderCell: ({ row }) => {
-        return <Link href={`users/${row.username}`}>Ver Detalle</Link>
+        return <Link href={`users/${row.id}`}>Ver Detalle</Link>
       },
     },
   ]
@@ -38,7 +38,7 @@ export const ListUsers = () => {
         username: user.username,
         name: user.name,
         lastname: user.lastname,
-        role: user.roles,
+        role: user.role,
       }))
     : []
 
@@ -47,7 +47,7 @@ export const ListUsers = () => {
       {isLoading && <DotFlash />}
       {error && (
         <Box>
-          <Alert severity="warning">{messages.user.ERROR_LIST}</Alert>
+          <Alert severity="warning">{messages.user.error_list}</Alert>
         </Box>
       )}
 
