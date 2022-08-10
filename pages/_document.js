@@ -12,6 +12,7 @@ export default function Document() {
       </Head>
       <body>
         <Main />
+        <div id="loadingScreen" />
         <NextScript />
       </body>
     </Html>

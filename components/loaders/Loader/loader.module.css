@@ -30,7 +30,7 @@
   position: absolute;
   left: 50%;
   top: 10%;
-  background: rgb(27, 12, 8);
+  background: rgb(82, 80, 80);
   width: 8px;
   height: 64px;
   animation: rotate 1.2s linear infinite alternate-reverse;

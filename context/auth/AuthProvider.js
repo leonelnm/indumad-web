@@ -1,6 +1,6 @@
-import { useEffect, useReducer } from "react"
-import Cookies from "js-cookie"
+import { useCallback, useEffect, useReducer } from "react"
 import { useRouter } from "next/router"
+import Cookies from "js-cookie"
 
 import { AuthContext, authReducer, AUTH_STATES } from "."
 import { login, validateToken } from "services"
@@ -17,7 +17,14 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     validateTokenHandler()
+    validateInfoOnContext()
   }, [router])
+
+  const validateInfoOnContext = () => {
+    if (!state.isLoggedIn) {
+      logout()
+    }
+  }
 
   const validateTokenHandler = async () => {
     if (!Cookies.get(cookiesUtil.cookieNames.token)) {
@@ -72,7 +79,7 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
-  const logout = () => {
+  const logout = useCallback(() => {
     cookiesUtil.deleteCookie(cookiesUtil.cookieNames.token)
 
     // remove localStorage
@@ -82,7 +89,7 @@ export const AuthProvider = ({ children }) => {
 
     dispatch({ type: AUTH_STATES.LOGOUT })
     router.replace("/login")
-  }
+  }, [])
 
   return (
     <AuthContext.Provider
