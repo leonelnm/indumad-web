@@ -42,7 +42,7 @@ export const Login2 = () => {
 
       if (ok) {
         setError(false)
-        const destination = router.query.p?.toString() || "/"
+        const destination = router.query.from?.toString() || "/"
         console.log({ destination })
         router.replace(destination)
       } else {

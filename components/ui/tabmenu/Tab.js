@@ -9,6 +9,7 @@ export const Tab = (props) => {
 
   const router = useRouter()
   const path = `${props.path}${props.query ? `?tab=${props.query}` : ""}`
+  console.log("current path: ", path)
 
   useEffect(() => {
     const validateActive = () => {

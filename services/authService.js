@@ -1,4 +1,5 @@
 import { indumadApi, indumadRoutes } from "api"
+import { cookieNames, getCookie } from "utils/cookies"
 
 export async function login({ username, password }) {
   return await indumadApi
@@ -64,3 +65,5 @@ export async function validateToken({ token = "" }) {
       }
     })
 }
+
+export const getToken = () => getCookie(cookieNames.token)
