@@ -13,10 +13,6 @@ function isAuthorizated() {
   return true
 }
 
-export const config = {
-  matcher: ["/", "/admin"],
-}
-
 export function middleware(req) {
   const pathname = req.nextUrl.pathname
 

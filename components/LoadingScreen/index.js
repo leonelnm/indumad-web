@@ -1,11 +1,11 @@
-import { Loader } from "components/loaders/Loader"
+import { LoaderPage } from "components/loaders/LoaderPage"
 import { createPortal } from "react-dom"
 
 function Loading() {
   return (
     <div className="loadingScreen ">
       <div className="main">
-        <Loader />
+        <LoaderPage />
       </div>
     </div>
   )

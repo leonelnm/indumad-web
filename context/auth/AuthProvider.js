@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
   }, [router])
 
   const validateInfoOnContext = () => {
-    if (!state.isLoggedIn) {
+    if (router.asPath !== "/login" && !state.isLoggedIn) {
       logout()
     }
   }

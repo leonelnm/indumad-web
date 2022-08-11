@@ -8,7 +8,7 @@ import {
 } from "@mui/material"
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
 import { LoadingButton } from "components/ui"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useRouter } from "next/router"
 
@@ -23,6 +23,8 @@ export const Login2 = () => {
   const [error, setError] = useState(false)
   const [msgError, setMsgError] = useState("")
   const [loading, setLoading] = useState(false)
+
+  const destination = router.query.from?.toString() || "/"
 
   const {
     register,
@@ -42,8 +44,6 @@ export const Login2 = () => {
 
       if (ok) {
         setError(false)
-        const destination = router.query.from?.toString() || "/"
-        console.log({ destination })
         router.replace(destination)
       } else {
         setError(true)
@@ -59,6 +59,10 @@ export const Login2 = () => {
     }
     setLoading(false)
   }
+
+  useEffect(() => {
+    router.prefetch(destination)
+  }, [])
 
   return (
     <>
