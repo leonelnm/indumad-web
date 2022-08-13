@@ -3,10 +3,8 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth"
 import EngineeringIcon from "@mui/icons-material/Engineering"
 import PeopleIcon from "@mui/icons-material/People"
 import { Documentation, ProfileInfo, Security } from "components/user"
-import { AddEditUser } from "components/user/AddEditUser"
+import { CreateUser } from "components/user/CreateUser"
 import { ListUsers } from "components/user/ListUsers"
-
-const username = "myprofile"
 
 export const mainMenu = [
   {
@@ -25,26 +23,26 @@ export const calendarMenu = [
   { text: "Ver Agenda", path: "/calendar", icon: <CalendarMonthIcon /> },
 ]
 
-export const userMenu = [{ text: "Ver Perfil", path: "/user/newprofile" }]
+export const userMenu = [{ text: "Ver Perfil", path: "/profile/" }]
 
 export const userProfileTabMenu = [
   {
     text: "Mis Datos",
     default: {
-      path: `/user/${username}`,
+      path: `/profile/`,
     },
-    path: `/user/${username}`,
+    path: `/profile/`,
     component: <ProfileInfo />,
   },
   {
     text: "Seguridad",
-    path: `/user/${username}`,
+    path: `/profile/`,
     query: "secutiry",
     component: <Security />,
   },
   {
     text: "Mis Docs",
-    path: `/user/${username}`,
+    path: `/profile/`,
     query: "documentation",
     component: <Documentation />,
   },
@@ -63,6 +61,6 @@ export const adminUserTabMenu = [
     text: "Crear nuevo usuario",
     path: "/admin/users",
     query: "user",
-    component: <AddEditUser />,
+    component: <CreateUser />,
   },
 ]

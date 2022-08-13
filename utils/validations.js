@@ -4,7 +4,7 @@ import { RoleEnumType, RoleEnumTypeAsSimpleList } from "./roles"
 export const schemaCreateUser = object().shape({
   username: string()
     .required("Usuario es requerido")
-    .atLeast(6, "Debe tener al menos 6 caracteres")
+    .atLeast(5, "Debe tener al menos 5 caracteres")
     .atMost(10, "Usuario es muy largo, máximo 10 caracteres"),
   name: string()
     .required("Nombre es requerido")
