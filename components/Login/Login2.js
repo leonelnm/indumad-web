@@ -8,9 +8,9 @@ import {
 } from "@mui/material"
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
 import { LoadingButton } from "components/ui"
-import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useRouter } from "next/router"
+import { useState } from "react"
 
 import { messages } from "utils/messages"
 import { useAuthContext } from "hooks/context"
@@ -61,10 +61,6 @@ export const Login2 = () => {
     }
     setLoading(false)
   }
-
-  useEffect(() => {
-    router.prefetch(destination)
-  }, [])
 
   return (
     <>
