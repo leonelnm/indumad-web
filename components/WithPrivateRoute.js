@@ -8,7 +8,11 @@ const WithPrivateRoute = ({ children }) => {
   const router = useRouter()
 
   useEffect(() => {
-    if (!token) {
+    if (router.asPath === "/login" && token) {
+      router.replace("/")
+    }
+
+    if (router.asPath !== "/login" && !token) {
       router.push("/login")
     }
   }, [])
