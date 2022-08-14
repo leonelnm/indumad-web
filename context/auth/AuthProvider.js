@@ -17,21 +17,17 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     validateTokenHandler()
-    // validateInfoOnContext()
+    validateInfoOnContext()
   }, [router])
 
-  // const validateInfoOnContext = () => {
-  //   console.log("STEP: INIT AuthProvider - validateInfoOnContext")
-  //   if (router.asPath !== "/login" && !state.isLoggedIn) {
-  //     logout()
-  //   }
-  //   console.log("STEP: END AuthProvider - validateInfoOnContext")
-  // }
+  const validateInfoOnContext = () => {
+    if (router.asPath !== "/login" && !state.isLoggedIn) {
+      logout()
+    }
+  }
 
   const validateTokenHandler = async () => {
-    console.log("STEP: INIT AuthProvider - validateTokenHandler")
     if (!Cookies.get(cookiesUtil.cookieNames.token)) {
-      console.log("No hay token")
       return
     }
 
@@ -53,7 +49,6 @@ export const AuthProvider = ({ children }) => {
         })
         dispatch({ type: AUTH_STATES.LOGIN, payload: user })
       } else {
-        console.log("Logout error on validateToken")
         logout()
       }
     } catch (error) {
@@ -61,8 +56,6 @@ export const AuthProvider = ({ children }) => {
       // TODO add sentry
       logout()
     }
-
-    console.log("STEP: END AuthProvider - validateTokenHandler")
   }
 
   const loginUser = async ({ username, password }) => {
@@ -87,7 +80,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   const logout = useCallback(() => {
-    console.log("execute logout")
+    console.log("Logout")
     cookiesUtil.deleteCookie(cookiesUtil.cookieNames.token)
     dispatch({ type: AUTH_STATES.LOGOUT })
     router.replace("/login")
