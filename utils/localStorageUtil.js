@@ -22,3 +22,23 @@ export const removeItem = (key = "") => {
     window.localStorage.removeItem(key)
   }
 }
+
+export const isEqual = (key = "", obj = {}) => {
+  console.log("isEqual", obj)
+  if (typeof window === "undefined") {
+    return false
+  }
+
+  const objStorage = JSON.parse(window.localStorage.getItem(key))
+  const keys1 = Object.keys(obj)
+  const keys2 = Object.keys(objStorage)
+  if (keys1.length !== keys2.length) {
+    return false
+  }
+  for (const key of keys1) {
+    if (obj[key] !== objStorage[key]) {
+      return false
+    }
+  }
+  return true
+}

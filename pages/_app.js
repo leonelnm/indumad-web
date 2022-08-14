@@ -9,6 +9,7 @@ import { AuthProvider, UIProvider } from "context"
 import { lightTheme } from "themes"
 import { indumadApi } from "api"
 import { LoadingScreen } from "components/LoadingScreen"
+import WithPrivateRoute from "components/WithPrivateRoute"
 
 function Loading() {
   const router = useRouter()
@@ -37,7 +38,11 @@ function Loading() {
   return loading && <LoadingScreen />
 }
 
+const Noop = ({ children }) => <>{children}</>
+
 function MyApp({ Component, pageProps }) {
+  const Auth = Component.Auth === false ? Noop : WithPrivateRoute
+
   return (
     <>
       <Loading />
@@ -53,7 +58,9 @@ function MyApp({ Component, pageProps }) {
           <UIProvider>
             <ThemeProvider theme={lightTheme}>
               <CssBaseline />
-              <Component {...pageProps} />
+              <Auth>
+                <Component {...pageProps} />
+              </Auth>
             </ThemeProvider>
           </UIProvider>
         </AuthProvider>
