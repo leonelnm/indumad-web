@@ -17,19 +17,19 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     validateTokenHandler()
-    validateInfoOnContext()
+    // validateInfoOnContext()
   }, [router])
 
-  const validateInfoOnContext = () => {
-    console.error("STEP: INIT AuthProvider - validateInfoOnContext")
-    if (router.asPath !== "/login" && !state.isLoggedIn) {
-      logout()
-    }
-    console.error("STEP: END AuthProvider - validateInfoOnContext")
-  }
+  // const validateInfoOnContext = () => {
+  //   console.log("STEP: INIT AuthProvider - validateInfoOnContext")
+  //   if (router.asPath !== "/login" && !state.isLoggedIn) {
+  //     logout()
+  //   }
+  //   console.log("STEP: END AuthProvider - validateInfoOnContext")
+  // }
 
   const validateTokenHandler = async () => {
-    console.error("STEP: INIT AuthProvider - validateTokenHandler")
+    console.log("STEP: INIT AuthProvider - validateTokenHandler")
     if (!Cookies.get(cookiesUtil.cookieNames.token)) {
       console.log("No hay token")
       return
@@ -62,7 +62,7 @@ export const AuthProvider = ({ children }) => {
       logout()
     }
 
-    console.error("STEP: END AuthProvider - validateTokenHandler")
+    console.log("STEP: END AuthProvider - validateTokenHandler")
   }
 
   const loginUser = async ({ username, password }) => {
