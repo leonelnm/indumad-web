@@ -25,6 +25,7 @@ export const Login2 = () => {
   const [loading, setLoading] = useState(false)
 
   const destination = router.query.from?.toString() || "/"
+  console.log({ destination })
 
   const {
     register,
@@ -44,6 +45,7 @@ export const Login2 = () => {
 
       if (ok) {
         setError(false)
+        console.log(`Go to ${destination}`)
         router.replace(destination)
       } else {
         setError(true)
@@ -53,7 +55,7 @@ export const Login2 = () => {
         setTimeout(() => setError(false), 5000)
       }
     } catch (error) {
-      console.log("LOGIN Component")
+      console.error("LOGIN Component")
       setError(true)
       setMsgError(messages[500])
     }
