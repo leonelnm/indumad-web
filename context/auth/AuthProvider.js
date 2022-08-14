@@ -87,6 +87,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   const logout = useCallback(() => {
+    console.log("execute logout")
     cookiesUtil.deleteCookie(cookiesUtil.cookieNames.token)
     dispatch({ type: AUTH_STATES.LOGOUT })
     router.replace("/login")
