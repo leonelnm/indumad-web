@@ -6,6 +6,6 @@ export const useFetchSwr = ({ path, token = "" }) => {
   return {
     data,
     isLoading: !error && !data,
-    isError: error,
+    error,
   }
 }
