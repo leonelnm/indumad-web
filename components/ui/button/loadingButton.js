@@ -9,6 +9,9 @@ export const LoadingButton = ({
   size = "large",
   disabled = false,
   fullWidth = false,
+  variant = "contained",
+  disableElevation = false,
+  sx = {},
 }) => {
   return (
     <Button
@@ -17,6 +20,9 @@ export const LoadingButton = ({
       size={size}
       fullWidth={fullWidth}
       disabled={disabled || loading}
+      variant={variant}
+      disableElevation={disableElevation}
+      sx={sx}
     >
       {loading && (
         <CircularProgress color="secondary" size={26} thickness={5} />
