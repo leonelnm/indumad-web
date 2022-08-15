@@ -40,6 +40,7 @@ export const AddEditUser = ({
     register,
     handleSubmit,
     formState: { errors, isDirty, isValid, dirtyFields, isSubmitSuccessful },
+    reset,
   } = useForm({
     mode: edit ? "onChange" : "onBlur",
     defaultValues: initialValues,
@@ -85,6 +86,10 @@ export const AddEditUser = ({
         toast.success(
           edit ? messages.user.updated.sucess : messages.user.created.sucess
         )
+
+        if (!edit) {
+          reset()
+        }
       }
     } catch (error) {
       console.log("catch", { error })
