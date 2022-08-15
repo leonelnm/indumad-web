@@ -40,7 +40,10 @@ export const Login2 = () => {
   const onSubmit = async ({ username, password }) => {
     setLoading(true)
     try {
-      const { ok, status } = await loginUser({ username, password })
+      const { ok, status } = await loginUser({
+        username: username.toLowerCase(),
+        password,
+      })
 
       if (ok) {
         setError(false)
@@ -102,6 +105,7 @@ export const Login2 = () => {
             label="Usuario"
             autoComplete="username"
             autoFocus
+            inputProps={{ style: { textTransform: "lowercase" } }}
             error={!!errors.username}
             helperText={errors.username?.message}
             {...register("username", {
