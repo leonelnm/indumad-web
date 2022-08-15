@@ -3,7 +3,7 @@ import { useUiContext } from "hooks/context"
 import Link from "next/link"
 import { useRouter } from "next/router"
 
-export const NavLinkList = ({ list = [], pl = "" }) => {
+export const NavLinkList = ({ list = [], pl = 2 }) => {
   const { closeSideBar } = useUiContext()
   const { asPath } = useRouter()
 
@@ -13,7 +13,7 @@ export const NavLinkList = ({ list = [], pl = "" }) => {
         <Link key={text} href={path} passHref>
           <ListItem
             className={asPath === path ? "activeLink" : ""}
-            sx={(pl = { pl })}
+            sx={{ pl }}
             button
             component="a"
             onClick={closeSideBar}
