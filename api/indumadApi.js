@@ -14,6 +14,8 @@ export const indumadRoutes = {
     VALIDA_TOKEN: "/auth/validateToken",
   },
   user: "/user",
+  guild: "/guild",
+  reference: "/reference",
 }
 
 export const indumadClient = async ({
@@ -29,12 +31,16 @@ export const indumadClient = async ({
     return { data }
   } catch (error) {
     if (error.response) {
-      return { error: error.response.data }
+      const err = {
+        data: error.response.data,
+        code: error.code,
+        name: error.name,
+        msg: error.message || error.response.data || error.code || error.name,
+      }
+      return { error: err }
     } else if (error.request) {
       return { error: error.request }
     }
-
-    console.log("error on client", error)
     return { error: error.message }
   }
 }

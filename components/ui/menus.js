@@ -2,6 +2,8 @@ import AccountBalanceIcon from "@mui/icons-material/AccountBalance"
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth"
 import EngineeringIcon from "@mui/icons-material/Engineering"
 import PeopleIcon from "@mui/icons-material/People"
+import GroupWorkIcon from "@mui/icons-material/GroupWork"
+import LocalActivityIcon from "@mui/icons-material/LocalActivity"
 import { Documentation, ProfileInfo, Security } from "components/user"
 import { CreateUser } from "components/user/CreateUser"
 import { ListUsers } from "components/user/ListUsers"
@@ -16,6 +18,12 @@ export const mainMenu = [
 ]
 
 export const adminMenu = [
+  { text: "Gremios", path: "/admin/guilds", icon: <GroupWorkIcon /> },
+  {
+    text: "Referencias",
+    path: "/admin/references",
+    icon: <LocalActivityIcon />,
+  },
   { text: "Usuarios", path: "/admin/users", icon: <PeopleIcon /> },
 ]
 
