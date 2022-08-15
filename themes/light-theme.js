@@ -16,6 +16,10 @@ export const lightTheme = createTheme({
     warning: {
       main: "#ff9800",
     },
+    neutral: {
+      main: "#64748B",
+      contrastText: "#fff",
+    },
   },
   components: {
     MuiAppBar: {
