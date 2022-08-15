@@ -20,8 +20,6 @@ export const ProfileInfo = () => {
     token: getCookie(cookieNames.token),
   })
 
-  console.log(error, isLoading, data)
-
   return (
     <Container disableGutters>
       {isLoading && <DotFlash />}

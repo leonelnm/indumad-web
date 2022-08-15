@@ -16,14 +16,10 @@ export const findAll = async ({ token = "" }) => {
     .catch((error) => {
       let status = error.response.status
       if ([500, 0].includes(status)) {
-        console.log("UserService - findAll, internal error")
         status = 500
         // TODO add sentry
       }
 
-      console.log("UserService - findAll")
-      console.error(error.message)
-      console.log("END - UserService - findAll")
       return {
         ok: false,
         status,

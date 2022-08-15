@@ -92,7 +92,6 @@ export const AddEditUser = ({
         }
       }
     } catch (error) {
-      console.log("catch", { error })
       toast.error(
         edit ? messages.user.updated.error : messages.user.created.error
       )

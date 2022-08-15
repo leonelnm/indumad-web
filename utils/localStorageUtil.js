@@ -24,7 +24,6 @@ export const removeItem = (key = "") => {
 }
 
 export const isEqual = (key = "", obj = {}) => {
-  console.log("isEqual", obj)
   if (typeof window === "undefined") {
     return false
   }

@@ -81,7 +81,6 @@ export const EasyItemAddEdit = ({
         handleEdit(false)
       }
     } catch (error) {
-      console.log("Catch EasyItemAddEdit", error)
       toast.error(`${msg.error}`, {
         duration: 6000,
       })

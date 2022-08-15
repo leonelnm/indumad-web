@@ -60,7 +60,6 @@ export const AuthProvider = ({ children }) => {
             state?.user
           )
         ) {
-          console.log("update data on state and localStorage")
           localStorageUtil.setItem(
             localStorageUtil.itemsLocalStorage.user,
             user
@@ -71,7 +70,6 @@ export const AuthProvider = ({ children }) => {
         logout()
       }
     } catch (error) {
-      console.error("STEP: AuthProvider - validateTokenHandler")
       // TODO add sentry
       logout()
     }
@@ -100,7 +98,6 @@ export const AuthProvider = ({ children }) => {
   }
 
   const logout = () => {
-    console.log(`Logout on: ${router.asPath}`)
     cookiesUtil.deleteCookie(cookiesUtil.cookieNames.token)
     localStorageUtil.removeItem(localStorageUtil.itemsLocalStorage.user)
     dispatch({ type: AUTH_STATES.LOGOUT })

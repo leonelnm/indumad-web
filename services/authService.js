@@ -17,15 +17,10 @@ export async function login({ username, password }) {
     .catch((error) => {
       let status = error.response.status
       if ([500, 0].includes(status)) {
-        console.log("AuthService - Login, internal error")
         status = 500
         // TODO add sentry
       }
 
-      console.log("AuthService - Login")
-      console.error(error.message)
-
-      console.log("END - AuthService - Login")
       return {
         ok: false,
         status,
@@ -50,14 +45,10 @@ export async function validateToken({ token = "" }) {
     .catch((error) => {
       let status = error.response.status
       if ([500, 0].includes(status)) {
-        console.log("AuthService - validateToken, internal error")
         status = 500
         // TODO add sentry
       }
 
-      console.log("AuthService - validateToken")
-      console.error(error.message)
-      console.log("END - AuthService - validateToken")
       return {
         ok: false,
         status,
