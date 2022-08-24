@@ -62,4 +62,27 @@ export const messages = {
         "En estos momentos no es posible eliminar referencias, espere unos minutos y vuelva a intentar",
     },
   },
+  job: {
+    error_list:
+      "En estos momentos no es posible encontrar TRABAJOS, espere unos minutos y vuelva a intentar. Si el error continúa, póngase en contacto con el administrador!",
+    search: "En estos momentos no es posible mostrar el trabajo seleccionado",
+    created: {
+      sucess: "Trabajo creado correctamente",
+      fail: "No se pudo crear el trabajo",
+      error:
+        "En estos momentos no es posible crear trabajos, espere unos minutos y vuelva a intentar",
+    },
+    updated: {
+      sucess: "Trabajo actualizado",
+      fail: "No se pudo actualizar",
+      error:
+        "En estos momentos no es posible actualizar trabajos, espere unos minutos y vuelva a intentar",
+    },
+    deleted: {
+      sucess: "Trabajo eliminado",
+      fail: "No se pudo elimnar el Trabajo",
+      error:
+        "En estos momentos no es posible elimnar trabajos, espere unos minutos y vuelva a intentar",
+    },
+  },
 }

@@ -16,6 +16,7 @@ export const indumadRoutes = {
   user: "/user",
   guild: "/guild",
   reference: "/reference",
+  job: "/job",
 }
 
 export const indumadClient = async ({
@@ -27,15 +28,19 @@ export const indumadClient = async ({
 }) => {
   try {
     indumadApi.defaults.headers.Authorization = `Bearer ${token}`
-    const data = await indumadApi[method](url, body, config)
+    const { data } = await indumadApi[method](url, body, config)
     return { data }
   } catch (error) {
+    console.log(error)
     if (error.response) {
       const err = {
         data: error.response.data,
         code: error.code,
         name: error.name,
-        msg: error.message || error.response.data || error.code || error.name,
+        msg:
+          (error.response.data && error.response.data.msg) ||
+          error.name ||
+          error.message,
       }
       return { error: err }
     } else if (error.request) {

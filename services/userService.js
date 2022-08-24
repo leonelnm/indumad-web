@@ -1,4 +1,4 @@
-import { indumadApi, indumadRoutes } from "api"
+import { indumadApi, indumadClient, indumadRoutes } from "api"
 
 export const findAll = async ({ token = "" }) => {
   indumadApi.defaults.headers.Authorization = `Bearer ${token}`
@@ -26,4 +26,24 @@ export const findAll = async ({ token = "" }) => {
         error: error.response.data,
       }
     })
+}
+
+export const findByGuild = async ({ token = "", guild = "" }) => {
+  console.log("STEP: userService.findByGuild")
+  const url = `${indumadRoutes.user}/guild/${guild}`
+  const { error, data } = await indumadClient({
+    url,
+    token,
+  })
+
+  if (error) return error
+
+  const users = data.map((user) => {
+    return {
+      id: user.id,
+      fullname: `${user.name} ${user.lastname} (${user.dni})`,
+    }
+  })
+
+  return { data: users }
 }

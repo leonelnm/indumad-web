@@ -33,5 +33,12 @@ export const useAxios = ({
       })
   }, [])
 
-  return { data, error, isLoading }
+  return {
+    data,
+    setData,
+    error,
+    setError,
+    isLoading,
+    setIsLoading,
+  }
 }

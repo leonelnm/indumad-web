@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material"
-import { Coding } from "components/Coding"
+import { ListJobByEmployee } from "components/job/ListJobByEmployee"
 import { MainLayout } from "components/layouts"
 
 export default function HomePage() {
@@ -8,7 +8,8 @@ export default function HomePage() {
       <Typography variant="h1" color="primary">
         Trabajos
       </Typography>
-      <Coding />
+
+      <ListJobByEmployee />
     </MainLayout>
   )
 }

@@ -4,6 +4,7 @@ import EngineeringIcon from "@mui/icons-material/Engineering"
 import PeopleIcon from "@mui/icons-material/People"
 import GroupWorkIcon from "@mui/icons-material/GroupWork"
 import LocalActivityIcon from "@mui/icons-material/LocalActivity"
+import AddCircleIcon from "@mui/icons-material/AddCircle"
 import { Documentation, ProfileInfo, Security } from "components/user"
 import { CreateUser } from "components/user/CreateUser"
 import { ListUsers } from "components/user/ListUsers"
@@ -18,6 +19,7 @@ export const mainMenu = [
 ]
 
 export const adminMenu = [
+  { text: "Crear Trabajo", path: "/admin/job/create", icon: <AddCircleIcon /> },
   { text: "Gremios", path: "/admin/guilds", icon: <GroupWorkIcon /> },
   {
     text: "Referencias",
