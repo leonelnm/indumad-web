@@ -1,4 +1,14 @@
-import { Button, Grid, MenuItem, TextField } from "@mui/material"
+import {
+  Button,
+  Checkbox,
+  FormControl,
+  Grid,
+  InputLabel,
+  ListItemText,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material"
 import ArrowBackIcon from "@mui/icons-material/ArrowBack"
 import { nopeResolver } from "@hookform/resolvers/nope"
 import { useForm } from "react-hook-form"
@@ -14,6 +24,8 @@ import { initialValueToCreateUser, schemaCreateUser } from "utils/validations"
 import { indumadClient, indumadRoutes } from "api"
 import { cookieNames, getCookie } from "utils/cookies"
 import { messages } from "utils/messages"
+import { useFetchSwr } from "hooks/useFetchSwr"
+import { DotFlash } from "components/loaders/DotFlash"
 
 export const AddEditUser = ({
   edit = false,
@@ -28,6 +40,16 @@ export const AddEditUser = ({
   const roles = getRolesManagedByRole({ role: userAuth.role })
 
   const [loadingOnSubmit, setLoadingOnSubmit] = useState(false)
+  const [guildsSelected, setGuildsSelected] = useState(() =>
+    edit ? user.guilds.map((g) => g.id) : []
+  )
+  const [guildsSelectedChange, setGuildsSelectedChange] = useState(false)
+
+  // Get guilds
+  const { isLoading: isLoadingGuilds, data: guilds } = useFetchSwr({
+    path: `${indumadRoutes.guild}?status=true`,
+    token: getCookie(cookieNames.token),
+  })
 
   let initialValues = {}
   if (edit && user) {
@@ -47,6 +69,21 @@ export const AddEditUser = ({
     resolver: nopeResolver(schemaCreateUser),
   })
 
+  const handleChangeGuild = (e) => {
+    if (edit) {
+      setGuildsSelectedChange(true)
+    }
+    const value = e.target.value
+    const lastItem = [...value].pop()
+
+    if (lastItem === "") {
+      console.log("Limpiando")
+      setGuildsSelected([])
+    } else {
+      setGuildsSelected(value === "string" ? value.split(",") : value)
+    }
+  }
+
   const onSubmit = async (data) => {
     setLoadingOnSubmit(true)
 
@@ -63,6 +100,9 @@ export const AddEditUser = ({
 
     const dataToSend = {
       ...dataChanged,
+    }
+    if (edit || guildsSelected.length > 0) {
+      dataToSend.guilds = guildsSelected
     }
 
     try {
@@ -89,6 +129,7 @@ export const AddEditUser = ({
 
         if (!edit) {
           reset()
+          setGuildsSelected([])
         }
       }
     } catch (error) {
@@ -218,6 +259,47 @@ export const AddEditUser = ({
           </TextField>
         </Grid>
 
+        <Grid item sm={6} xs={12}>
+          <FormControl fullWidth>
+            <InputLabel id="name-multipleselect-guild">Gremio</InputLabel>
+            {isLoadingGuilds ? (
+              <DotFlash />
+            ) : (
+              <Select
+                labelId="name-multipleselect-guild"
+                id="select-multipleselect"
+                multiple
+                value={guildsSelected}
+                label="Gremio"
+                renderValue={(selected) => {
+                  const names = selected.map((slc) =>
+                    guilds.filter((t) => t.id === slc)
+                  )
+                  return names
+                    .flat()
+                    .map((n) => n.name)
+                    .join(", ")
+                }}
+                onChange={handleChangeGuild}
+              >
+                <MenuItem value={""} selected>
+                  <em>Sin Gremio</em>
+                </MenuItem>
+
+                {guilds &&
+                  guilds.map((guild) => (
+                    <MenuItem key={guild.id} value={guild.id}>
+                      <Checkbox
+                        checked={guildsSelected.indexOf(guild.id) > -1}
+                      />
+                      <ListItemText primary={guild.name} />
+                    </MenuItem>
+                  ))}
+              </Select>
+            )}
+          </FormControl>
+        </Grid>
+
         <Grid item sm={12} xs={12}>
           <Grid
             container
@@ -233,7 +315,11 @@ export const AddEditUser = ({
                 color="primary"
                 size="medium"
                 fullWidth
-                disabled={edit ? !isDirty : !isDirty || !isValid}
+                disabled={
+                  edit
+                    ? !isDirty && !guildsSelectedChange
+                    : !isDirty || !isValid
+                }
                 text={edit ? "Guardar Cambios" : "Crear Usuario"}
                 loading={loadingOnSubmit}
               />

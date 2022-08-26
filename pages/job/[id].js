@@ -27,15 +27,17 @@ export default function JobDetailPage() {
 
   useEffect(() => {
     setIsLoading(true)
-    indumadClient({
-      token: getCookie(cookieNames.token),
-      url: `${indumadRoutes.job}/${id}`,
-    })
-      .then(({ data }) => {
-        setJob(data)
+    if (id) {
+      indumadClient({
+        token: getCookie(cookieNames.token),
+        url: `${indumadRoutes.job}/${id}`,
       })
-      .catch(setError)
-      .finally(() => setIsLoading(false))
+        .then(({ data }) => {
+          setJob(data)
+        })
+        .catch(setError)
+        .finally(() => setIsLoading(false))
+    }
   }, [id])
 
   return (

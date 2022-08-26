@@ -9,14 +9,13 @@ import { useAuthContext } from "hooks/context"
 import { useAxios } from "hooks/useAxios"
 import { cookieNames, getCookie } from "utils/cookies"
 import { messages } from "utils/messages"
-import { isGestor } from "utils/roles"
-import { AddEditUser } from "./AddEditUser"
+import { ProfilePersonalData } from "./ProfilePersonalData"
 
 export const ProfileInfo = () => {
   const { user } = useAuthContext()
 
   const { error, isLoading, data } = useAxios({
-    url: `${indumadRoutes.user}/${user?.id}`,
+    url: `${indumadRoutes.user}/${user?.id}?guild=true`,
     token: getCookie(cookieNames.token),
   })
 
@@ -28,13 +27,7 @@ export const ProfileInfo = () => {
           <Alert severity="warning">{messages.user.profile_search_error}</Alert>
         </Box>
       )}
-      {!isLoading && !error && (
-        <AddEditUser
-          edit="true"
-          user={data}
-          isAdmin={isGestor({ role: user.role })}
-        />
-      )}
+      {!isLoading && !error && <ProfilePersonalData user={data} />}
     </Container>
   )
 }

@@ -19,7 +19,7 @@ export default function UserDetailPage() {
   const { id } = router.query
 
   const { isLoading, error, data } = useAxios({
-    url: `${indumadRoutes.user}/${id}`,
+    url: `${indumadRoutes.user}/${id}?guild=true`, // incluye guilds
     token: getCookie(cookieNames.token),
   })
 
