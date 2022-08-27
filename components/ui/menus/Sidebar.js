@@ -22,10 +22,24 @@ export const Sidebar = () => {
             padding: "1rem",
             display: { xs: "flex" },
             alignItems: "center",
+            bgcolor: { xs: "primary.main", sm: "inherit" },
+            color: { xs: "white", sm: "inherit" },
           }}
         >
           <ConstructionIcon sx={{ display: { xs: "block" }, mr: 1 }} />
-          <Typography variant="h5">Menu</Typography>
+          <Typography
+            variant="h5"
+            sx={{ display: { xs: "none", sm: "block" } }}
+          >
+            Menu
+          </Typography>
+
+          <Typography
+            variant="body"
+            sx={{ display: { xs: "block", sm: "none" } }}
+          >
+            <strong>Servicios Navalpar S.L.</strong>
+          </Typography>
         </Box>
 
         <NavList list={mainMenu} />

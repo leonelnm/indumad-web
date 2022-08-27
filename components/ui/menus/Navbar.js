@@ -46,7 +46,14 @@ export const Navbar = () => {
           }}
         >
           {/* <ConstructionIcon sx={{ display: { xs: "block" }, mr: 1 }} /> */}
-          <Typography variant="h5">Indumad</Typography>
+          <Typography
+            sx={{
+              typography: { sm: "h5" },
+              display: { sm: "block", xs: "none" },
+            }}
+          >
+            Servicios Navalpar S.L.
+          </Typography>
         </Box>
 
         <Box sx={{ display: { xs: "flex" } }}>

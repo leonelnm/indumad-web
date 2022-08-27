@@ -10,10 +10,9 @@ export const Copyright = (props) => {
     >
       {"Copyright © "}
       <Typography variant="body2" component={"strong"} sx={{ fontWeight: 900 }}>
-        Indumad
+        Servicios Navalpar S.L.
       </Typography>{" "}
       {new Date().getFullYear()}
-      {"."}
     </Typography>
   )
 }
