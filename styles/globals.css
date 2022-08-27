@@ -98,3 +98,71 @@
     timing-function: ease-in;
   }
 }
+
+/* jobs */
+
+.job {
+  display: grid;
+  grid-template-areas:
+    "id-ext-date"
+    "status"
+    "contact"
+    "info"
+    "buttons";
+}
+.job > .id-ext-date {
+  grid-area: id-ext-date;
+}
+.job > .status {
+  grid-area: status;
+}
+.job > .contact {
+  grid-area: contact;
+}
+.job > .buttons {
+  grid-area: buttons;
+}
+.job > .info {
+  grid-area: info;
+}
+
+.job > .id-ext-date,
+.job > .status,
+.job > .contact,
+.job > .buttons,
+.job > .info {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  font-size: 0.9em;
+}
+
+.job > .id-ext-date {
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+}
+.job > .id-ext-date > div {
+  flex: 1;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.job > .id-ext-date > div:nth-child(2) {
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+}
+
+.job > .status,
+.job > .buttons {
+  text-align: center;
+}
+
+.job > .info .simple-editor .ql-editor {
+  padding: 0;
+  max-height: 7rem;
+  overflow-y: auto;
+}
+
+.job > .info .simple-editor .ql-tooltip {
+  display: none;
+}
