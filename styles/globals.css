@@ -166,3 +166,33 @@
 .job > .info .simple-editor .ql-tooltip {
   display: none;
 }
+
+@media only screen and (min-width: 768px) {
+  .job {
+    grid-template-areas:
+      "id-ext-date status contact buttons"
+      "id-ext-date info info buttons"
+      "id-ext-date info info buttons";
+    grid-template-columns: auto 1fr 1fr auto;
+  }
+  .job > .id-ext-date {
+    min-width: 7rem;
+    max-width: 7rem;
+    padding: 0;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .job > .id-ext-date > div {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+  }
+  .job > .id-ext-date > div:nth-child(2) {
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    border-right: none;
+    border-left: none;
+  }
+}
