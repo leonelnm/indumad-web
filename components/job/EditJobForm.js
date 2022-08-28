@@ -193,9 +193,6 @@ export const EditJobForm = ({ job = {} }) => {
       toast.error(messages.job.created.fail, { duration: 6000 })
     }
   }
-
-  console.log("hay cambios", changes)
-
   return (
     <Box
       component="form"
@@ -511,7 +508,9 @@ export const EditJobForm = ({ job = {} }) => {
           type="submit"
           color="primary"
           size="medium"
-          disabled={!isDirty || !isValid || errorInfo.error || !changes}
+          disabled={
+            changes ? !changes : !isDirty || !isValid || errorInfo.error
+          }
           text={"Guardar Cambios"}
           loading={isSubmitting}
         />
