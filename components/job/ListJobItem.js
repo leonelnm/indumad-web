@@ -1,9 +1,10 @@
-import { Button, Paper, Skeleton, Stack } from "@mui/material"
+import { Button, Paper, Skeleton, Stack, Typography } from "@mui/material"
 import Link from "next/link"
 import { useEffect, useRef, useState } from "react"
 import ViewerEditor from "components/editor/ViewerEditor"
 import useOnScreen from "hooks/useOnScreen"
 import { getDate } from "utils/date"
+import { JobCaption } from "./JobCaption"
 
 export const ListJobItem = ({ job = {} }) => {
   const ref = useRef()
@@ -28,14 +29,25 @@ export const ListJobItem = ({ job = {} }) => {
             <div>{getDate(job.createdAt)}</div>
           </div>
           <div className="status">
-            <em>Estado: </em>
-            <strong>{job.state}</strong>
+            <JobCaption text="Estado" />
+            <Typography variant="body1" component="span" pl={1}>
+              <strong>{job.state}</strong>
+            </Typography>
           </div>
+
+          {job.client && (
+            <div className="client">
+              <JobCaption text="Cliente" />
+              <Typography variant="body1" pl={1}>
+                <strong>{job.client.name}</strong>
+              </Typography>
+            </div>
+          )}
 
           {job.contact && (
             <div className="contact">
               <div>
-                <em>Contacto: </em>
+                <JobCaption text="Contacto" />
                 <strong>{job.contact.name}</strong>
               </div>
               <div>{job.contact.address}</div>
@@ -44,21 +56,37 @@ export const ListJobItem = ({ job = {} }) => {
           )}
           <div className="info">
             <div>
-              <em>Actividad: </em>
+              <JobCaption text="Actividad" />
               {job.reference.name}
             </div>
             <div>
-              <p>
-                <em>Descripción:</em>
-              </p>
+              <JobCaption text="Descripción:" component="p" />
               <div className="simple-editor">
                 <ViewerEditor text={job.incidentInfo} />
               </div>
             </div>
           </div>
           <div className="buttons">
+            <Typography variant="caption">Acciones</Typography>
             <Link href={`/job/${job.id}`} passHref>
-              <Button component="a">Acceder</Button>
+              <Button variant="outlined" size="small" component="a">
+                Notas de Seguimiento
+              </Button>
+            </Link>
+            <Link href={`/job/${job.id}`} passHref>
+              <Button variant="outlined" size="small" component="a">
+                Añadir Evidencias
+              </Button>
+            </Link>
+            <Link href={`/job/${job.id}`} passHref>
+              <Button variant="outlined" size="small" component="a">
+                Mostrar Albaran
+              </Button>
+            </Link>
+            <Link href={`/job/${job.id}`} passHref>
+              <Button variant="outlined" size="small" component="a">
+                Acceder
+              </Button>
             </Link>
           </div>
         </Paper>

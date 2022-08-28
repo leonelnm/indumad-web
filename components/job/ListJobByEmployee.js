@@ -1,4 +1,4 @@
-import { Alert, AlertTitle, Typography } from "@mui/material"
+import { Alert, AlertTitle, Container, Typography } from "@mui/material"
 import { Box } from "@mui/system"
 import { indumadRoutes } from "api"
 import { DotFlash } from "components/loaders/DotFlash"
@@ -65,7 +65,7 @@ export const ListJobByEmployee = () => {
       setShowReset(true)
     }
 
-    if (query.length < 3) {
+    if (query.length < 2) {
       setLoading(false)
       return
     }
@@ -82,22 +82,27 @@ export const ListJobByEmployee = () => {
   }
 
   return (
-    <Box
+    <Container
       component="section"
       aria-label="list-jobs"
+      disableGutters
+      maxWidth="md"
       sx={{
         display: "flex",
         flexDirection: "column",
         gap: "1rem",
       }}
     >
-      <JobSearcher
-        onChange={filter}
-        value={query}
-        reset={resetSearcher}
-        showReset={showReset}
-      />
-      {query && query.length > 2 && (
+      {/* <Container maxWidth="sm"> */}
+      <Container disableGutters maxWidth="xs">
+        <JobSearcher
+          onChange={filter}
+          value={query}
+          reset={resetSearcher}
+          showReset={showReset}
+        />
+      </Container>
+      {query && query.length >= 2 && (
         <Box>
           <Typography variant="body2">{`Busqueda por ${query}: (${jobsFiltered.length})`}</Typography>
         </Box>
@@ -115,6 +120,7 @@ export const ListJobByEmployee = () => {
       {jobsFiltered.map((job) => (
         <ListJobItem key={job.id} job={job} />
       ))}
-    </Box>
+      {/* </Container> */}
+    </Container>
   )
 }

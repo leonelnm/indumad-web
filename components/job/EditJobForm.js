@@ -60,6 +60,8 @@ export const EditJobForm = ({ job = {} }) => {
 
   const [employee, setEmployee] = useState(job.employee ? job.employee.id : "")
 
+  const [changes, setChanges] = useState(false)
+
   const {
     register,
     handleSubmit,
@@ -103,12 +105,14 @@ export const EditJobForm = ({ job = {} }) => {
     setIncidentInfo(data)
     setCounter(getStringLengthWithoutHtmlTags(data))
     isIncidentInfoError(data)
+    setChanges(true)
   }
 
   const handleSelectGuild = async (event) => {
     const value = event.target.value
     setGuild(value)
     setErrorGuild(value === "")
+    setChanges(true)
 
     if (value !== "") {
       setSearchingEmployees(true)
@@ -144,6 +148,7 @@ export const EditJobForm = ({ job = {} }) => {
     const value = event.target.value
     setReference(value)
     setErrorReference(value === "")
+    setChanges(true)
   }
 
   const onSubmit = async (data) => {
@@ -188,6 +193,8 @@ export const EditJobForm = ({ job = {} }) => {
       toast.error(messages.job.created.fail, { duration: 6000 })
     }
   }
+
+  console.log("hay cambios", changes)
 
   return (
     <Box
@@ -504,7 +511,7 @@ export const EditJobForm = ({ job = {} }) => {
           type="submit"
           color="primary"
           size="medium"
-          disabled={!isDirty || !isValid || errorInfo.error}
+          disabled={!isDirty || !isValid || errorInfo.error || !changes}
           text={"Guardar Cambios"}
           loading={isSubmitting}
         />

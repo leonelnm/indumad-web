@@ -116,6 +116,10 @@
 .job > .status {
   grid-area: status;
 }
+.job > .client {
+  grid-area: client;
+  display: none;
+}
 .job > .contact {
   grid-area: contact;
 }
@@ -128,6 +132,7 @@
 
 .job > .id-ext-date,
 .job > .status,
+.job > .client,
 .job > .contact,
 .job > .buttons,
 .job > .info {
@@ -170,10 +175,10 @@
 @media only screen and (min-width: 768px) {
   .job {
     grid-template-areas:
-      "id-ext-date status contact buttons"
-      "id-ext-date info info buttons"
-      "id-ext-date info info buttons";
-    grid-template-columns: auto 1fr 1fr auto;
+      "id-ext-date status client contact buttons"
+      "id-ext-date info info info buttons"
+      "id-ext-date info info info buttons";
+    grid-template-columns: auto auto 1fr 1fr auto;
   }
   .job > .id-ext-date {
     min-width: 7rem;
@@ -194,5 +199,22 @@
     border-bottom: 1px solid #ddd;
     border-right: none;
     border-left: none;
+  }
+  .job > .status {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    padding: 0.5rem 1rem;
+    max-width: 10rem;
+    min-width: 10rem;
+  }
+  .job > .client {
+    display: block;
+  }
+  .job > .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
   }
 }
