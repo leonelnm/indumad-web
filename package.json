@@ -1,6 +1,6 @@
 {
   "name": "indumad",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "phoenix": "rm -rf node_modules package-lock.json yarn.lock && yarn",
@@ -20,13 +20,13 @@
     "@mui/x-data-grid": "5.15.1",
     "axios": "0.27.2",
     "js-cookie": "3.0.1",
-    "next": "12.2.2",
+    "next": "12.2.5",
     "nope-validator": "1.0.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "7.33.1",
     "react-hot-toast": "2.3.0",
-    "react-quill": "^2.0.0",
+    "react-quill": "2.0.0",
     "sass": "1.54.0",
     "swr": "1.3.0"
   },
