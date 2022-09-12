@@ -13,6 +13,7 @@ export const indumadRoutes = {
   auth: {
     LOGIN: "/auth/login",
     VALIDA_TOKEN: "/auth/validateToken",
+    VALIDA_COOKIE: "/auth/validatecookie",
   },
   user: "/user",
   guild: "/guild",
@@ -28,7 +29,7 @@ export const indumadClient = async ({
   token = "",
 }) => {
   try {
-    indumadApi.defaults.headers.Authorization = `Bearer ${token}`
+    // indumadApi.defaults.headers.Authorization = `Bearer ${token}`
     const { data } = await indumadApi[method](url, body, config)
     return { data }
   } catch (error) {

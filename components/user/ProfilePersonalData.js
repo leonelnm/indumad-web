@@ -19,7 +19,6 @@ import { useRouter } from "next/router"
 import { LoadingButton } from "components/ui"
 import { schemaCreateUser } from "utils/validations"
 import { indumadClient, indumadRoutes } from "api"
-import { cookieNames, getCookie } from "utils/cookies"
 import { messages } from "utils/messages"
 
 export const ProfilePersonalData = ({ user = undefined }) => {
@@ -55,7 +54,6 @@ export const ProfilePersonalData = ({ user = undefined }) => {
       const { error } = await indumadClient({
         method: "put",
         url,
-        token: getCookie(cookieNames.token),
         body: dataToSend,
       })
 

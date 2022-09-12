@@ -4,7 +4,7 @@ import { useRouter } from "next/router"
 import { cookieNames, getCookie } from "utils/cookies"
 
 const WithPrivateRoute = ({ children }) => {
-  const token = getCookie(cookieNames.token)
+  const token = getCookie(cookieNames.user)
   const router = useRouter()
 
   useEffect(() => {

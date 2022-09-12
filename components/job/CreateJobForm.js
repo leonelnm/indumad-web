@@ -34,7 +34,6 @@ import {
 } from "utils/validationJob"
 import { useFetchSwr } from "hooks/useFetchSwr"
 import { indumadClient, indumadRoutes } from "api"
-import { cookieNames, getCookie } from "utils/cookies"
 
 import { messages } from "utils/messages"
 import { CustomToastLink } from "components/ui/toast/CustomToastLink"
@@ -70,13 +69,11 @@ export const CreateJobForm = () => {
   // Get guilds
   const { isLoading: isLoadingGuilds, data: guilds } = useFetchSwr({
     path: `${indumadRoutes.guild}?status=true`,
-    token: getCookie(cookieNames.token),
   })
 
   // Get references
   const { isLoading: isLoadingReferences, data: references } = useFetchSwr({
     path: `${indumadRoutes.reference}?status=true`,
-    token: getCookie(cookieNames.token),
   })
 
   const isIncidentInfoError = (data) => {
@@ -107,7 +104,6 @@ export const CreateJobForm = () => {
       setSearchingEmployees(true)
       try {
         const { error, data } = await findByGuild({
-          token: getCookie(cookieNames.token),
           guild: value,
         })
 
@@ -150,7 +146,6 @@ export const CreateJobForm = () => {
       const { error, data: jobCreated } = await indumadClient({
         method: "post",
         url: indumadRoutes.job,
-        token: getCookie(cookieNames.token),
         body: data,
       })
 

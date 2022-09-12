@@ -6,7 +6,6 @@ import { Alert, Box, Divider, Typography } from "@mui/material"
 import { useAxios } from "hooks/useAxios"
 import { indumadRoutes } from "api"
 import { MainLayout } from "components/layouts"
-import { cookieNames, getCookie } from "utils/cookies"
 import { DotFlash } from "components/loaders/DotFlash"
 import { AddEditUser } from "components/user/AddEditUser"
 import { messages } from "utils/messages"
@@ -20,7 +19,6 @@ export default function UserDetailPage() {
 
   const { isLoading, error, data } = useAxios({
     url: `${indumadRoutes.user}/${id}?guild=true`, // incluye guilds
-    token: getCookie(cookieNames.token),
   })
 
   return (

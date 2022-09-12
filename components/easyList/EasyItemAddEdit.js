@@ -13,7 +13,6 @@ import CancelIcon from "@mui/icons-material/Cancel"
 
 import { indumadClient, indumadRoutes } from "api"
 import { LoadingButton } from "components/ui"
-import { cookieNames, getCookie } from "utils/cookies"
 import { messages } from "utils/messages"
 
 export const EasyItemAddEdit = ({
@@ -59,7 +58,6 @@ export const EasyItemAddEdit = ({
       const { error } = await indumadClient({
         method,
         url,
-        token: getCookie(cookieNames.token),
         body: dataToSend,
       })
 

@@ -7,7 +7,6 @@ import toast from "react-hot-toast"
 import { EasyItemAddEdit } from "./EasyItemAddEdit"
 import { indumadClient, indumadRoutes } from "api"
 import { messages } from "utils/messages"
-import { cookieNames, getCookie } from "utils/cookies"
 
 export const EasyItem = ({
   item = {},
@@ -33,7 +32,6 @@ export const EasyItem = ({
       const { error } = await indumadClient({
         method: "delete",
         url,
-        token: getCookie(cookieNames.token),
       })
 
       if (!error) {

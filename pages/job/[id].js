@@ -1,21 +1,23 @@
 import { Alert, AlertTitle, Box, Container, Divider } from "@mui/material"
 import { indumadClient, indumadRoutes } from "api"
 import { EditJobForm } from "components/job/EditJobForm"
+import { ViewerJob } from "components/job/ViewerJob"
 import { MainLayout } from "components/layouts"
 import { DotFlash } from "components/loaders/DotFlash"
 import { CustomTitle } from "components/ui"
+import { useAuthContext } from "hooks/context"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import toast, { Toaster, useToaster } from "react-hot-toast"
-import { cookieNames, getCookie } from "utils/cookies"
 import { messages } from "utils/messages"
 
 export default function JobDetailPage() {
+  const { isGestor } = useAuthContext()
   const router = useRouter()
   const { id } = router.query
   const [job, setJob] = useState(undefined)
   const [error, setError] = useState(undefined)
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   // Remove success toast neccesary when comes from admin
   const { toasts } = useToaster()
@@ -26,10 +28,8 @@ export default function JobDetailPage() {
   }, [])
 
   useEffect(() => {
-    setIsLoading(true)
     if (id) {
       indumadClient({
-        token: getCookie(cookieNames.token),
         url: `${indumadRoutes.job}/${id}`,
       })
         .then(({ data }) => {
@@ -53,7 +53,7 @@ export default function JobDetailPage() {
 
       {isLoading && <DotFlash />}
 
-      {job && (
+      {job && !isGestor && (
         <>
           <Toaster position="top-center" reverseOrder={false} />
 
@@ -63,6 +63,12 @@ export default function JobDetailPage() {
             </Container>
           </Box>
         </>
+      )}
+
+      {job && isGestor && (
+        <Container disableGutters maxWidth="md">
+          <ViewerJob job={job} />
+        </Container>
       )}
     </MainLayout>
   )

@@ -22,7 +22,6 @@ import { LoadingButton } from "components/ui"
 import { getRolesManagedByRole } from "utils/roles"
 import { initialValueToCreateUser, schemaCreateUser } from "utils/validations"
 import { indumadClient, indumadRoutes } from "api"
-import { cookieNames, getCookie } from "utils/cookies"
 import { messages } from "utils/messages"
 import { useFetchSwr } from "hooks/useFetchSwr"
 import { DotFlash } from "components/loaders/DotFlash"
@@ -48,7 +47,6 @@ export const AddEditUser = ({
   // Get guilds
   const { isLoading: isLoadingGuilds, data: guilds } = useFetchSwr({
     path: `${indumadRoutes.guild}?status=true`,
-    token: getCookie(cookieNames.token),
   })
 
   let initialValues = {}
@@ -111,7 +109,6 @@ export const AddEditUser = ({
       const { error } = await indumadClient({
         method,
         url,
-        token: getCookie(cookieNames.token),
         body: dataToSend,
       })
 

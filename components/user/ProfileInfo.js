@@ -7,7 +7,6 @@ import { indumadRoutes } from "api"
 import { DotFlash } from "components/loaders/DotFlash"
 import { useAuthContext } from "hooks/context"
 import { useAxios } from "hooks/useAxios"
-import { cookieNames, getCookie } from "utils/cookies"
 import { messages } from "utils/messages"
 import { ProfilePersonalData } from "./ProfilePersonalData"
 
@@ -16,7 +15,6 @@ export const ProfileInfo = () => {
 
   const { error, isLoading, data } = useAxios({
     url: `${indumadRoutes.user}/${user?.id}?guild=true`,
-    token: getCookie(cookieNames.token),
   })
 
   return (

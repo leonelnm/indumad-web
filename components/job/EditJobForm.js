@@ -34,7 +34,6 @@ import {
 import { useRouter } from "next/router"
 import { useFetchSwr } from "hooks/useFetchSwr"
 import { indumadClient, indumadRoutes } from "api"
-import { cookieNames, getCookie } from "utils/cookies"
 
 import { messages } from "utils/messages"
 import { findByGuild } from "services/userService"
@@ -75,13 +74,11 @@ export const EditJobForm = ({ job = {} }) => {
   // Get guilds
   const { isLoading: isLoadingGuilds, data: guilds } = useFetchSwr({
     path: `${indumadRoutes.guild}?status=true`,
-    token: getCookie(cookieNames.token),
   })
 
   // Get references
   const { isLoading: isLoadingReferences, data: references } = useFetchSwr({
     path: `${indumadRoutes.reference}?status=true`,
-    token: getCookie(cookieNames.token),
   })
 
   // Get employees
@@ -92,7 +89,6 @@ export const EditJobForm = ({ job = {} }) => {
     setData: setEmployees,
   } = useAxios({
     url: `${indumadRoutes.user}/guild/${guild}`,
-    token: getCookie(cookieNames.token),
   })
 
   const isIncidentInfoError = (data) => {
@@ -118,7 +114,6 @@ export const EditJobForm = ({ job = {} }) => {
       setSearchingEmployees(true)
       try {
         const { error, data } = await findByGuild({
-          token: getCookie(cookieNames.token),
           guild: value,
         })
 
@@ -177,7 +172,6 @@ export const EditJobForm = ({ job = {} }) => {
       const { error } = await indumadClient({
         method: "put",
         url: `${indumadRoutes.job}/${job.id}`,
-        token: getCookie(cookieNames.token),
         body: data,
       })
 

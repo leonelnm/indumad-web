@@ -2,7 +2,6 @@ import { Alert, Box, List } from "@mui/material"
 import { indumadRoutes } from "api"
 import { useFetchSwr } from "hooks/useFetchSwr"
 import { useCallback, useEffect, useState } from "react"
-import { cookieNames, getCookie } from "utils/cookies"
 import { EasyItemAddEdit } from "./EasyItemAddEdit"
 import { EasyItem } from "./EasyItem"
 import { DotFlash } from "components/loaders/DotFlash"
@@ -18,7 +17,6 @@ export const EasyList = ({ isGuild = true }) => {
 
   const { error, isLoading, data } = useFetchSwr({
     path,
-    token: getCookie(cookieNames.token),
   })
 
   useEffect(() => {

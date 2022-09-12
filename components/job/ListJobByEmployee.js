@@ -4,7 +4,6 @@ import { indumadRoutes } from "api"
 import { DotFlash } from "components/loaders/DotFlash"
 import { useAxios } from "hooks/useAxios"
 import { useEffect, useState } from "react"
-import { cookieNames, getCookie } from "utils/cookies"
 import { messages } from "utils/messages"
 import { JobSearcher } from "./JobSearcher"
 import { ListJobItem } from "./ListJobItem"
@@ -20,7 +19,6 @@ export const ListJobByEmployee = () => {
     isLoading,
     data: jobs,
   } = useAxios({
-    token: getCookie(cookieNames.token),
     url: indumadRoutes.job,
   })
 
@@ -107,7 +105,7 @@ export const ListJobByEmployee = () => {
           <Typography variant="body2">{`Busqueda por ${query}: (${jobsFiltered.length})`}</Typography>
         </Box>
       )}
-      {query && jobsFiltered.length === 0 && (
+      {query && Array.isArray(jobsFiltered) && jobsFiltered.length === 0 && (
         <Alert variant="outlined" severity="info">
           <Typography>
             No se ha encontrado trabajos, intente con otro valor
@@ -117,9 +115,8 @@ export const ListJobByEmployee = () => {
 
       {(loading || isLoading) && <DotFlash />}
 
-      {jobsFiltered.map((job) => (
-        <ListJobItem key={job.id} job={job} />
-      ))}
+      {Array.isArray(jobsFiltered) &&
+        jobsFiltered.map((job) => <ListJobItem key={job.id} job={job} />)}
       {/* </Container> */}
     </Container>
   )
