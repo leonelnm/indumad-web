@@ -1,4 +1,4 @@
-export const itemsLocalStorage = { user: "indumadUserLogged" }
+export const itemsLocalStorage = { user: "svcnavalparUserLogged" }
 
 export const setItem = (key = "", value) => {
   if (typeof window !== "undefined" && key && value) {
@@ -40,4 +40,8 @@ export const isEqual = (key = "", obj = {}) => {
     }
   }
   return true
+}
+
+export const isUserInLocalStorage = (user = {}) => {
+  return isEqual(itemsLocalStorage.user, user)
 }

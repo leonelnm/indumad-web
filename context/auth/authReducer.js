@@ -1,3 +1,5 @@
+import { isGestor } from "utils/roles"
+
 export const AUTH_STATES = {
   LOGIN: "AUTH - login",
   LOGOUT: "AUTH - logout",
@@ -11,6 +13,7 @@ export const authReducer = (state, action) => {
         ...state,
         isLoggedIn: true,
         user: action.payload,
+        isGestor: isGestor({ role: action.payload?.role }),
       }
 
     case AUTH_STATES.LOGOUT:
@@ -18,6 +21,7 @@ export const authReducer = (state, action) => {
         ...state,
         isLoggedIn: false,
         user: undefined,
+        isGestor: undefined,
       }
 
     default:

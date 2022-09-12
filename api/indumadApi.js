@@ -2,6 +2,7 @@ import axios from "axios"
 
 export const indumadApi = axios.create({
   baseURL: process.env.NEXT_PUBLIC_INDUMAD_API,
+  withCredentials: true,
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",

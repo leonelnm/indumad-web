@@ -1,6 +1,5 @@
 import { useEffect, useReducer } from "react"
 import { useRouter } from "next/router"
-import Cookies from "js-cookie"
 
 import { AuthContext, authReducer, AUTH_STATES } from "."
 import { login, validateToken } from "services"
@@ -17,27 +16,36 @@ export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, INITIAL_STATE)
 
   useEffect(() => {
-    if (localStorageUtil.getItem(localStorageUtil.itemsLocalStorage.user)) {
+    if (
+      cookiesUtil.getUserCookie() &&
+      !localStorageUtil.isUserInLocalStorage(state?.user)
+    ) {
+      console.log("STEP- INIT loadLocalStorage ")
       dispatch({
         type: AUTH_STATES.LOGIN,
         payload: localStorageUtil.getItem(
           localStorageUtil.itemsLocalStorage.user
         ),
       })
+      console.log("STEP- END loadLocalStorage ")
     }
   }, [])
 
   useEffect(() => {
+    console.log("STEP- INIT validateTokenHandler ")
     validateTokenHandler()
+    console.log("STEP- END validateTokenHandler ")
   }, [router])
 
   const validateTokenHandler = async () => {
-    if (!Cookies.get(cookiesUtil.cookieNames.token)) {
+    if (!cookiesUtil.getUserCookie()) {
+      console.log("validateTokenHandler -> primer if")
+      console.log("No hay cookie o aun no la ha leido")
       return
     }
 
     try {
-      const token = cookiesUtil.getCookie(cookiesUtil.cookieNames.token)
+      const token = cookiesUtil.getUserCookie()
       if (!token) {
         logout()
         return
@@ -46,20 +54,15 @@ export const AuthProvider = ({ children }) => {
       const { ok, data } = await validateToken({ token })
 
       if (ok) {
-        const { token, user } = data
+        const { user } = data
         // Update token if created
         cookiesUtil.createCookie({
-          key: cookiesUtil.cookieNames.token,
-          value: token,
+          key: cookiesUtil.cookieNames.user,
+          value: JSON.stringify(user),
         })
 
         // Si user es diferente del user en localStorage
-        if (
-          !localStorageUtil.isEqual(
-            localStorageUtil.itemsLocalStorage.user,
-            state?.user
-          )
-        ) {
+        if (!localStorageUtil.isUserInLocalStorage(state?.user)) {
           localStorageUtil.setItem(
             localStorageUtil.itemsLocalStorage.user,
             user
@@ -79,10 +82,10 @@ export const AuthProvider = ({ children }) => {
     try {
       const { ok, status, data } = await login({ username, password })
       if (ok) {
-        const { token, user } = data
+        const { user } = data
         cookiesUtil.createCookie({
-          key: cookiesUtil.cookieNames.token,
-          value: token,
+          key: cookiesUtil.cookieNames.user,
+          value: JSON.stringify(user),
         })
         localStorageUtil.setItem(localStorageUtil.itemsLocalStorage.user, user)
         dispatch({ type: AUTH_STATES.LOGIN, payload: user })
@@ -97,8 +100,9 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
-  const logout = () => {
-    cookiesUtil.deleteCookie(cookiesUtil.cookieNames.token)
+  const logout = async () => {
+    console.log("STEP - Init Logout")
+    cookiesUtil.deleteCookie(cookiesUtil.cookieNames.user)
     localStorageUtil.removeItem(localStorageUtil.itemsLocalStorage.user)
     dispatch({ type: AUTH_STATES.LOGOUT })
     router.replace("/login")

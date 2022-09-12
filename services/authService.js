@@ -1,5 +1,4 @@
 import { indumadApi, indumadRoutes } from "api"
-import { cookieNames, getCookie } from "utils/cookies"
 
 export async function login({ username, password }) {
   return await indumadApi
@@ -32,9 +31,7 @@ export async function login({ username, password }) {
 export async function validateToken({ token = "" }) {
   indumadApi.defaults.headers.Authorization = `Bearer ${token}`
   return await indumadApi
-    .get(indumadRoutes.auth.VALIDA_TOKEN, {
-      withCredentials: true,
-    })
+    .get(indumadRoutes.auth.VALIDA_COOKIE)
     .then((res) => {
       return {
         ok: true,
@@ -56,5 +53,3 @@ export async function validateToken({ token = "" }) {
       }
     })
 }
-
-export const getToken = () => getCookie(cookieNames.token)

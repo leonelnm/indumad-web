@@ -12,15 +12,9 @@ export const useAxios = ({
   const [error, setError] = useState("")
   const [isLoading, setIsLoading] = useState(true)
 
-  indumadApi.defaults.headers.Authorization = `Bearer ${token}`
+  // indumadApi.defaults.headers.Authorization = `Bearer ${token}`
 
   useEffect(() => {
-    if (!token) {
-      setError("Token not found")
-      setIsLoading(false)
-      return { data, error, isLoading }
-    }
-
     indumadApi[method](url, body, config)
       .then((res) => {
         setData(res.data)

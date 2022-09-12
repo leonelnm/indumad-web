@@ -1,5 +1,9 @@
 import Cookies from "js-cookie"
 
+export const cookieNames = {
+  user: "svcnavalparUser",
+}
+
 const options = {
   sameSite: "lax",
   secure: true,
@@ -23,6 +27,6 @@ export function getCookie(key) {
   return value || ""
 }
 
-export const cookieNames = {
-  token: "indumadToken",
+export function getUserCookie() {
+  return getCookie(cookieNames.user)
 }
