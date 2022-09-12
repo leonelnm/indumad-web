@@ -4,6 +4,8 @@ export const indumadApi = axios.create({
   baseURL: process.env.NEXT_PUBLIC_INDUMAD_API,
   withCredentials: true,
   headers: {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
     Accept: "application/json",
     "Content-Type": "application/json",
   },
