@@ -28,15 +28,14 @@ export async function login({ username, password }) {
     })
 }
 
-export async function validateToken({ token = "" }) {
-  indumadApi.defaults.headers.Authorization = `Bearer ${token}`
+export async function validateCookie() {
+  // indumadApi.defaults.headers.Authorization = `Bearer ${token}`
   return await indumadApi
     .get(indumadRoutes.auth.VALIDA_COOKIE)
     .then((res) => {
       return {
         ok: true,
         status: res.status,
-        data: res.data,
       }
     })
     .catch((error) => {

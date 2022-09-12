@@ -2,7 +2,7 @@ import { useEffect, useReducer } from "react"
 import { useRouter } from "next/router"
 
 import { AuthContext, authReducer, AUTH_STATES } from "."
-import { login, validateToken } from "services"
+import { login, validateCookie } from "services"
 import * as cookiesUtil from "utils/cookies"
 import * as localStorageUtil from "utils/localStorageUtil"
 
@@ -38,38 +38,21 @@ export const AuthProvider = ({ children }) => {
   }, [router])
 
   const validateTokenHandler = async () => {
-    if (!cookiesUtil.getUserCookie()) {
-      console.log("validateTokenHandler -> primer if")
-      console.log("No hay cookie o aun no la ha leido")
-      return
-    }
-
     try {
-      const token = cookiesUtil.getUserCookie()
-      if (!token) {
+      const cookie = cookiesUtil.getUserCookie()
+      if (router.asPath !== "/login" && !cookie) {
+        console.log("No hay cookie")
         logout()
         return
       }
 
-      const { ok, data } = await validateToken({ token })
+      if (router.asPath === "/login") {
+        return
+      }
 
-      if (ok) {
-        const { user } = data
-        // Update token if created
-        cookiesUtil.createCookie({
-          key: cookiesUtil.cookieNames.user,
-          value: JSON.stringify(user),
-        })
-
-        // Si user es diferente del user en localStorage
-        if (!localStorageUtil.isUserInLocalStorage(state?.user)) {
-          localStorageUtil.setItem(
-            localStorageUtil.itemsLocalStorage.user,
-            user
-          )
-          dispatch({ type: AUTH_STATES.LOGIN, payload: user })
-        }
-      } else {
+      // la cookie se crea en el Login
+      const { ok } = await validateCookie()
+      if (!ok) {
         logout()
       }
     } catch (error) {
