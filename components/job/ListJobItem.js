@@ -60,39 +60,53 @@ export const ListJobItem = ({ job = {} }) => {
               {job.reference.name}
             </div>
             <div>
-              <JobCaption text="Descripción:" component="p" />
+              <JobCaption text="Descripción" component="p" />
               <div className="simple-editor">
                 <ViewerEditor text={job.incidentInfo} />
               </div>
             </div>
           </div>
           <div className="buttons">
-            <Typography variant="caption">Acciones</Typography>
             <Link href={`/job/${job.id}`} passHref>
-              <Button variant="outlined" size="small" component="a">
+              <Button
+                variant="outlined"
+                size="small"
+                sx={{ display: { xs: "none", sm: "block" } }}
+                component="a"
+              >
                 Notas de Seguimiento
               </Button>
             </Link>
             <Link href={`/job/${job.id}`} passHref>
-              <Button variant="outlined" size="small" component="a">
+              <Button
+                variant="outlined"
+                size="small"
+                sx={{ display: { xs: "none", sm: "block" } }}
+                component="a"
+              >
                 Añadir Evidencias
               </Button>
             </Link>
             <Link href={`/job/${job.id}`} passHref>
-              <Button variant="outlined" size="small" component="a">
+              <Button
+                variant="outlined"
+                size="small"
+                sx={{ display: { xs: "none", sm: "block" } }}
+                component="a"
+              >
                 Mostrar Albaran
               </Button>
             </Link>
             <Link href={`/job/${job.id}`} passHref>
               <Button variant="outlined" size="small" component="a">
-                Acceder
+                Más Detalles
               </Button>
             </Link>
           </div>
         </Paper>
       ) : (
         <Stack spacing={1}>
-          <Skeleton variant="rextangular" animation="wave" height={200} />
+          <Skeleton variant="rectangular" animation="wave" height={200} />
         </Stack>
       )}
     </article>

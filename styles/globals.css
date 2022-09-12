@@ -99,6 +99,16 @@
   }
 }
 
+.simple-editor .ql-editor {
+  padding: 0;
+  max-height: 7rem;
+  overflow-y: auto;
+}
+
+.simple-editor .ql-tooltip {
+  display: none;
+}
+
 /* jobs */
 
 .job {
@@ -160,16 +170,6 @@
 .job > .status,
 .job > .buttons {
   text-align: center;
-}
-
-.job > .info .simple-editor .ql-editor {
-  padding: 0;
-  max-height: 7rem;
-  overflow-y: auto;
-}
-
-.job > .info .simple-editor .ql-tooltip {
-  display: none;
 }
 
 @media only screen and (min-width: 768px) {
