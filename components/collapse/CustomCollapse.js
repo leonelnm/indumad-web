@@ -14,8 +14,6 @@ export const CustomCollapse = ({ children, title = "Sin Título" }) => {
       <Grid
         container
         direction="row"
-        alignItems="center"
-        justifyContent="space-between"
         sx={{ backgroundColor: "rgba(0, 0, 0, 0.04)" }}
       >
         <Button
