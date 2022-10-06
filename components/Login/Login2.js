@@ -15,6 +15,7 @@ import { useState } from "react"
 import { messages } from "utils/messages"
 import { useAuthContext } from "hooks/context"
 import { Copyright } from "components/Copyright"
+import { CleanCookies } from "./CleanCookies"
 
 export const Login2 = () => {
   const router = useRouter()
@@ -143,6 +144,7 @@ export const Login2 = () => {
         </Box>
       </Box>
       <Copyright sx={{ mt: 8, mb: 4 }} />
+      <CleanCookies />
     </>
   )
 }

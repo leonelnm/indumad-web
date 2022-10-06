@@ -14,6 +14,7 @@ export const indumadApi = axios.create({
 export const indumadRoutes = {
   auth: {
     LOGIN: "/auth/login",
+    LOGOUT: "/auth/logout",
     VALIDA_TOKEN: "/auth/validateToken",
     VALIDA_COOKIE: "/auth/validatecookie",
   },

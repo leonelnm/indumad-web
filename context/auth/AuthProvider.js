@@ -2,7 +2,7 @@ import { useEffect, useReducer } from "react"
 import { useRouter } from "next/router"
 
 import { AuthContext, authReducer, AUTH_STATES } from "."
-import { login, validateCookie } from "services"
+import { login, logoutService, validateCookie } from "services"
 import * as cookiesUtil from "utils/cookies"
 import * as localStorageUtil from "utils/localStorageUtil"
 
@@ -88,6 +88,7 @@ export const AuthProvider = ({ children }) => {
     cookiesUtil.deleteCookie(cookiesUtil.cookieNames.user)
     localStorageUtil.removeItem(localStorageUtil.itemsLocalStorage.user)
     dispatch({ type: AUTH_STATES.LOGOUT })
+    await logoutService()
     router.replace("/login")
   }
 

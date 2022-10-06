@@ -52,3 +52,13 @@ export async function validateCookie() {
       }
     })
 }
+
+export async function logoutService() {
+  try {
+    return await indumadApi.post(indumadRoutes.auth.LOGOUT)
+  } catch (error) {
+    console.log(error)
+  }
+
+  return true
+}
