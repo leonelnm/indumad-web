@@ -1,4 +1,7 @@
-export const itemsLocalStorage = { user: "svcnavalparUserLogged" }
+export const itemsLocalStorage = {
+  user: "svcnavalparUserLogged",
+  token: "svcnavalparUserToken",
+}
 
 export const setItem = (key = "", value) => {
   if (typeof window !== "undefined" && key && value) {
@@ -15,6 +18,14 @@ export const getItem = (key = "") => {
   }
 
   return JSON.parse(window.localStorage.getItem(key))
+}
+
+export const getItemAsText = (key = "") => {
+  if (typeof window === "undefined") {
+    return ""
+  }
+
+  return window.localStorage.getItem(key)
 }
 
 export const removeItem = (key = "") => {
@@ -44,4 +55,8 @@ export const isEqual = (key = "", obj = {}) => {
 
 export const isUserInLocalStorage = (user = {}) => {
   return isEqual(itemsLocalStorage.user, user)
+}
+
+export const getToken = () => {
+  return getItemAsText(itemsLocalStorage.token)
 }

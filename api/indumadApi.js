@@ -1,4 +1,5 @@
 import axios from "axios"
+import { getToken } from "utils/localStorageUtil"
 
 export const indumadApi = axios.create({
   baseURL: process.env.NEXT_PUBLIC_INDUMAD_API,
@@ -32,7 +33,7 @@ export const indumadClient = async ({
   token = "",
 }) => {
   try {
-    // indumadApi.defaults.headers.Authorization = `Bearer ${token}`
+    indumadApi.defaults.headers.Authorization = `Bearer ${getToken()}`
     const { data } = await indumadApi[method](url, body, config)
     return { data }
   } catch (error) {

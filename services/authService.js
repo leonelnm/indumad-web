@@ -1,4 +1,5 @@
 import { indumadApi, indumadRoutes } from "api"
+import { getToken } from "utils/localStorageUtil"
 
 export async function login({ username, password }) {
   return await indumadApi
@@ -28,10 +29,11 @@ export async function login({ username, password }) {
     })
 }
 
-export async function validateCookie() {
-  // indumadApi.defaults.headers.Authorization = `Bearer ${token}`
+export async function validateToken() {
+  indumadApi.defaults.headers.Authorization = `Bearer ${getToken()}`
+
   return await indumadApi
-    .get(indumadRoutes.auth.VALIDA_COOKIE)
+    .get(indumadRoutes.auth.VALIDA_TOKEN)
     .then((res) => {
       return {
         ok: true,
@@ -51,14 +53,4 @@ export async function validateCookie() {
         error: error.response.data,
       }
     })
-}
-
-export async function logoutService() {
-  try {
-    return await indumadApi.post(indumadRoutes.auth.LOGOUT)
-  } catch (error) {
-    console.log(error)
-  }
-
-  return true
 }

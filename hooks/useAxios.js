@@ -1,5 +1,6 @@
 import { indumadApi } from "api"
 import { useEffect, useState } from "react"
+import { getToken } from "utils/localStorageUtil"
 
 export const useAxios = ({
   method = "get",
@@ -12,7 +13,7 @@ export const useAxios = ({
   const [error, setError] = useState("")
   const [isLoading, setIsLoading] = useState(true)
 
-  // indumadApi.defaults.headers.Authorization = `Bearer ${token}`
+  indumadApi.defaults.headers.Authorization = `Bearer ${getToken()}`
 
   useEffect(() => {
     indumadApi[method](url, body, config)

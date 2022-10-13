@@ -1,6 +1,8 @@
 import useSWR from "swr"
+import { getToken } from "utils/localStorageUtil"
 
-export const useFetchSwr = ({ path, token = "" }) => {
+export const useFetchSwr = ({ path }) => {
+  const token = getToken()
   try {
     const { data, error } = useSWR([path, token])
     return {

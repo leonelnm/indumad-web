@@ -2,7 +2,7 @@ import { useEffect, useReducer } from "react"
 import { useRouter } from "next/router"
 
 import { AuthContext, authReducer, AUTH_STATES } from "."
-import { login, logoutService, validateCookie } from "services"
+import { login, validateToken } from "services"
 import * as cookiesUtil from "utils/cookies"
 import * as localStorageUtil from "utils/localStorageUtil"
 
@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }) => {
       }
 
       // la cookie se crea en el Login
-      const { ok } = await validateCookie()
+      const { ok } = await validateToken()
       if (!ok) {
         logout()
       }
@@ -65,12 +65,16 @@ export const AuthProvider = ({ children }) => {
     try {
       const { ok, status, data } = await login({ username, password })
       if (ok) {
-        const { user } = data
+        const { user, token } = data
         cookiesUtil.createCookie({
           key: cookiesUtil.cookieNames.user,
           value: JSON.stringify(user),
         })
         localStorageUtil.setItem(localStorageUtil.itemsLocalStorage.user, user)
+        localStorageUtil.setItem(
+          localStorageUtil.itemsLocalStorage.token,
+          token
+        )
         dispatch({ type: AUTH_STATES.LOGIN, payload: user })
       }
       return { ok, status, data }
@@ -87,8 +91,8 @@ export const AuthProvider = ({ children }) => {
     console.log("STEP - Init Logout")
     cookiesUtil.deleteCookie(cookiesUtil.cookieNames.user)
     localStorageUtil.removeItem(localStorageUtil.itemsLocalStorage.user)
+    localStorageUtil.removeItem(localStorageUtil.itemsLocalStorage.token)
     dispatch({ type: AUTH_STATES.LOGOUT })
-    await logoutService()
     router.replace("/login")
   }
 
