@@ -56,15 +56,19 @@ export const schemaToUpdateJob = object().shape({
   contact: schemaToCreateContact,
 })
 
-export const validateIncidentInfo = (text = "") => {
+export const validateIncidentInfo = (
+  text = "",
+  maxLength = 2000,
+  customText = "Información"
+) => {
   if (text === "" || text === "<p><br></p>") {
-    return { error: true, msg: "Información es requerida" }
+    return { error: true, msg: `${customText} es requerida` }
   }
 
-  if (getStringLengthWithoutHtmlTags(text) > 2000) {
+  if (getStringLengthWithoutHtmlTags(text) > maxLength) {
     return {
       error: true,
-      msg: "Información muy larga, máximo 2000 caracteres",
+      msg: `${customText} muy larga, máximo ${maxLength} caracteres`,
     }
   }
 

@@ -42,10 +42,16 @@ const formats = [
   "indent",
 ]
 
-const Editor = ({ setText, text, validation, placeholder = "" }) => {
+const Editor = ({
+  setText,
+  text,
+  validation = {},
+  placeholder = "",
+  heightConfig = "editorHeigh",
+}) => {
   return (
     <QuillNoSSRWrapper
-      className={`editorHeigh ${validation.error ? "valitationError" : ""}`}
+      className={`${heightConfig} ${validation.error ? "valitationError" : ""}`}
       modules={modules}
       formats={formats}
       theme="snow"

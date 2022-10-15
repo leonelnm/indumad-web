@@ -23,6 +23,10 @@ export const indumadRoutes = {
   guild: "/guild",
   reference: "/reference",
   job: "/job",
+  notes: {
+    basePath: "/followupnotes",
+    markAsRead: "/followupnotes/markasread",
+  },
 }
 
 export const indumadClient = async ({

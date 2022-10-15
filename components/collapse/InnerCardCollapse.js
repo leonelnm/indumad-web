@@ -15,6 +15,7 @@ export const InnerCardCollapse = ({
   variant = "normal",
   openOnStart = false,
   component = "article",
+  border = true,
 }) => {
   const [open, setOpen] = useState(openOnStart)
   const collapseHandler = () => {
@@ -35,10 +36,23 @@ export const InnerCardCollapse = ({
         }
         title={title}
         titleTypographyProps={{ fontSize: "1em" }}
-        sx={{ backgroundColor: "rgba(0, 0, 0, 0.02)", p: 1 }}
+        sx={{
+          backgroundColor: "rgba(0, 0, 0, 0.02)",
+          p: 1,
+          borderBottom:
+            border && (open ? "none" : "1px solid rgba(0, 0, 0, 0.12)"),
+        }}
       />
 
-      <Collapse in={open} timeout="auto" unmountOnExit>
+      <Collapse
+        in={open}
+        timeout="auto"
+        unmountOnExit
+        sx={{
+          borderBottom:
+            border && (open ? "1px solid rgba(0, 0, 0, 0.12)" : "none"),
+        }}
+      >
         <CardContent sx={{ p: 1 }}>{children}</CardContent>
       </Collapse>
     </Card>

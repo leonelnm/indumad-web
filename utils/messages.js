@@ -85,4 +85,20 @@ export const messages = {
         "En estos momentos no es posible elimnar trabajos, espere unos minutos y vuelva a intentar",
     },
   },
+  notes: {
+    error_list:
+      "En estos momentos no es posible encontrar NOTAS de SEGUIMIENTO, espere unos minutos y vuelva a intentar. Si el error continúa, póngase en contacto con el administrador!",
+    search: "En estos momentos no es posible mostrar la nota de seguimiento",
+    created: {
+      sucess: "Nota Seguimiento creada correctamente",
+      fail: "No se pudo añadir la Nota Seguimiento, vuelva a intentar",
+      error:
+        "En estos momentos no es posible crear Notas de Seguimiento, espere unos minutos y vuelva a intentar",
+    },
+    empty: "Aún no hay notas de seguimiento",
+    read: {
+      success: "Nota marcada como leída",
+      error: "No se ha podido leer, intente de nuevo!",
+    },
+  },
 }

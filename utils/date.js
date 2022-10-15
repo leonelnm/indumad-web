@@ -13,6 +13,8 @@ export const getTime = (date = undefined) => {
   return date
     ? new Date(date).toLocaleTimeString("es-ES", {
         timeZone: getCurrentTimeZone(),
+        hour: "2-digit",
+        minute: "2-digit",
       })
     : ""
 }

@@ -43,13 +43,6 @@
   border-radius: 5px 5px 0 0;
 }
 
-.editorHeigh > .ql-container.ql-snow {
-  min-height: 10rem;
-  max-height: 10rem;
-  overflow-y: auto;
-  border-radius: 0 0 5px 5px;
-}
-
 .valitationError {
   border: 1px solid #d32f2f;
   border-radius: 5px;
@@ -114,14 +107,17 @@
 .job {
   display: grid;
   grid-template-areas:
-    "id-ext-date"
-    "status"
-    "contact"
-    "info"
-    "buttons";
+    "id-ext-date id-ext-date"
+    "priority status"
+    "contact contact"
+    "info info"
+    "buttons buttons";
 }
 .job > .id-ext-date {
   grid-area: id-ext-date;
+}
+.job > .priority {
+  grid-area: priority;
 }
 .job > .status {
   grid-area: status;
@@ -141,6 +137,7 @@
 }
 
 .job > .id-ext-date,
+.job > .priority,
 .job > .status,
 .job > .client,
 .job > .contact,
@@ -158,7 +155,6 @@
 }
 .job > .id-ext-date > div {
   flex: 1;
-  text-align: center;
   padding: 0.5rem;
 }
 
@@ -167,18 +163,75 @@
   border-right: 1px solid #ddd;
 }
 
+.job > .priority,
 .job > .status,
 .job > .buttons {
   text-align: center;
 }
 
+/* Notas de Seguimiento */
+.followUpNote-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+.followUpNote {
+  display: flex;
+}
+.followUpNote.right {
+  justify-content: flex-end;
+}
+
+.followUpNote.left {
+  justify-content: flex-start;
+}
+
+.editor-viewer {
+  min-width: 7rem;
+}
+
+.editor-viewer .ql-editor {
+  padding: 0.5rem;
+}
+
+.editor-viewer .ql-tooltip {
+  display: none;
+}
+
+.followUpNote-editor > .ql-container.ql-snow {
+  min-height: 10rem;
+  max-height: 80vh;
+  overflow-y: auto;
+  border-radius: 0 0 5px 5px;
+}
+
+.followUpNote-editor > .ql-toolbar.ql-snow {
+  border-radius: 5px 5px 0 0;
+}
+
+.followUpNote.right .editor-viewer,
+.followUpNote.left .editor-viewer {
+  max-width: 85%;
+  border-radius: 10px;
+}
+
+.followUpNote.left .editor-viewer {
+  background-color: #e6500033;
+}
+
+.followUpNote.right .editor-viewer {
+  background-color: #4051b526;
+}
+
 @media only screen and (min-width: 768px) {
   .job {
     grid-template-areas:
-      "id-ext-date status client contact buttons"
-      "id-ext-date info info info buttons"
-      "id-ext-date info info info buttons";
-    grid-template-columns: auto auto 1fr 1fr auto;
+      "id-ext-date priority status client contact buttons"
+      "id-ext-date info info info info buttons"
+      "id-ext-date info info info info buttons";
+    grid-template-columns: auto auto auto 1fr 1fr auto;
   }
   .job > .id-ext-date {
     min-width: 7rem;
@@ -190,7 +243,7 @@
   .job > .id-ext-date > div {
     flex: 1;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
     padding: 0.5rem;
   }
@@ -199,6 +252,14 @@
     border-bottom: 1px solid #ddd;
     border-right: none;
     border-left: none;
+  }
+  .job > .priority {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    padding: 0.5rem 1rem;
+    max-width: 7rem;
+    min-width: 7rem;
   }
   .job > .status {
     display: flex;

@@ -3,49 +3,51 @@ import { CardCollapse } from "components/collapse/CardCollapse"
 import { InnerCardCollapse } from "components/collapse/InnerCardCollapse"
 import ViewerEditor from "components/editor/ViewerEditor"
 import { getDate } from "utils/date"
-import { JobCaption } from "./JobCaption"
+import { CaptionData } from "./CaptionData"
 import { ViewerJobNotasSeguimiento } from "./ViewerJobNotasSeguimiento"
 
 export const ViewerJob = ({ job = {} }) => {
-  console.log(job)
   return (
     <Box pt={1} sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
       <CardCollapse title="Información General" variant="outlined">
         {/* Info */}
-        <div>
-          <div>{getDate(job.createdAt)}</div>
-          <div>#{job.id}</div>
-          <div>{job.extReference}</div>
-          <div>{job.state}</div>
-          <div>{job.priority}</div>
-        </div>
+        <Box p={1}>
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <CaptionData title="ID" data={`#${job.id}`} />
+            <CaptionData title="Creado" data={getDate(job.createdAt)} />
+          </Box>
+          <CaptionData title="Ref. Externa" data={job.extReference} />
+          <CaptionData title="Nivel" data={job.priority} />
+          <CaptionData title="Estado" data={job.state} />
+
+          <CaptionData title="Gremio" data={job.guild.name} />
+          <CaptionData title="Actividad/Referencia" data={job.reference.name} />
+        </Box>
 
         {/* client */}
         <InnerCardCollapse title="Cliente">
-          <div>
-            <div>{job.client.name}-name</div>
-            <div>{job.client.nif}-nif</div>
-            <div>{job.client.phone}-phone</div>
-          </div>
+          <CaptionData title="Nombre" data={job.client.name} />
+          <CaptionData title="Nif/CIB" data={job.client.nif} />
+          <CaptionData title="Teléfono" data={job.client.phone} />
         </InnerCardCollapse>
         {/* contact */}
         <InnerCardCollapse title="Contacto">
-          <div>{job.contact.name}-name</div>
-          <div>{job.contact.address}-address</div>
-          <div>{job.contact.phone}-phone</div>
+          <CaptionData title="Nombre" data={job.contact.name} />
+          <CaptionData title="Dirección" data={job.contact.address} />
+          <CaptionData title="Teléfono" data={job.contact.phone} />
         </InnerCardCollapse>
         {/* activity */}
-        <div>{job.guild.name}</div>
-        <div>{job.reference.name}</div>
-
-        <div>
-          <JobCaption text="Descripción" component="p" />
+        <InnerCardCollapse
+          title="Descripción"
+          border={false}
+          openOnStart={true}
+        >
           <div className="simple-editor">
             <ViewerEditor text={job.incidentInfo} />
           </div>
-        </div>
+        </InnerCardCollapse>
       </CardCollapse>
-      <ViewerJobNotasSeguimiento />
+      <ViewerJobNotasSeguimiento jobId={job.id} />
     </Box>
   )
 }

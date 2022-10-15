@@ -31,11 +31,11 @@ export const CardCollapse = ({
         }
         title={title}
         titleTypographyProps={{ fontSize: "1.1em" }}
-        sx={{ backgroundColor: "rgba(0, 0, 0, 0.04)" }}
+        sx={{ backgroundColor: "rgba(0, 0, 0, 0.1)" }}
       />
 
       <Collapse in={open} timeout="auto" unmountOnExit>
-        <CardContent sx={{ pl: 0, pr: 0, pt: 2, pb: 2 }}>
+        <CardContent sx={{ p: 0, "&:last-child": { pb: 0 } }}>
           {children}
         </CardContent>
       </Collapse>

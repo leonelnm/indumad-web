@@ -1,18 +1,15 @@
-import { Alert, AlertTitle, Box, Container, Divider } from "@mui/material"
+import { Alert, AlertTitle, Container, Divider } from "@mui/material"
 import { indumadClient, indumadRoutes } from "api"
-import { EditJobForm } from "components/job/EditJobForm"
 import { ViewerJob } from "components/job/ViewerJob"
 import { MainLayout } from "components/layouts"
 import { DotFlash } from "components/loaders/DotFlash"
 import { CustomTitle } from "components/ui"
-import { useAuthContext } from "hooks/context"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import toast, { Toaster, useToaster } from "react-hot-toast"
 import { messages } from "utils/messages"
 
 export default function JobDetailPage() {
-  const { isGestor } = useAuthContext()
   const router = useRouter()
   const { id } = router.query
   const [job, setJob] = useState(undefined)
@@ -53,20 +50,9 @@ export default function JobDetailPage() {
 
       {isLoading && <DotFlash />}
 
-      {job && !isGestor && (
-        <>
-          <Toaster position="top-center" reverseOrder={false} />
-
-          <Box component="section" sx={{ pt: "1rem", pb: "1rem" }}>
-            <Container disableGutters maxWidth="md">
-              <EditJobForm job={job} />
-            </Container>
-          </Box>
-        </>
-      )}
-
-      {job && isGestor && (
+      {job && (
         <Container disableGutters maxWidth="md">
+          <Toaster position="top-center" reverseOrder={false} />
           <ViewerJob job={job} />
         </Container>
       )}

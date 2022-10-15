@@ -1,4 +1,4 @@
-import { Button, Paper, Skeleton, Stack, Typography } from "@mui/material"
+import { Box, Button, Paper, Skeleton, Stack, Typography } from "@mui/material"
 import Link from "next/link"
 import { useEffect, useRef, useState } from "react"
 import ViewerEditor from "components/editor/ViewerEditor"
@@ -20,14 +20,38 @@ export const ListJobItem = ({ job = {} }) => {
       {isRef ? (
         <Paper elevation={3} className="job">
           <div className="id-ext-date">
+            {/* ID */}
             <div>
-              <Link href={`/job/${job.id}`}>
-                <a>#{job.id}</a>
-              </Link>
+              <JobCaption text="ID" />
+              <Box sx={{ textAlign: "center" }}>
+                <Link href={`/job/${job.id}`}>
+                  <a>#{job.id}</a>
+                </Link>
+              </Box>
             </div>
-            <div>{job.extReference ? job.extReference : "-"}</div>
-            <div>{getDate(job.createdAt)}</div>
+
+            {/* Referencia Externa */}
+            <div>
+              <JobCaption text="Ref. Externa" />
+              <Box sx={{ textAlign: "center" }}>
+                {job.extReference ? job.extReference : "-"}
+              </Box>
+            </div>
+
+            {/* Fecha Creación */}
+            <div>
+              <JobCaption text="Creado" />
+              <Box sx={{ textAlign: "center" }}>{getDate(job.createdAt)}</Box>
+            </div>
           </div>
+
+          <div className="priority">
+            <JobCaption text="Nivel" />
+            <Typography variant="body1" component="span" pl={1}>
+              <strong>{job.priority}</strong>
+            </Typography>
+          </div>
+
           <div className="status">
             <JobCaption text="Estado" />
             <Typography variant="body1" component="span" pl={1}>

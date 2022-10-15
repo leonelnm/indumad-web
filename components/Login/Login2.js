@@ -127,8 +127,8 @@ export const Login2 = () => {
             {...register("password", {
               required: "Contraseña es requerido",
               minLength: {
-                value: 6,
-                message: "Debe tener almenos 6 caracteres",
+                value: 4,
+                message: "Debe tener almenos 4 caracteres",
               },
             })}
           />
