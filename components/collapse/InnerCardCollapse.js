@@ -27,6 +27,7 @@ export const InnerCardCollapse = ({
       component={component}
       variant={variant}
       aria-label={`innercard-${title}`}
+      sx={{ borderRadius: 0 }}
     >
       <CardHeader
         action={
@@ -36,8 +37,8 @@ export const InnerCardCollapse = ({
         }
         title={title}
         titleTypographyProps={{ fontSize: "1em" }}
+        className="inner-card-collapse-header"
         sx={{
-          backgroundColor: "rgba(0, 0, 0, 0.02)",
           p: 1,
           borderBottom:
             border && (open ? "none" : "1px solid rgba(0, 0, 0, 0.12)"),

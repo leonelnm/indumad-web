@@ -42,7 +42,7 @@ export const AddNote = ({ handlerSubmit = async () => {} }) => {
   }
 
   return (
-    <Box component="form" onSubmit={submitClick} p={1}>
+    <Box component="form" onSubmit={submitClick} p={1} mb={3}>
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         <Editor
           setText={onChangeInformation}

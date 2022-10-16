@@ -22,16 +22,20 @@ export const CardCollapse = ({
   }
 
   return (
-    <Card component={component} variant={variant}>
+    <Card component={component} variant={variant} className="card-collapse">
       <CardHeader
         action={
-          <IconButton aria-label="collapse" onClick={collapseHandler}>
+          <IconButton
+            aria-label="collapse"
+            onClick={collapseHandler}
+            sx={{ color: "#fff" }}
+          >
             {open ? <ExpandLess /> : <ExpandMore />}
           </IconButton>
         }
         title={title}
         titleTypographyProps={{ fontSize: "1.1em" }}
-        sx={{ backgroundColor: "rgba(0, 0, 0, 0.1)" }}
+        className="card-collapse-header"
       />
 
       <Collapse in={open} timeout="auto" unmountOnExit>

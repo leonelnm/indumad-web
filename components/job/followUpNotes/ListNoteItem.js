@@ -60,6 +60,7 @@ export const ListNoteItem = ({ note = {} }) => {
           mr={1}
         >
           <Typography
+            ml={1}
             variant="caption"
             sx={{ color: "#0000007a", fontSize: ".725em" }}
           >
@@ -75,7 +76,7 @@ export const ListNoteItem = ({ note = {} }) => {
             {markAsRead ? (
               <DoneAllIcon fontSize="small" />
             ) : (
-              <MarkEmailUnreadIcon fontSize="small" />
+              <MarkEmailUnreadIcon />
             )}
           </IconButton>
         </Stack>
