@@ -5,8 +5,10 @@ import ViewerEditor from "components/editor/ViewerEditor"
 import useOnScreen from "hooks/useOnScreen"
 import { getDate } from "utils/date"
 import { JobCaption } from "./JobCaption"
+import { useAuthContext } from "hooks/context"
 
 export const ListJobItem = ({ job = {} }) => {
+  const { isGestor } = useAuthContext()
   const ref = useRef()
   const refValue = useOnScreen(ref)
   const [isRef, setIsRef] = useState(false)
@@ -91,6 +93,14 @@ export const ListJobItem = ({ job = {} }) => {
             </div>
           </div>
           <div className="buttons">
+            {isGestor && (
+              <Link href={`/admin/job/edit/${job.id}`} passHref>
+                <Button variant="outlined" size="small" component="a">
+                  Editar
+                </Button>
+              </Link>
+            )}
+
             <Link href={`/job/${job.id}`} passHref>
               <Button
                 variant="outlined"
@@ -118,12 +128,12 @@ export const ListJobItem = ({ job = {} }) => {
                 sx={{ display: { xs: "none", sm: "block" } }}
                 component="a"
               >
-                Mostrar Albaran
+                Mostrar Albarán
               </Button>
             </Link>
             <Link href={`/job/${job.id}`} passHref>
               <Button variant="outlined" size="small" component="a">
-                Más Detalles
+                Ver Detalles
               </Button>
             </Link>
           </div>

@@ -164,9 +164,14 @@
 }
 
 .job > .priority,
-.job > .status,
-.job > .buttons {
+.job > .status {
   text-align: center;
+}
+
+.job > .buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
 }
 
 /* Notas de Seguimiento */
