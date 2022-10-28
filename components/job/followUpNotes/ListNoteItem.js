@@ -4,7 +4,7 @@ import DoneAllIcon from "@mui/icons-material/DoneAll"
 import ViewerEditor from "components/editor/ViewerEditor"
 import { useAuthContext } from "hooks/context"
 import { useState } from "react"
-import { getDate, getDateTime, getTime } from "utils/date"
+import { getDateToShow } from "utils/date"
 import { Stack } from "@mui/system"
 import toast from "react-hot-toast"
 import { indumadClient, indumadRoutes } from "api"
@@ -19,13 +19,6 @@ export const ListNoteItem = ({ note = {} }) => {
 
   const { user } = useAuthContext()
   const owner = user.id === note.ownerId
-
-  const getDateToShow = (date) => {
-    if (getDate(new Date()) === getDate(date)) {
-      return getTime(date)
-    }
-    return getDateTime(date)
-  }
 
   const handlerMarkAsRead = async (noteId) => {
     if (markAsRead) {
@@ -66,19 +59,21 @@ export const ListNoteItem = ({ note = {} }) => {
           >
             {getDateToShow(note.createdAt)}
           </Typography>
-          <IconButton
-            aria-label="mark-as-read"
-            onClick={() => handlerMarkAsRead(note.id)}
-            color={markAsRead ? "success" : "secondary"}
-            size="small"
-            sx={{ padding: 0, margin: 0 }}
-          >
-            {markAsRead ? (
-              <DoneAllIcon fontSize="small" />
-            ) : (
-              <MarkEmailUnreadIcon />
-            )}
-          </IconButton>
+          {!owner && (
+            <IconButton
+              aria-label="mark-as-read"
+              onClick={() => handlerMarkAsRead(note.id)}
+              color={markAsRead ? "success" : "secondary"}
+              size="small"
+              sx={{ padding: 0, margin: 0 }}
+            >
+              {markAsRead ? (
+                <DoneAllIcon fontSize="small" />
+              ) : (
+                <MarkEmailUnreadIcon />
+              )}
+            </IconButton>
+          )}
         </Stack>
       </div>
     </Box>

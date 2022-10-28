@@ -22,3 +22,10 @@ export const getTime = (date = undefined) => {
 export const getDateTime = (date = new Date()) => {
   return `${getDate(date)} ${getTime(date)}`
 }
+
+export const getDateToShow = (date) => {
+  if (getDate(new Date()) === getDate(date)) {
+    return getTime(date)
+  }
+  return getDateTime(date)
+}
