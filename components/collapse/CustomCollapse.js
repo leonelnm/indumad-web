@@ -6,7 +6,6 @@ import { useState } from "react"
 export const CustomCollapse = ({ children, title = "Sin Título" }) => {
   const [open, setOpen] = useState(false)
   const collapseHandler = () => {
-    console.log("collapseHandler")
     setOpen(!open)
   }
   return (

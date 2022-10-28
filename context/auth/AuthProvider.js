@@ -20,28 +20,23 @@ export const AuthProvider = ({ children }) => {
       cookiesUtil.getUserCookie() &&
       !localStorageUtil.isUserInLocalStorage(state?.user)
     ) {
-      console.log("STEP- INIT loadLocalStorage ")
       dispatch({
         type: AUTH_STATES.LOGIN,
         payload: localStorageUtil.getItem(
           localStorageUtil.itemsLocalStorage.user
         ),
       })
-      console.log("STEP- END loadLocalStorage ")
     }
   }, [])
 
   useEffect(() => {
-    console.log("STEP- INIT validateTokenHandler ")
     validateTokenHandler()
-    console.log("STEP- END validateTokenHandler ")
   }, [router])
 
   const validateTokenHandler = async () => {
     try {
       const cookie = cookiesUtil.getUserCookie()
       if (router.asPath !== "/login" && !cookie) {
-        console.log("No hay cookie")
         logout()
         return
       }

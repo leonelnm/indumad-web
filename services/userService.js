@@ -29,7 +29,6 @@ export const findAll = async ({ token = "" }) => {
 }
 
 export const findByGuild = async ({ token = "", guild = "" }) => {
-  console.log("STEP: userService.findByGuild")
   const url = `${indumadRoutes.user}/guild/${guild}`
   const { error, data } = await indumadClient({
     url,

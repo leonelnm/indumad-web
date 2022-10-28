@@ -163,7 +163,6 @@ export const EditJobForm = ({ job = {} }) => {
     if (employee !== "") {
       data.employee = employee
     }
-    console.log(data)
     // Update JOB
     try {
       data.guild = guild

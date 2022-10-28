@@ -75,7 +75,6 @@ export const AddEditUser = ({
     const lastItem = [...value].pop()
 
     if (lastItem === "") {
-      console.log("Limpiando")
       setGuildsSelected([])
     } else {
       setGuildsSelected(value === "string" ? value.split(",") : value)
