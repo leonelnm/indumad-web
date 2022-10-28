@@ -4,6 +4,7 @@ import { InnerCardCollapse } from "components/collapse/InnerCardCollapse"
 import ViewerEditor from "components/editor/ViewerEditor"
 import { getDate } from "utils/date"
 import { CaptionData } from "./CaptionData"
+import { ViewerJobEvidences } from "./ViewerJobEvidences"
 import { ViewerJobNotasSeguimiento } from "./ViewerJobNotasSeguimiento"
 
 export const ViewerJob = ({ job = {} }) => {
@@ -48,6 +49,7 @@ export const ViewerJob = ({ job = {} }) => {
         </InnerCardCollapse>
       </CardCollapse>
       <ViewerJobNotasSeguimiento jobId={job.id} />
+      <ViewerJobEvidences jobId={job.id} />
     </Box>
   )
 }

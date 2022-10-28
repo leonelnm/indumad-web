@@ -27,6 +27,11 @@ export const indumadRoutes = {
     basePath: "/followupnotes",
     markAsRead: "/followupnotes/markasread",
   },
+  evidences: {
+    add: "/evidence/upload",
+    delete: "/evidence",
+    findAll: "/evidence",
+  },
 }
 
 export const indumadClient = async ({

@@ -101,4 +101,20 @@ export const messages = {
       error: "No se ha podido leer, intente de nuevo!",
     },
   },
+  evidence: {
+    error_list:
+      "En estos momentos no es posible encontrar EVIDENCIAS, espere unos minutos y vuelva a intentar. Si el error continúa, póngase en contacto con el administrador!",
+    search: "En estos momentos no es posible mostrar las evidencias",
+    created: {
+      sucess: "Evidencias añadidas correctamente",
+      fail: "No se pudo añadir la evidencia, vuelva a intentar",
+      error:
+        "En estos momentos no es posible agregar Evidencias, espere unos minutos y vuelva a intentar",
+    },
+    delete_fail:
+      "En estos momentos no es posible ELIMINAR evidencias, espere unos minutos y vuelva a intentar",
+    empty: "Aún no hay evidencias para este trabajo",
+    full: "Ha alcanzado el número máximo de evidencias permitidas!",
+    max: "Ha superado el máximo de evidencias permitidas",
+  },
 }

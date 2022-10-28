@@ -101,7 +101,7 @@ export const ListJobItem = ({ job = {} }) => {
               </Link>
             )}
 
-            <Link href={`/job/${job.id}`} passHref>
+            <Link href={`/job/notes/${job.id}`} passHref>
               <Button
                 variant="outlined"
                 size="small"
@@ -111,7 +111,7 @@ export const ListJobItem = ({ job = {} }) => {
                 Notas de Seguimiento
               </Button>
             </Link>
-            <Link href={`/job/${job.id}`} passHref>
+            <Link href={`/job/evidences/${job.id}`} passHref>
               <Button
                 variant="outlined"
                 size="small"
