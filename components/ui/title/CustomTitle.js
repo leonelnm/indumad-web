@@ -2,7 +2,7 @@ import { Grid, IconButton } from "@mui/material"
 import ArrowBackIcon from "@mui/icons-material/ArrowBack"
 import { useRouter } from "next/router"
 
-export const CustomTitle = ({ title, icon = null }) => {
+export const CustomTitle = ({ title, icon = null, secondaryTitle = "" }) => {
   const router = useRouter()
   return (
     <Grid
@@ -24,6 +24,12 @@ export const CustomTitle = ({ title, icon = null }) => {
         </Grid>
       )}
       <Grid item>{title}</Grid>
+      {secondaryTitle && (
+        <>
+          <Grid item sx={{ flexGrow: 1 }}></Grid>
+          <Grid item>Secondary{title}</Grid>
+        </>
+      )}
     </Grid>
   )
 }
