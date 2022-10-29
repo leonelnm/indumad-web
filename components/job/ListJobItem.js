@@ -6,6 +6,7 @@ import useOnScreen from "hooks/useOnScreen"
 import { getDate } from "utils/date"
 import { JobCaption } from "./JobCaption"
 import { useAuthContext } from "hooks/context"
+import { messages } from "utils/messages"
 
 export const ListJobItem = ({ job = {} }) => {
   const { isGestor } = useAuthContext()
@@ -24,7 +25,7 @@ export const ListJobItem = ({ job = {} }) => {
           <div className="id-ext-date">
             {/* ID */}
             <div>
-              <JobCaption text="ID" />
+              <JobCaption text={messages.ui.job.id} />
               <Box sx={{ textAlign: "center" }}>
                 <Link href={`/job/${job.id}`}>
                   <a>#{job.id}</a>
@@ -34,7 +35,7 @@ export const ListJobItem = ({ job = {} }) => {
 
             {/* Referencia Externa */}
             <div>
-              <JobCaption text="Ref. Externa" />
+              <JobCaption text={messages.ui.job.externalReference} />
               <Box sx={{ textAlign: "center" }}>
                 {job.extReference ? job.extReference : "-"}
               </Box>
@@ -42,20 +43,20 @@ export const ListJobItem = ({ job = {} }) => {
 
             {/* Fecha Creación */}
             <div>
-              <JobCaption text="Creado" />
+              <JobCaption text={messages.ui.job.createdAt} />
               <Box sx={{ textAlign: "center" }}>{getDate(job.createdAt)}</Box>
             </div>
           </div>
 
           <div className="priority">
-            <JobCaption text="Nivel" />
+            <JobCaption text={messages.ui.job.level} />
             <Typography variant="body1" component="span" pl={1}>
               <strong>{job.priority}</strong>
             </Typography>
           </div>
 
           <div className="status">
-            <JobCaption text="Estado" />
+            <JobCaption text={messages.ui.job.state} />
             <Typography variant="body1" component="span" pl={1}>
               <strong>{job.state}</strong>
             </Typography>
@@ -63,7 +64,7 @@ export const ListJobItem = ({ job = {} }) => {
 
           {job.client && (
             <div className="client">
-              <JobCaption text="Cliente" />
+              <JobCaption text={messages.ui.job.client} />
               <Typography variant="body1" pl={1}>
                 <strong>{job.client.name}</strong>
               </Typography>
@@ -73,7 +74,7 @@ export const ListJobItem = ({ job = {} }) => {
           {job.contact && (
             <div className="contact">
               <div>
-                <JobCaption text="Contacto" />
+                <JobCaption text={messages.ui.job.contact} />
                 <strong>{job.contact.name}</strong>
               </div>
               <div>{job.contact.address}</div>
@@ -82,11 +83,11 @@ export const ListJobItem = ({ job = {} }) => {
           )}
           <div className="info">
             <div>
-              <JobCaption text="Actividad" />
+              <JobCaption text={messages.ui.job.reference} />
               {job.reference.name}
             </div>
             <div>
-              <JobCaption text="Descripción" component="p" />
+              <JobCaption text={messages.ui.job.description} component="p" />
               <div className="simple-editor">
                 <ViewerEditor text={job.incidentInfo} />
               </div>
@@ -96,7 +97,7 @@ export const ListJobItem = ({ job = {} }) => {
             {isGestor && (
               <Link href={`/admin/job/edit/${job.id}`} passHref>
                 <Button variant="outlined" size="small" component="a">
-                  Editar
+                  {messages.ui.job.edit}
                 </Button>
               </Link>
             )}
@@ -108,7 +109,7 @@ export const ListJobItem = ({ job = {} }) => {
                 sx={{ display: { xs: "none", sm: "block" } }}
                 component="a"
               >
-                Notas de Seguimiento
+                {messages.ui.job.followupNote}
               </Button>
             </Link>
             <Link href={`/job/evidences/${job.id}`} passHref>
@@ -118,7 +119,7 @@ export const ListJobItem = ({ job = {} }) => {
                 sx={{ display: { xs: "none", sm: "block" } }}
                 component="a"
               >
-                Añadir Evidencias
+                {messages.ui.job.evidence}
               </Button>
             </Link>
             <Link href={`/job/${job.id}`} passHref>
@@ -128,12 +129,12 @@ export const ListJobItem = ({ job = {} }) => {
                 sx={{ display: { xs: "none", sm: "block" } }}
                 component="a"
               >
-                Mostrar Albarán
+                {messages.ui.job.deliveryNote}
               </Button>
             </Link>
             <Link href={`/job/${job.id}`} passHref>
               <Button variant="outlined" size="small" component="a">
-                Ver Detalles
+                {messages.ui.job.detail}
               </Button>
             </Link>
           </div>

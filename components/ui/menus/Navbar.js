@@ -15,6 +15,7 @@ import { UIContext } from "context"
 import { NavMenu } from "./NavMenu"
 import { userMenu } from "../menus"
 import Link from "next/link"
+import { messages } from "utils/messages"
 
 export const Navbar = () => {
   const { openSideBar } = useContext(UIContext)
@@ -52,7 +53,7 @@ export const Navbar = () => {
               display: { sm: "block", xs: "none" },
             }}
           >
-            Servicios Navalpar S.L.
+            {messages.ui.appName}
           </Typography>
         </Box>
 

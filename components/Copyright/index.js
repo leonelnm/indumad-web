@@ -1,4 +1,5 @@
 import { Typography } from "@mui/material"
+import { messages } from "utils/messages"
 
 export const Copyright = (props) => {
   return (
@@ -10,7 +11,7 @@ export const Copyright = (props) => {
     >
       {"Copyright © "}
       <Typography variant="body2" component={"strong"} sx={{ fontWeight: 900 }}>
-        Servicios Navalpar S.L.
+        {messages.ui.appName}
       </Typography>{" "}
       {new Date().getFullYear()}
     </Typography>

@@ -7,6 +7,7 @@ import { NavList } from "./NavList"
 import { NavLinkList } from "./NavLinkList"
 import { isGestor } from "utils/roles"
 import { AdminMenuSidebar } from "./AdminMenuSidebar"
+import { messages } from "utils/messages"
 
 export const Sidebar = () => {
   const { user } = useAuthContext()
@@ -31,14 +32,14 @@ export const Sidebar = () => {
             variant="h5"
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            Menu
+            {messages.ui.sidebar.menu}
           </Typography>
 
           <Typography
             variant="body"
             sx={{ display: { xs: "block", sm: "none" } }}
           >
-            <strong>Servicios Navalpar S.L.</strong>
+            <strong>{messages.ui.appName}</strong>
           </Typography>
         </Box>
 

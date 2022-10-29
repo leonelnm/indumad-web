@@ -8,10 +8,11 @@ import AddCircleIcon from "@mui/icons-material/AddCircle"
 import { Documentation, ProfileInfo, Security } from "components/user"
 import { CreateUser } from "components/user/CreateUser"
 import { ListUsers } from "components/user/ListUsers"
+import { messages } from "utils/messages"
 
 export const mainMenu = [
   {
-    text: "Trabajos",
+    text: messages.ui.sidebar.job,
     path: "/",
     icon: <EngineeringIcon sx={{ fontSize: "2rem" }} />,
   },
@@ -19,18 +20,34 @@ export const mainMenu = [
 ]
 
 export const adminMenu = [
-  { text: "Crear Trabajo", path: "/admin/job/create", icon: <AddCircleIcon /> },
-  { text: "Gremios", path: "/admin/guilds", icon: <GroupWorkIcon /> },
   {
-    text: "Referencias",
+    text: messages.ui.sidebar.newJob,
+    path: "/admin/job/create",
+    icon: <AddCircleIcon />,
+  },
+  {
+    text: messages.ui.sidebar.guild,
+    path: "/admin/guilds",
+    icon: <GroupWorkIcon />,
+  },
+  {
+    text: messages.ui.sidebar.reference,
     path: "/admin/references",
     icon: <LocalActivityIcon />,
   },
-  { text: "Usuarios", path: "/admin/users", icon: <PeopleIcon /> },
+  {
+    text: messages.ui.sidebar.users,
+    path: "/admin/users",
+    icon: <PeopleIcon />,
+  },
 ]
 
 export const calendarMenu = [
-  { text: "Ver Agenda", path: "/calendar", icon: <CalendarMonthIcon /> },
+  {
+    text: messages.ui.sidebar.calendar,
+    path: "/calendar",
+    icon: <CalendarMonthIcon />,
+  },
 ]
 
 export const userMenu = [{ text: "Ver Perfil", path: "/profile/" }]
