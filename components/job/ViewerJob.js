@@ -3,6 +3,7 @@ import { CardCollapse } from "components/collapse/CardCollapse"
 import { InnerCardCollapse } from "components/collapse/InnerCardCollapse"
 import ViewerEditor from "components/editor/ViewerEditor"
 import { getDate } from "utils/date"
+import { messages } from "utils/messages"
 import { CaptionData } from "./CaptionData"
 import { ViewerJobEvidences } from "./ViewerJobEvidences"
 import { ViewerJobNotasSeguimiento } from "./ViewerJobNotasSeguimiento"
@@ -14,28 +15,40 @@ export const ViewerJob = ({ job = {} }) => {
         {/* Info */}
         <Box p={1}>
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-            <CaptionData title="ID" data={`#${job.id}`} />
-            <CaptionData title="Creado" data={getDate(job.createdAt)} />
+            <CaptionData title={messages.ui.job.id} data={`#${job.id}`} />
+            <CaptionData
+              title={messages.ui.job.createdAt}
+              data={getDate(job.createdAt)}
+            />
           </Box>
-          <CaptionData title="Ref. Externa" data={job.extReference} />
-          <CaptionData title="Nivel" data={job.priority} />
-          <CaptionData title="Estado" data={job.state} />
+          <CaptionData
+            title={messages.ui.job.externalReference}
+            data={job.extReference}
+          />
+          <CaptionData title={messages.ui.job.level} data={job.priority} />
+          <CaptionData title={messages.ui.job.state} data={job.state} />
 
-          <CaptionData title="Gremio" data={job.guild.name} />
-          <CaptionData title="Actividad/Referencia" data={job.reference.name} />
+          <CaptionData title={messages.ui.job.guild} data={job.guild.name} />
+          <CaptionData
+            title={messages.ui.job.reference}
+            data={job.reference.name}
+          />
         </Box>
 
         {/* client */}
-        <InnerCardCollapse title="Cliente">
-          <CaptionData title="Nombre" data={job.client.name} />
-          <CaptionData title="Nif/CIB" data={job.client.nif} />
-          <CaptionData title="Teléfono" data={job.client.phone} />
+        <InnerCardCollapse title={messages.ui.job.client}>
+          <CaptionData title={messages.ui.job.name} data={job.client.name} />
+          <CaptionData title={messages.ui.job.nif} data={job.client.nif} />
+          <CaptionData title={messages.ui.job.phone} data={job.client.phone} />
         </InnerCardCollapse>
         {/* contact */}
-        <InnerCardCollapse title="Contacto">
-          <CaptionData title="Nombre" data={job.contact.name} />
-          <CaptionData title="Dirección" data={job.contact.address} />
-          <CaptionData title="Teléfono" data={job.contact.phone} />
+        <InnerCardCollapse title={messages.ui.job.contact}>
+          <CaptionData title={messages.ui.job.name} data={job.contact.name} />
+          <CaptionData
+            title={messages.ui.job.address}
+            data={job.contact.address}
+          />
+          <CaptionData title={messages.ui.job.phone} data={job.contact.phone} />
         </InnerCardCollapse>
         {/* activity */}
         <InnerCardCollapse
