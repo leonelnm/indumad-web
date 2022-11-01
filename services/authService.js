@@ -54,3 +54,22 @@ export async function validateToken() {
       }
     })
 }
+
+export async function changePassword(userId, data) {
+  indumadApi.defaults.headers.Authorization = `Bearer ${getToken()}`
+
+  return await indumadApi
+    .put(`${indumadRoutes.user}/${userId}/password`, data)
+    .then((res) => {
+      console.log(res)
+      return {
+        ok: true,
+      }
+    })
+    .catch((error) => {
+      return {
+        ok: false,
+        error: error.response.data,
+      }
+    })
+}

@@ -34,6 +34,9 @@ export const messages = {
       reference: "Actividad",
       state: "Estado",
     },
+    profile: {
+      changePassword: "Cambiar Contraseña",
+    },
   },
   user: {
     error_list:
@@ -52,6 +55,10 @@ export const messages = {
     },
     profile_search_error:
       "En estos momentos no se pueden mostrar los datos personales, espere nos minutos y vuela a intentar",
+    password: {
+      success: "Contraseña actualizada correctamente",
+      fail: "No se ha podido actualizar la contraseña, vuelva a intentar",
+    },
   },
   guild: {
     error_list:

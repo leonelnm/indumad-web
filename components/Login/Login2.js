@@ -3,6 +3,8 @@ import {
   Avatar,
   Box,
   Collapse,
+  IconButton,
+  InputAdornment,
   TextField,
   Typography,
 } from "@mui/material"
@@ -15,6 +17,7 @@ import { useState } from "react"
 import { messages } from "utils/messages"
 import { useAuthContext } from "hooks/context"
 import { Copyright } from "components/Copyright"
+import { Visibility, VisibilityOff } from "@mui/icons-material"
 
 export const Login2 = () => {
   const router = useRouter()
@@ -23,6 +26,7 @@ export const Login2 = () => {
   const [error, setError] = useState(false)
   const [msgError, setMsgError] = useState("")
   const [loading, setLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
 
   const destination = router.query.from?.toString() || "/"
 
@@ -118,9 +122,22 @@ export const Login2 = () => {
           <TextField
             margin="normal"
             label="Contraseña"
-            type="password"
+            type={showPassword ? "text" : "password"}
             fullWidth
             required
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={() => setShowPassword(!showPassword)}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
             sx={{ mb: 3 }}
             error={!!errors.password}
             helperText={errors.password?.message}

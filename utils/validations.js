@@ -1,4 +1,4 @@
-import { number, object, string } from "nope-validator"
+import { number, object, ref, string } from "nope-validator"
 import { RoleEnumType, RoleEnumTypeAsSimpleList } from "./roles"
 
 export const schemaCreateUser = object().shape({
@@ -26,6 +26,19 @@ export const schemaCreateUser = object().shape({
       RoleEnumTypeAsSimpleList,
       `Valores permitidos ${RoleEnumTypeAsSimpleList.join(",\n")}`
     ),
+})
+
+export const schemaChangePassword = object().shape({
+  newpassword: string()
+    .required("Nueva contraseña es requerida")
+    .atLeast(6, "Debe tener al menos 6 caracteres")
+    .regex(
+      /^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z[0-9]{6,}$/i,
+      "La contraseña debe llevar al menos una letra y un número"
+    ),
+  confirmpassword: string()
+    .required("Vuelva a insertar la contraseña")
+    .oneOf([ref("newpassword")], "No coinciden las contraseñas"),
 })
 
 export const initialValueToCreateUser = {
