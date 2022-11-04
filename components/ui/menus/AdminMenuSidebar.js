@@ -6,7 +6,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material"
-import SettingsIcon from "@mui/icons-material/Settings"
+import WidgetsIcon from "@mui/icons-material/Widgets"
 import { NavLinkList } from "./NavLinkList"
 import { useUiContext } from "hooks/context"
 import { ExpandLess, ExpandMore } from "@mui/icons-material"
@@ -21,10 +21,10 @@ export const AdminMenuSidebar = () => {
   return (
     <>
       <Divider />
-      <List disablePadding>
+      <List component="section" disablePadding>
         <ListItemButton onClick={handleSideBarAdministration}>
           <ListItemIcon>
-            <SettingsIcon />
+            <WidgetsIcon />
           </ListItemIcon>
           <ListItemText primary="Administración" />
           {openAdministration ? <ExpandLess /> : <ExpandMore />}

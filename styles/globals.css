@@ -10,3 +10,359 @@
   text-decoration: none;
   background-color: rgba(0, 0, 0, 0.04);
 }
+
+.loadingScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 5000;
+}
+
+.loadingScreen > .main {
+  position: fixed;
+  background: transparent;
+  width: 80%;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Editor */
+.editorHeigh > .ql-container.ql-snow {
+  min-height: 10rem;
+  max-height: 10rem;
+  overflow-y: auto;
+  border-radius: 0 0 5px 5px;
+}
+
+.editorHeigh > .ql-toolbar.ql-snow {
+  border-radius: 5px 5px 0 0;
+}
+
+.valitationError {
+  border: 1px solid #d32f2f;
+  border-radius: 5px;
+  animation-name: bounce;
+  animation-duration: 0.3s;
+}
+
+.valitationError > .ql-toolbar.ql-snow {
+  border: 0px;
+  border-bottom: 1px solid #d32f2f;
+}
+
+.valitationError > .ql-container.ql-snow {
+  border: 0px;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateX(0px);
+    timing-function: ease-in;
+  }
+
+  37% {
+    transform: translateX(5px);
+    timing-function: ease-out;
+  }
+
+  55% {
+    transform: translateX(-7px);
+    timing-function: ease-in;
+  }
+
+  73% {
+    transform: translateX(4px);
+    timing-function: ease-out;
+  }
+
+  82% {
+    transform: translateX(-6px);
+    timing-function: ease-in;
+  }
+
+  91% {
+    transform: translateX(2px);
+    timing-function: ease-out;
+  }
+
+  96% {
+    transform: translateX(-2px);
+    timing-function: ease-in;
+  }
+
+  100% {
+    transform: translateX(0px);
+    timing-function: ease-in;
+  }
+}
+
+.simple-editor .ql-editor {
+  padding: 0;
+  max-height: 7rem;
+  overflow-y: auto;
+}
+
+.simple-editor .ql-tooltip {
+  display: none;
+}
+
+/* jobs */
+
+.job {
+  display: grid;
+  grid-template-areas:
+    "id-ext-date id-ext-date"
+    "priority status"
+    "contact contact"
+    "info info"
+    "buttons buttons";
+}
+
+.job > .id-ext-date {
+  grid-area: id-ext-date;
+}
+
+.job > .priority {
+  grid-area: priority;
+}
+
+.job > .status {
+  grid-area: status;
+}
+
+.job > .client {
+  grid-area: client;
+  display: none;
+}
+
+.job > .contact {
+  grid-area: contact;
+}
+
+.job > .buttons {
+  grid-area: buttons;
+}
+
+.job > .info {
+  grid-area: info;
+}
+
+.job > .id-ext-date,
+.job > .priority,
+.job > .status,
+.job > .client,
+.job > .contact,
+.job > .buttons,
+.job > .info {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  font-size: 0.9em;
+}
+
+.job > .id-ext-date {
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.job > .id-ext-date > div {
+  flex: 1;
+  padding: 0.5rem;
+}
+
+.job > .id-ext-date > div:nth-child(2) {
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+}
+
+.job > .priority,
+.job > .status {
+  text-align: center;
+}
+
+.job > .buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* Notas de Seguimiento */
+.followUpNote-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.followUpNote {
+  display: flex;
+}
+
+.followUpNote.right {
+  justify-content: flex-end;
+}
+
+.followUpNote.left {
+  justify-content: flex-start;
+}
+
+.editor-viewer {
+  min-width: 7rem;
+}
+
+.editor-viewer .ql-editor {
+  padding: 0.5rem;
+}
+
+.editor-viewer .ql-tooltip {
+  display: none;
+}
+
+.followUpNote-editor > .ql-container.ql-snow {
+  min-height: 10rem;
+  max-height: 80vh;
+  overflow-y: auto;
+  border-radius: 0 0 5px 5px;
+}
+
+.followUpNote-editor > .ql-toolbar.ql-snow {
+  border-radius: 5px 5px 0 0;
+}
+
+.followUpNote.right .editor-viewer,
+.followUpNote.left .editor-viewer {
+  max-width: 85%;
+  border-radius: 10px;
+}
+
+.followUpNote.left .editor-viewer {
+  background-color: #e6500033;
+}
+
+.followUpNote.right .editor-viewer {
+  background-color: #4051b526;
+}
+
+/* Card Collapse */
+.card-collapse {
+  border: 1px solid #607eaa;
+}
+
+.card-collapse-header {
+  background-color: #607eaa;
+  color: #fff;
+}
+
+.inner-card-collapse-header {
+  background-color: #d0dae9;
+}
+
+/* Evidences */
+.evidences-box-images {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.evidences-box-item-image {
+  position: relative;
+}
+
+.evidences-box-item-image > img {
+  max-width: 300px;
+  min-width: 300px;
+  min-height: 150px;
+  background-color: #ddd;
+  border: 1px solid #ddd;
+  transition: opacity 1s;
+}
+
+.evidences-box-item-image > img.deleted {
+  filter: grayscale(1);
+}
+
+.evidences-box-item-image.loading > img {
+  opacity: 0.2;
+}
+
+.evidences-box-item-image > button {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  backdrop-filter: blur(4px);
+  background-color: rgba(15, 20, 25, 0.5);
+}
+
+.evidences-box-item-image > button:hover {
+  background-color: rgba(39, 44, 48, 0.5);
+}
+
+@media only screen and (min-width: 768px) {
+  .job {
+    grid-template-areas:
+      "id-ext-date priority status client contact buttons"
+      "id-ext-date info info info info buttons"
+      "id-ext-date info info info info buttons";
+    grid-template-columns: auto auto auto 1fr 1fr auto;
+  }
+
+  .job > .id-ext-date {
+    min-width: 7rem;
+    max-width: 7rem;
+    padding: 0;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .job > .id-ext-date > div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0.5rem;
+  }
+
+  .job > .id-ext-date > div:nth-child(2) {
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    border-right: none;
+    border-left: none;
+  }
+
+  .job > .priority {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    padding: 0.5rem 1rem;
+    max-width: 7rem;
+    min-width: 7rem;
+  }
+
+  .job > .status {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    padding: 0.5rem 1rem;
+    max-width: 10rem;
+    min-width: 10rem;
+  }
+
+  .job > .client {
+    display: block;
+  }
+
+  .job > .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+    text-align: center;
+  }
+}

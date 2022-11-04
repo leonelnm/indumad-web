@@ -15,6 +15,7 @@ import { UIContext } from "context"
 import { NavMenu } from "./NavMenu"
 import { userMenu } from "../menus"
 import Link from "next/link"
+import { messages } from "utils/messages"
 
 export const Navbar = () => {
   const { openSideBar } = useContext(UIContext)
@@ -46,7 +47,14 @@ export const Navbar = () => {
           }}
         >
           {/* <ConstructionIcon sx={{ display: { xs: "block" }, mr: 1 }} /> */}
-          <Typography variant="h5">Indumad</Typography>
+          <Typography
+            sx={{
+              typography: { sm: "h5" },
+              display: { sm: "block", xs: "none" },
+            }}
+          >
+            {messages.ui.appName}
+          </Typography>
         </Box>
 
         <Box sx={{ display: { xs: "flex" } }}>

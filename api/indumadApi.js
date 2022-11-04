@@ -1,8 +1,12 @@
 import axios from "axios"
+import { getToken } from "utils/localStorageUtil"
 
 export const indumadApi = axios.create({
   baseURL: process.env.NEXT_PUBLIC_INDUMAD_API,
+  withCredentials: true,
   headers: {
+    // "Access-Control-Allow-Origin": "*",
+    // "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
     Accept: "application/json",
     "Content-Type": "application/json",
   },
@@ -11,9 +15,23 @@ export const indumadApi = axios.create({
 export const indumadRoutes = {
   auth: {
     LOGIN: "/auth/login",
+    LOGOUT: "/auth/logout",
     VALIDA_TOKEN: "/auth/validateToken",
+    VALIDA_COOKIE: "/auth/validatecookie",
   },
   user: "/user",
+  guild: "/guild",
+  reference: "/reference",
+  job: "/job",
+  notes: {
+    basePath: "/followupnotes",
+    markAsRead: "/followupnotes/markasread",
+  },
+  evidences: {
+    add: "/evidence/upload",
+    delete: "/evidence",
+    findAll: "/evidence",
+  },
 }
 
 export const indumadClient = async ({
@@ -24,17 +42,25 @@ export const indumadClient = async ({
   token = "",
 }) => {
   try {
-    indumadApi.defaults.headers.Authorization = `Bearer ${token}`
-    const data = await indumadApi[method](url, body, config)
+    indumadApi.defaults.headers.Authorization = `Bearer ${getToken()}`
+    const { data } = await indumadApi[method](url, body, config)
     return { data }
   } catch (error) {
+    console.log(error)
     if (error.response) {
-      return { error: error.response.data }
+      const err = {
+        data: error.response.data,
+        code: error.code,
+        name: error.name,
+        msg:
+          (error.response.data && error.response.data.msg) ||
+          error.name ||
+          error.message,
+      }
+      return { error: err }
     } else if (error.request) {
       return { error: error.request }
     }
-
-    console.log("error on client", error)
     return { error: error.message }
   }
 }

@@ -1,10 +1,10 @@
 import { useEffect, useReducer } from "react"
-import Cookies from "js-cookie"
 import { useRouter } from "next/router"
 
 import { AuthContext, authReducer, AUTH_STATES } from "."
 import { login, validateToken } from "services"
 import * as cookiesUtil from "utils/cookies"
+import * as localStorageUtil from "utils/localStorageUtil"
 
 const INITIAL_STATE = {
   isLoggedIn: false,
@@ -16,36 +16,41 @@ export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, INITIAL_STATE)
 
   useEffect(() => {
+    if (
+      cookiesUtil.getUserCookie() &&
+      !localStorageUtil.isUserInLocalStorage(state?.user)
+    ) {
+      dispatch({
+        type: AUTH_STATES.LOGIN,
+        payload: localStorageUtil.getItem(
+          localStorageUtil.itemsLocalStorage.user
+        ),
+      })
+    }
+  }, [])
+
+  useEffect(() => {
     validateTokenHandler()
   }, [router])
 
   const validateTokenHandler = async () => {
-    if (!Cookies.get(cookiesUtil.cookieNames.token)) {
-      return
-    }
-
     try {
-      const token = cookiesUtil.getCookie(cookiesUtil.cookieNames.token)
-      if (!token) {
+      const cookie = cookiesUtil.getUserCookie()
+      if (router.asPath !== "/login" && !cookie) {
         logout()
         return
       }
 
-      const { ok, data } = await validateToken({ token })
+      if (router.asPath === "/login") {
+        return
+      }
 
-      if (ok) {
-        const { token, user } = data
-        // Update token if created
-        cookiesUtil.createCookie({
-          key: cookiesUtil.cookieNames.token,
-          value: token,
-        })
-        dispatch({ type: AUTH_STATES.LOGIN, payload: user })
-      } else {
+      // la cookie se crea en el Login
+      const { ok } = await validateToken()
+      if (!ok) {
         logout()
       }
     } catch (error) {
-      console.error("STEP: AuthProvider - validateTokenHandler")
       // TODO add sentry
       logout()
     }
@@ -55,11 +60,16 @@ export const AuthProvider = ({ children }) => {
     try {
       const { ok, status, data } = await login({ username, password })
       if (ok) {
-        const { token, user } = data
+        const { user, token } = data
         cookiesUtil.createCookie({
-          key: cookiesUtil.cookieNames.token,
-          value: token,
+          key: cookiesUtil.cookieNames.user,
+          value: JSON.stringify(user),
         })
+        localStorageUtil.setItem(localStorageUtil.itemsLocalStorage.user, user)
+        localStorageUtil.setItem(
+          localStorageUtil.itemsLocalStorage.token,
+          token
+        )
         dispatch({ type: AUTH_STATES.LOGIN, payload: user })
       }
       return { ok, status, data }
@@ -72,14 +82,11 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
-  const logout = () => {
-    cookiesUtil.deleteCookie(cookiesUtil.cookieNames.token)
-
-    // remove localStorage
-    if (window !== "undefined") {
-      window.localStorage.removeItem("userLogged")
-    }
-
+  const logout = async () => {
+    console.log("STEP - Init Logout")
+    cookiesUtil.deleteCookie(cookiesUtil.cookieNames.user)
+    localStorageUtil.removeItem(localStorageUtil.itemsLocalStorage.user)
+    localStorageUtil.removeItem(localStorageUtil.itemsLocalStorage.token)
     dispatch({ type: AUTH_STATES.LOGOUT })
     router.replace("/login")
   }

@@ -4,7 +4,6 @@ import { Container } from "@mui/system"
 import { indumadRoutes } from "api"
 import { useAxios } from "hooks/useAxios"
 import { DotFlash } from "components/loaders/DotFlash"
-import { cookieNames, getCookie } from "utils/cookies"
 import { messages } from "utils/messages"
 import { DataGrid, esES } from "@mui/x-data-grid"
 import Link from "next/link"
@@ -12,7 +11,6 @@ import Link from "next/link"
 export const ListUsers = () => {
   const { error, isLoading, data } = useAxios({
     url: indumadRoutes.user,
-    token: getCookie(cookieNames.token),
   })
 
   const columns = [

@@ -8,7 +8,7 @@ export const RoleEnumType = {
 
 export const RoleEnumTypeAsSimpleList = Object.values(RoleEnumType)
 
-const authorizedRoles = {
+export const authorizedRoles = {
   administrador: [RoleEnumType.ADMINISTRADOR, RoleEnumType.SUPERADMIN],
   autonomo: [
     RoleEnumType.AUTONOMO,

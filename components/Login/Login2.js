@@ -3,18 +3,21 @@ import {
   Avatar,
   Box,
   Collapse,
+  IconButton,
+  InputAdornment,
   TextField,
   Typography,
 } from "@mui/material"
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
 import { LoadingButton } from "components/ui"
-import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { useRouter } from "next/router"
+import { useState } from "react"
 
 import { messages } from "utils/messages"
 import { useAuthContext } from "hooks/context"
 import { Copyright } from "components/Copyright"
+import { Visibility, VisibilityOff } from "@mui/icons-material"
 
 export const Login2 = () => {
   const router = useRouter()
@@ -23,6 +26,9 @@ export const Login2 = () => {
   const [error, setError] = useState(false)
   const [msgError, setMsgError] = useState("")
   const [loading, setLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
+
+  const destination = router.query.from?.toString() || "/"
 
   const {
     register,
@@ -38,12 +44,13 @@ export const Login2 = () => {
   const onSubmit = async ({ username, password }) => {
     setLoading(true)
     try {
-      const { ok, status } = await loginUser({ username, password })
+      const { ok, status } = await loginUser({
+        username: username.toLowerCase(),
+        password,
+      })
 
       if (ok) {
         setError(false)
-        const destination = router.query.p?.toString() || "/"
-        console.log({ destination })
         router.replace(destination)
       } else {
         setError(true)
@@ -53,7 +60,6 @@ export const Login2 = () => {
         setTimeout(() => setError(false), 5000)
       }
     } catch (error) {
-      console.log("LOGIN Component")
       setError(true)
       setMsgError(messages[500])
     }
@@ -102,6 +108,7 @@ export const Login2 = () => {
             label="Usuario"
             autoComplete="username"
             autoFocus
+            inputProps={{ style: { textTransform: "lowercase" } }}
             error={!!errors.username}
             helperText={errors.username?.message}
             {...register("username", {
@@ -115,17 +122,30 @@ export const Login2 = () => {
           <TextField
             margin="normal"
             label="Contraseña"
-            type="password"
+            type={showPassword ? "text" : "password"}
             fullWidth
             required
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={() => setShowPassword(!showPassword)}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
             sx={{ mb: 3 }}
             error={!!errors.password}
             helperText={errors.password?.message}
             {...register("password", {
               required: "Contraseña es requerido",
               minLength: {
-                value: 6,
-                message: "Debe tener almenos 6 caracteres",
+                value: 4,
+                message: "Debe tener almenos 4 caracteres",
               },
             })}
           />

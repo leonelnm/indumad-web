@@ -1,15 +1,17 @@
+import { Typography } from "@mui/material"
+import { Toaster } from "react-hot-toast"
+
 import { MainLayout } from "components/layouts/MainLayout"
 import { TabsBar } from "components/TabsBar"
 import { userProfileTabMenu } from "components/ui"
-import { useRouter } from "next/router"
 
 export default function ProfilePage() {
-  const { username } = useRouter().query
-
   return (
     <MainLayout>
-      <h1>ProfilePage</h1>
-      <p>Bienvenido : {username}</p>
+      <Toaster position="top-center" reverseOrder={false} />
+      <Typography mb={2} variant="h5">
+        Configuración de Cuenta
+      </Typography>
 
       <TabsBar list={userProfileTabMenu} />
     </MainLayout>

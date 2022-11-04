@@ -1,4 +1,5 @@
 import { indumadApi, indumadRoutes } from "api"
+import { getToken } from "utils/localStorageUtil"
 
 export async function login({ username, password }) {
   return await indumadApi
@@ -16,15 +17,10 @@ export async function login({ username, password }) {
     .catch((error) => {
       let status = error.response.status
       if ([500, 0].includes(status)) {
-        console.log("AuthService - Login, internal error")
         status = 500
         // TODO add sentry
       }
 
-      console.log("AuthService - Login")
-      console.error(error.message)
-
-      console.log("END - AuthService - Login")
       return {
         ok: false,
         status,
@@ -33,33 +29,46 @@ export async function login({ username, password }) {
     })
 }
 
-export async function validateToken({ token = "" }) {
-  indumadApi.defaults.headers.Authorization = `Bearer ${token}`
+export async function validateToken() {
+  indumadApi.defaults.headers.Authorization = `Bearer ${getToken()}`
+
   return await indumadApi
-    .get(indumadRoutes.auth.VALIDA_TOKEN, {
-      withCredentials: true,
-    })
+    .get(indumadRoutes.auth.VALIDA_TOKEN)
     .then((res) => {
       return {
         ok: true,
         status: res.status,
-        data: res.data,
       }
     })
     .catch((error) => {
       let status = error.response.status
       if ([500, 0].includes(status)) {
-        console.log("AuthService - validateToken, internal error")
         status = 500
         // TODO add sentry
       }
 
-      console.log("AuthService - validateToken")
-      console.error(error.message)
-      console.log("END - AuthService - validateToken")
       return {
         ok: false,
         status,
+        error: error.response.data,
+      }
+    })
+}
+
+export async function changePassword(userId, data) {
+  indumadApi.defaults.headers.Authorization = `Bearer ${getToken()}`
+
+  return await indumadApi
+    .put(`${indumadRoutes.user}/${userId}/password`, data)
+    .then((res) => {
+      console.log(res)
+      return {
+        ok: true,
+      }
+    })
+    .catch((error) => {
+      return {
+        ok: false,
         error: error.response.data,
       }
     })

@@ -1,10 +1,20 @@
-import { Button, Grid, MenuItem, TextField } from "@mui/material"
+import {
+  Button,
+  Checkbox,
+  FormControl,
+  Grid,
+  InputLabel,
+  ListItemText,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material"
 import ArrowBackIcon from "@mui/icons-material/ArrowBack"
 import { nopeResolver } from "@hookform/resolvers/nope"
 import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
 import { useState } from "react"
-import Link from "next/link"
+import { useRouter } from "next/router"
 
 // custom
 import { useAuthContext } from "hooks/context"
@@ -12,55 +22,116 @@ import { LoadingButton } from "components/ui"
 import { getRolesManagedByRole } from "utils/roles"
 import { initialValueToCreateUser, schemaCreateUser } from "utils/validations"
 import { indumadClient, indumadRoutes } from "api"
-import { cookieNames, getCookie } from "utils/cookies"
 import { messages } from "utils/messages"
+import { useFetchSwr } from "hooks/useFetchSwr"
+import { DotFlash } from "components/loaders/DotFlash"
 
-export const AddEditUser = () => {
+export const AddEditUser = ({
+  edit = false,
+  user = undefined,
+  isAdmin = false,
+}) => {
   // recuperar usuario autenticado
   const { user: userAuth } = useAuthContext()
+  const router = useRouter()
 
   // recuperar los roles que puede administrar
   const roles = getRolesManagedByRole({ role: userAuth.role })
 
   const [loadingOnSubmit, setLoadingOnSubmit] = useState(false)
+  const [guildsSelected, setGuildsSelected] = useState(() =>
+    edit ? user.guilds.map((g) => g.id) : []
+  )
+  const [guildsSelectedChange, setGuildsSelectedChange] = useState(false)
+
+  // Get guilds
+  const { isLoading: isLoadingGuilds, data: guilds } = useFetchSwr({
+    path: `${indumadRoutes.guild}?status=true`,
+  })
+
+  let initialValues = {}
+  if (edit && user) {
+    initialValues = { ...user }
+  } else {
+    initialValues = { ...initialValueToCreateUser }
+  }
 
   const {
     register,
     handleSubmit,
-    formState: { errors, isDirty, isValid },
+    formState: { errors, isDirty, isValid, dirtyFields, isSubmitSuccessful },
+    reset,
   } = useForm({
-    mode: "onBlur",
-    defaultValues: initialValueToCreateUser,
+    mode: edit ? "onChange" : "onBlur",
+    defaultValues: initialValues,
     resolver: nopeResolver(schemaCreateUser),
   })
 
+  const handleChangeGuild = (e) => {
+    if (edit) {
+      setGuildsSelectedChange(true)
+    }
+    const value = e.target.value
+    const lastItem = [...value].pop()
+
+    if (lastItem === "") {
+      setGuildsSelected([])
+    } else {
+      setGuildsSelected(value === "string" ? value.split(",") : value)
+    }
+  }
+
   const onSubmit = async (data) => {
     setLoadingOnSubmit(true)
-    const dataToSend = {
-      ...data,
-      password: data.username,
+
+    // get only dirty fields
+    const dataChanged = edit
+      ? Object.fromEntries(
+          Object.keys(dirtyFields).map((key) => key && [key, data[key]])
+        )
+      : data
+
+    if (!edit) {
+      dataChanged.password = dataChanged.username
     }
 
-    console.log({ dataToSend })
+    const dataToSend = {
+      ...dataChanged,
+    }
+    if (edit || guildsSelected.length > 0) {
+      dataToSend.guilds = guildsSelected
+    }
 
     try {
+      const method = edit ? "put" : "post"
+      const url = `${indumadRoutes.user}${user ? `/${user.id}` : ""}`
       const { error } = await indumadClient({
-        method: "post",
-        url: `${indumadRoutes.user}`,
-        token: getCookie(cookieNames.token),
+        method,
+        url,
         body: dataToSend,
       })
 
       if (error) {
-        toast.error(`${messages.user.created_fail}.\n${error.error}!`, {
+        const msg = edit
+          ? messages.user.updated.fail
+          : messages.user.created.fail
+        toast.error(`${msg}.\n${error.error}!`, {
           duration: 6000,
         })
       } else {
-        toast.success(messages.user.created_success)
+        toast.success(
+          edit ? messages.user.updated.sucess : messages.user.created.sucess
+        )
+
+        if (!edit) {
+          reset()
+          setGuildsSelected([])
+        }
       }
     } catch (error) {
-      console.log("catch", { error })
-      toast.error(messages.user.created_error)
+      toast.error(
+        edit ? messages.user.updated.error : messages.user.created.error
+      )
     } finally {
       setLoadingOnSubmit(false)
     }
@@ -71,7 +142,7 @@ export const AddEditUser = () => {
     <>
       <Grid
         container
-        spacing={1}
+        spacing={{ xs: 1, md: 3 }}
         component="form"
         onSubmit={handleSubmit(onSubmit)}
         noValidate
@@ -81,30 +152,33 @@ export const AddEditUser = () => {
           <TextField
             name="username"
             label="Usuario"
-            margin="normal"
+            margin="none"
             required
             fullWidth
+            inputProps={{ style: { textTransform: "lowercase" } }}
             error={!!errors.username}
             helperText={errors.username?.message}
             {...register("username")}
           />
         </Grid>
-        <Grid item sm={6} display={{ xs: "none", sm: "block" }}>
-          {/* <TextField
-            select
-            name="active"
-            label="Estado"
-            required
-            fullWidth
-            defaultValue={initialValueToCreateUser.active}
-            margin="normal"
-            error={!!errors.active}
-            helperText={errors.active?.message}
-            {...register("active")}
-          >
-            <MenuItem value={true}>Activo</MenuItem>
-            <MenuItem value={false}>Desactivado</MenuItem>
-          </TextField> */}
+        <Grid item sm={6} xs={12}>
+          {isAdmin && edit && (
+            <TextField
+              select
+              name="active"
+              label="Estado"
+              required
+              fullWidth
+              defaultValue={initialValues.active}
+              margin="none"
+              error={!!errors.active}
+              helperText={errors.active?.message}
+              {...register("active")}
+            >
+              <MenuItem value={true}>Activo</MenuItem>
+              <MenuItem value={false}>Desactivado</MenuItem>
+            </TextField>
+          )}
         </Grid>
         <Grid item sm={6} xs={12}>
           <TextField
@@ -112,7 +186,7 @@ export const AddEditUser = () => {
             label="Nombre"
             required
             fullWidth
-            margin="normal"
+            margin="none"
             error={!!errors.name}
             helperText={errors.name?.message}
             {...register("name")}
@@ -125,7 +199,7 @@ export const AddEditUser = () => {
             label="Apellidos"
             required
             fullWidth
-            margin="normal"
+            margin="none"
             error={!!errors.lastname}
             helperText={errors.lastname?.message}
             {...register("lastname")}
@@ -138,7 +212,8 @@ export const AddEditUser = () => {
             label="DNI"
             required
             fullWidth
-            margin="normal"
+            disabled={!isAdmin}
+            margin="none"
             error={!!errors.dni}
             helperText={errors.dni?.message}
             {...register("dni")}
@@ -151,7 +226,7 @@ export const AddEditUser = () => {
             label="Teléfono"
             required
             fullWidth
-            margin="normal"
+            margin="none"
             error={!!errors.phone}
             helperText={errors.phone?.message}
             {...register("phone")}
@@ -165,8 +240,9 @@ export const AddEditUser = () => {
             label="Rol"
             required
             fullWidth
-            defaultValue={initialValueToCreateUser.role}
-            margin="normal"
+            disabled={!isAdmin}
+            defaultValue={initialValues.role}
+            margin="none"
             error={!!errors.role}
             helperText={errors.role?.message}
             {...register("role")}
@@ -178,35 +254,84 @@ export const AddEditUser = () => {
             ))}
           </TextField>
         </Grid>
-        <Grid item sm={12} xs></Grid>
 
-        <Grid item sm={4} xs={12}>
-          <LoadingButton
-            type="submit"
-            color="success"
-            size="large"
-            fullWidth
-            disabled={!isDirty || !isValid}
-            text="Crear Usuario"
-            loading={loadingOnSubmit}
-          />
+        <Grid item sm={6} xs={12}>
+          <FormControl fullWidth>
+            <InputLabel id="name-multipleselect-guild">Gremio</InputLabel>
+            {isLoadingGuilds ? (
+              <DotFlash />
+            ) : (
+              <Select
+                labelId="name-multipleselect-guild"
+                id="select-multipleselect"
+                multiple
+                value={guildsSelected}
+                label="Gremio"
+                renderValue={(selected) => {
+                  const names = selected.map((slc) =>
+                    guilds.filter((t) => t.id === slc)
+                  )
+                  return names
+                    .flat()
+                    .map((n) => n.name)
+                    .join(", ")
+                }}
+                onChange={handleChangeGuild}
+              >
+                <MenuItem value={""} selected>
+                  <em>Sin Gremio</em>
+                </MenuItem>
+
+                {guilds &&
+                  guilds.map((guild) => (
+                    <MenuItem key={guild.id} value={guild.id}>
+                      <Checkbox
+                        checked={guildsSelected.indexOf(guild.id) > -1}
+                      />
+                      <ListItemText primary={guild.name} />
+                    </MenuItem>
+                  ))}
+              </Select>
+            )}
+          </FormControl>
         </Grid>
 
-        <Grid item xs></Grid>
-
-        <Grid item sm={4} xs={12}>
-          <Link href={"/admin/users"} passHref>
-            <Button
-              variant="outlined"
-              component="a"
-              color="secondary"
-              size="large"
-              fullWidth
-              startIcon={<ArrowBackIcon />}
-            >
-              Cancelar
-            </Button>
-          </Link>
+        <Grid item sm={12} xs={12}>
+          <Grid
+            container
+            component="section"
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="center"
+            spacing={1}
+          >
+            <Grid item xs={7} sm={4} md={3} lg={2}>
+              <LoadingButton
+                type="submit"
+                color="primary"
+                size="medium"
+                fullWidth
+                disabled={
+                  edit
+                    ? !isDirty && !guildsSelectedChange
+                    : !isDirty || !isValid
+                }
+                text={edit ? "Guardar Cambios" : "Crear Usuario"}
+                loading={loadingOnSubmit}
+              />
+            </Grid>
+            <Grid item>
+              <Button
+                variant="outlined"
+                color="inherit"
+                size="medium"
+                startIcon={<ArrowBackIcon />}
+                onClick={() => router.back()}
+              >
+                {isSubmitSuccessful ? "Regresar" : "Cancelar"}
+              </Button>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </>

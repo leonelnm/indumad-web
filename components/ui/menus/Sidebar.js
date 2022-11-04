@@ -7,6 +7,7 @@ import { NavList } from "./NavList"
 import { NavLinkList } from "./NavLinkList"
 import { isGestor } from "utils/roles"
 import { AdminMenuSidebar } from "./AdminMenuSidebar"
+import { messages } from "utils/messages"
 
 export const Sidebar = () => {
   const { user } = useAuthContext()
@@ -22,10 +23,24 @@ export const Sidebar = () => {
             padding: "1rem",
             display: { xs: "flex" },
             alignItems: "center",
+            bgcolor: { xs: "primary.main", sm: "inherit" },
+            color: { xs: "white", sm: "inherit" },
           }}
         >
           <ConstructionIcon sx={{ display: { xs: "block" }, mr: 1 }} />
-          <Typography variant="h5">Menu</Typography>
+          <Typography
+            variant="h5"
+            sx={{ display: { xs: "none", sm: "block" } }}
+          >
+            {messages.ui.sidebar.menu}
+          </Typography>
+
+          <Typography
+            variant="body"
+            sx={{ display: { xs: "block", sm: "none" } }}
+          >
+            <strong>{messages.ui.appName}</strong>
+          </Typography>
         </Box>
 
         <NavList list={mainMenu} />

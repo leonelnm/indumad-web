@@ -49,7 +49,6 @@ export const Login = () => {
         setTimeout(() => setError(false), 5000)
       }
     } catch (error) {
-      console.log("LOGIN Component")
       setError(true)
       setMsgError(messages[500])
     }
