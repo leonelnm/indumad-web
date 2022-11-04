@@ -3,6 +3,8 @@ import {
   Checkbox,
   FormControl,
   Grid,
+  IconButton,
+  InputAdornment,
   InputLabel,
   ListItemText,
   MenuItem,
@@ -25,6 +27,7 @@ import { indumadClient, indumadRoutes } from "api"
 import { messages } from "utils/messages"
 import { useFetchSwr } from "hooks/useFetchSwr"
 import { DotFlash } from "components/loaders/DotFlash"
+import { Visibility, VisibilityOff } from "@mui/icons-material"
 
 export const AddEditUser = ({
   edit = false,
@@ -38,6 +41,7 @@ export const AddEditUser = ({
   // recuperar los roles que puede administrar
   const roles = getRolesManagedByRole({ role: userAuth.role })
 
+  const [showPassword, setShowPassword] = useState(false)
   const [loadingOnSubmit, setLoadingOnSubmit] = useState(false)
   const [guildsSelected, setGuildsSelected] = useState(() =>
     edit ? user.guilds.map((g) => g.id) : []
@@ -90,10 +94,6 @@ export const AddEditUser = ({
           Object.keys(dirtyFields).map((key) => key && [key, data[key]])
         )
       : data
-
-    if (!edit) {
-      dataChanged.password = dataChanged.username
-    }
 
     const dataToSend = {
       ...dataChanged,
@@ -162,6 +162,33 @@ export const AddEditUser = ({
           />
         </Grid>
         <Grid item sm={6} xs={12}>
+          {isAdmin && !edit && (
+            <TextField
+              name="password"
+              label="Contraseña"
+              margin="none"
+              type={showPassword ? "text" : "password"}
+              required
+              fullWidth
+              error={!!errors.password}
+              helperText={errors.password?.message}
+              {...register("password")}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={() => setShowPassword(!showPassword)}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          )}
+
           {isAdmin && edit && (
             <TextField
               select
