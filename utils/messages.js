@@ -1,7 +1,7 @@
 export const messages = {
   500: "Error inesperado, por favor espere unos minutos y vuelva a intentar. Si el error continúa, póngase en contacto con el administrador!",
   ui: {
-    appName: "Servicios Navalpar S.L.",
+    appName: "Indumad",
     sidebar: {
       menu: "Menu",
       job: "Trabajos",
@@ -18,7 +18,7 @@ export const messages = {
       client: "Cliente",
       contact: "Contacto",
       createdAt: "Abierto",
-      deliveryNote: "Mostrar Albarán",
+      showDeliveryNote: "Mostrar Albarán",
       description: "Descripción",
       detail: "Ver Detalles",
       edit: "Editar",
@@ -33,7 +33,9 @@ export const messages = {
       phone: "Teléfono",
       reference: "Actividad",
       state: "Estado",
+      deliveryNote: "Albarán",
     },
+    pdf: { deliveryNote: "Albarán de Trabajo" },
     profile: {
       changePassword: "Cambiar Contraseña",
     },
@@ -158,5 +160,11 @@ export const messages = {
     empty: "Aún no hay evidencias para este trabajo",
     full: "Ha alcanzado el número máximo de evidencias permitidas!",
     max: "Ha superado el máximo de evidencias permitidas",
+  },
+  deliverynote: {
+    error:
+      "En estos momentos no se puede mostrar el albarán solicitado, vuelva a intentar en unos minutos",
+    notFound:
+      "Albarán no encontrado o no está autorizado para ver esta información",
   },
 }
