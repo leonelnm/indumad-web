@@ -100,10 +100,10 @@ export const initialValueToCreateJob = {
 export const getInitialValueToCreateJob = (job) => {
   return {
     extReference: job.extReference ? job.extReference : "",
-    priority: job.priority ? job.priority : PriorityType.NORMAL,
+    priority: job.priority,
     iva: job.iva ? job.iva : 21,
     client: {
-      nif: job.client ? job.client.nif : "",
+      nif: job.client && job.client.nif ? job.client.nif : "",
       name: job.client ? job.client.name : "",
       phone: job.client ? job.client.phone : "",
     },

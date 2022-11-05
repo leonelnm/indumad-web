@@ -1,4 +1,5 @@
 import axios from "axios"
+import { getCustomErrorMessage } from "utils/errorMessages"
 import { getToken } from "utils/localStorageUtil"
 
 export const indumadApi = axios.create({
@@ -22,7 +23,10 @@ export const indumadRoutes = {
   user: "/user",
   guild: "/guild",
   reference: "/reference",
-  job: "/job",
+  job: {
+    path: "/job",
+    deliveryNote: "/job/deliverynote",
+  },
   notes: {
     basePath: "/followupnotes",
     markAsRead: "/followupnotes/markasread",
@@ -48,7 +52,7 @@ export const indumadClient = async ({
   } catch (error) {
     console.log(error)
     if (error.response) {
-      const err = {
+      let err = {
         data: error.response.data,
         code: error.code,
         name: error.name,
@@ -57,6 +61,11 @@ export const indumadClient = async ({
           error.name ||
           error.message,
       }
+
+      if (error.response.data && error.response.data.msg) {
+        err = getCustomErrorMessage(error.response.data.msg)
+      }
+
       return { error: err }
     } else if (error.request) {
       return { error: error.request }

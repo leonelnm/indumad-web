@@ -27,7 +27,7 @@ export default function editJobPage() {
   useEffect(() => {
     if (id) {
       indumadClient({
-        url: `${indumadRoutes.job}/${id}`,
+        url: `${indumadRoutes.job.path}/${id}`,
       })
         .then(({ data }) => {
           setJob(data)

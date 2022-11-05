@@ -22,7 +22,11 @@ import { useRouter } from "next/router"
 import { useAuthContext } from "hooks/context"
 import { LoadingButton } from "components/ui"
 import { getRolesManagedByRole } from "utils/roles"
-import { initialValueToCreateUser, schemaCreateUser } from "utils/validations"
+import {
+  initialValueToCreateUser,
+  schemaCreateUser,
+  schemaEditUser,
+} from "utils/validations"
 import { indumadClient, indumadRoutes } from "api"
 import { messages } from "utils/messages"
 import { useFetchSwr } from "hooks/useFetchSwr"
@@ -68,7 +72,7 @@ export const AddEditUser = ({
   } = useForm({
     mode: edit ? "onChange" : "onBlur",
     defaultValues: initialValues,
-    resolver: nopeResolver(schemaCreateUser),
+    resolver: nopeResolver(edit ? schemaEditUser : schemaCreateUser),
   })
 
   const handleChangeGuild = (e) => {
@@ -105,6 +109,7 @@ export const AddEditUser = ({
     try {
       const method = edit ? "put" : "post"
       const url = `${indumadRoutes.user}${user ? `/${user.id}` : ""}`
+
       const { error } = await indumadClient({
         method,
         url,
@@ -112,12 +117,13 @@ export const AddEditUser = ({
       })
 
       if (error) {
-        const msg = edit
-          ? messages.user.updated.fail
-          : messages.user.created.fail
-        toast.error(`${msg}.\n${error.error}!`, {
-          duration: 6000,
-        })
+        const msg = error.translate
+          ? error.translate
+          : edit
+          ? `${messages.user.updated.fail}.\n${error.error}!`
+          : `${messages.user.created.fail}.\n${error.error}!`
+
+        toast.error(msg, { duration: 6000 })
       } else {
         toast.success(
           edit ? messages.user.updated.sucess : messages.user.created.sucess

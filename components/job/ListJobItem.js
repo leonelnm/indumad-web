@@ -50,35 +50,51 @@ export const ListJobItem = ({ job = {} }) => {
 
           <div className="priority">
             <JobCaption text={messages.ui.job.level} />
-            <Typography variant="body1" component="span" pl={1}>
+            <Typography variant="body1" component="span" pl={{ sm: 1 }}>
               <strong>{job.priority}</strong>
             </Typography>
           </div>
 
           <div className="status">
             <JobCaption text={messages.ui.job.state} />
-            <Typography variant="body1" component="span" pl={1}>
+            <Typography variant="body1" component="span" pl={{ sm: 1 }}>
               <strong>{job.state}</strong>
             </Typography>
           </div>
+          {isGestor && (
+            <div className="worker">
+              <JobCaption text={messages.ui.job.worker} />
+              <Typography variant="body1" component="span" pl={{ sm: 1 }}>
+                {job.employee
+                  ? `${job.employee.name} ${job.employee.lastname}`
+                  : messages.ui.job.workerEmpty}
+              </Typography>
+            </div>
+          )}
 
           {job.client && (
             <div className="client">
               <JobCaption text={messages.ui.job.client} />
-              <Typography variant="body1" pl={1}>
-                <strong>{job.client.name}</strong>
+              <Typography variant="body2" pl={{ sm: 1 }}>
+                {job.client.name}
               </Typography>
             </div>
           )}
 
           {job.contact && (
             <div className="contact">
-              <div>
+              <div className="info-box">
                 <JobCaption text={messages.ui.job.contact} />
                 <strong>{job.contact.name}</strong>
               </div>
-              <div>{job.contact.address}</div>
-              <div>{job.contact.phone}</div>
+              <div className="info-box">
+                <JobCaption text={messages.ui.job.address} />
+                {job.contact.address}
+              </div>
+              <div className="info-box">
+                <JobCaption text={messages.ui.job.phone} />
+                {job.contact.phone}
+              </div>
             </div>
           )}
           <div className="info">
@@ -122,14 +138,20 @@ export const ListJobItem = ({ job = {} }) => {
                 {messages.ui.job.evidence}
               </Button>
             </Link>
-            <Link href={`/job/${job.id}`} passHref>
+            <Link
+              href={{
+                pathname: "/deliverynote/",
+                query: { jobId: job.id },
+              }}
+              passHref
+            >
               <Button
                 variant="outlined"
                 size="small"
                 sx={{ display: { xs: "none", sm: "block" } }}
                 component="a"
               >
-                {messages.ui.job.deliveryNote}
+                {messages.ui.job.showDeliveryNote}
               </Button>
             </Link>
             <Link href={`/job/${job.id}`} passHref>

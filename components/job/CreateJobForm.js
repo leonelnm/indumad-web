@@ -145,7 +145,7 @@ export const CreateJobForm = () => {
 
       const { error, data: jobCreated } = await indumadClient({
         method: "post",
-        url: indumadRoutes.job,
+        url: indumadRoutes.job.path,
         body: data,
       })
 

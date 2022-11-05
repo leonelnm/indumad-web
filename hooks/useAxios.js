@@ -1,5 +1,6 @@
 import { indumadApi } from "api"
 import { useEffect, useState } from "react"
+import { getCustomErrorMessage } from "utils/errorMessages"
 import { getToken } from "utils/localStorageUtil"
 
 export const useAxios = ({
@@ -21,7 +22,7 @@ export const useAxios = ({
         setData(res.data)
       })
       .catch((error) => {
-        setError(error.message)
+        setError(getErrorMessage(error))
       })
       .finally(() => {
         setIsLoading(false)
@@ -36,4 +37,13 @@ export const useAxios = ({
     isLoading,
     setIsLoading,
   }
+}
+
+const getErrorMessage = (error) => {
+  const customError = { msg: error.message }
+  if (error.response && error.response.data && error.response.data.msg) {
+    return getCustomErrorMessage(error.response.data.msg)
+  }
+
+  return customError
 }
