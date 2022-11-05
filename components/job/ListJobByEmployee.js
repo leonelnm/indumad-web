@@ -19,7 +19,7 @@ export const ListJobByEmployee = () => {
     isLoading,
     data: jobs,
   } = useAxios({
-    url: indumadRoutes.job,
+    url: indumadRoutes.job.path,
   })
 
   useEffect(() => {

@@ -45,7 +45,7 @@ export default function UserDetailPage() {
                 )}
                 {!isLoading && !error && (
                   <AddEditUser
-                    edit="true"
+                    edit={true}
                     user={data}
                     isAdmin={isGestor({ role: user.role })}
                   />

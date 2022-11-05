@@ -34,6 +34,8 @@ export const messages = {
       reference: "Actividad",
       state: "Estado",
       deliveryNote: "Albarán",
+      worker: "Profesional",
+      workerEmpty: "Sin Asignar",
     },
     pdf: { deliveryNote: "Albarán de Trabajo" },
     profile: {

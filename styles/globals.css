@@ -115,6 +115,7 @@
 
 .job {
   display: grid;
+  grid-template-columns: 0.8fr 1fr;
   grid-template-areas:
     "id-ext-date id-ext-date"
     "priority status"
@@ -131,6 +132,11 @@
   grid-area: priority;
 }
 
+.job > .worker {
+  grid-area: worker;
+  display: none;
+}
+
 .job > .status {
   grid-area: status;
 }
@@ -144,6 +150,11 @@
   grid-area: contact;
 }
 
+.job > .contact > .info-box {
+  display: flex;
+  gap: 0.2rem;
+}
+
 .job > .buttons {
   grid-area: buttons;
 }
@@ -155,6 +166,7 @@
 .job > .id-ext-date,
 .job > .priority,
 .job > .status,
+.job > .worker,
 .job > .client,
 .job > .contact,
 .job > .buttons,
@@ -307,7 +319,8 @@
 @media only screen and (min-width: 768px) {
   .job {
     grid-template-areas:
-      "id-ext-date priority status client contact buttons"
+      "id-ext-date priority priority status worker buttons"
+      "id-ext-date client client contact contact buttons"
       "id-ext-date info info info info buttons"
       "id-ext-date info info info info buttons";
     grid-template-columns: auto auto auto 1fr 1fr auto;
@@ -336,26 +349,26 @@
     border-left: none;
   }
 
-  .job > .priority {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    padding: 0.5rem 1rem;
-    max-width: 7rem;
-    min-width: 7rem;
-  }
-
+  .job > .worker,
+  .job > .priority,
   .job > .status {
     display: flex;
     flex-direction: column;
     text-align: left;
     padding: 0.5rem 1rem;
-    max-width: 10rem;
+  }
+
+  .job > .priority {
+    min-width: 7rem;
+  }
+
+  .job > .status {
     min-width: 10rem;
   }
 
   .job > .client {
     display: block;
+    max-width: 10rem;
   }
 
   .job > .buttons {

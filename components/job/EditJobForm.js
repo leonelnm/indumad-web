@@ -104,6 +104,17 @@ export const EditJobForm = ({ job = {} }) => {
     setChanges(true)
   }
 
+  const handleSelectEmployee = async (event) => {
+    const value = event.target.value
+    if (job?.employee?.id === value) {
+      setChanges(false)
+    } else {
+      setChanges(true)
+    }
+
+    setEmployee(value)
+  }
+
   const handleSelectGuild = async (event) => {
     const value = event.target.value
     setGuild(value)
@@ -170,7 +181,7 @@ export const EditJobForm = ({ job = {} }) => {
       data.incidentInfo = incidentInfo
       const { error } = await indumadClient({
         method: "put",
-        url: `${indumadRoutes.job}/${job.id}`,
+        url: `${indumadRoutes.job.path}/${job.id}`,
         body: data,
       })
 
@@ -332,7 +343,7 @@ export const EditJobForm = ({ job = {} }) => {
                           id="select-employee"
                           value={employee}
                           label="Asignar a"
-                          onChange={(e) => setEmployee(e.target.value)}
+                          onChange={handleSelectEmployee}
                         >
                           <MenuItem value={""} selected>
                             <em>Sin Asignar</em>
