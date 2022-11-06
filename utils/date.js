@@ -5,6 +5,9 @@ export const getDate = (date = undefined) => {
   return date
     ? new Date(date).toLocaleDateString("es-ES", {
         timeZone: getCurrentTimeZone(),
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
       })
     : ""
 }

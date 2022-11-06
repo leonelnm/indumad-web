@@ -1,7 +1,9 @@
-import { Box } from "@mui/material"
+import { Box, Stack } from "@mui/material"
 import { CardCollapse } from "components/collapse/CardCollapse"
 import { InnerCardCollapse } from "components/collapse/InnerCardCollapse"
 import ViewerEditor from "components/editor/ViewerEditor"
+import { DeliveryNotePdf } from "components/pdf/DeliveryNotePdf"
+import { LazyDownloadPdfButton } from "components/pdf/LazyDownloadPdfButton"
 import { getDate } from "utils/date"
 import { messages } from "utils/messages"
 import { CaptionData } from "./CaptionData"
@@ -14,6 +16,18 @@ export const ViewerJob = ({ job = {} }) => {
       <CardCollapse title="Información General" variant="outlined">
         {/* Info */}
         <Box p={1}>
+          <Stack alignItems="flex-end">
+            <LazyDownloadPdfButton
+              filename={`${messages.ui.pdf.deliveryNoteNamePdf}${job.id}`}
+              text={messages.ui.job.showDeliveryNote}
+              loadingText={messages.ui.job.loadingDeliveryNote}
+              hasDeliveryNote={job.hasDeliveryNote}
+              color="secondary"
+            >
+              <DeliveryNotePdf job={job} />
+            </LazyDownloadPdfButton>
+          </Stack>
+
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
             <CaptionData title={messages.ui.job.id} data={`#${job.id}`} />
             <CaptionData
@@ -54,7 +68,7 @@ export const ViewerJob = ({ job = {} }) => {
         <InnerCardCollapse
           title="Descripción"
           border={false}
-          openOnStart={true}
+          openOnStart={false}
         >
           <div className="simple-editor">
             <ViewerEditor text={job.incidentInfo} />
