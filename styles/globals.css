@@ -103,7 +103,7 @@
 
 .simple-editor .ql-editor {
   padding: 0;
-  max-height: 7rem;
+  max-height: 10rem;
   overflow-y: auto;
 }
 
@@ -377,5 +377,6 @@
     gap: 1rem;
     justify-content: center;
     text-align: center;
+    padding-right: 0.8rem;
   }
 }
