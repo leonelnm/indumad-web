@@ -59,21 +59,20 @@ export const ListNoteItem = ({ note = {} }) => {
           >
             {getDateToShow(note.createdAt)}
           </Typography>
-          {!owner && (
-            <IconButton
-              aria-label="mark-as-read"
-              onClick={() => handlerMarkAsRead(note.id)}
-              color={markAsRead ? "success" : "secondary"}
-              size="small"
-              sx={{ padding: 0, margin: 0 }}
-            >
-              {markAsRead ? (
-                <DoneAllIcon fontSize="small" />
-              ) : (
+          {!owner &&
+            (markAsRead ? (
+              <DoneAllIcon color="success" fontSize="small" />
+            ) : (
+              <IconButton
+                aria-label="mark-as-read"
+                onClick={() => handlerMarkAsRead(note.id)}
+                color="secondary"
+                size="small"
+                sx={{ padding: 0, margin: 0 }}
+              >
                 <MarkEmailUnreadIcon />
-              )}
-            </IconButton>
-          )}
+              </IconButton>
+            ))}
         </Stack>
       </div>
     </Box>
