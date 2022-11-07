@@ -6,6 +6,8 @@ import {
   Skeleton,
   Stack,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material"
 import Link from "next/link"
 import { useEffect, useRef, useState } from "react"
@@ -23,6 +25,9 @@ export const ListJobItem = ({ job = {} }) => {
   const ref = useRef()
   const refValue = useOnScreen(ref)
   const [isRef, setIsRef] = useState(false)
+
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"))
 
   useEffect(() => {
     if (!isRef) setIsRef(refValue)
@@ -168,9 +173,9 @@ export const ListJobItem = ({ job = {} }) => {
               <Badge
                 color="secondary"
                 badgeContent={job.unreadMessages}
-                sx={{ display: { xs: "block", sm: "none" } }}
+                invisible={!isMobile}
               >
-                <Button variant="outlined" size="small" component="a">
+                <Button variant="outlined" size="small" component="a" fullWidth>
                   {messages.ui.job.detail}
                 </Button>
               </Badge>
