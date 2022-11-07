@@ -1,9 +1,10 @@
-import { Alert, AlertTitle, Container, Divider } from "@mui/material"
+import { Alert, AlertTitle, Container, Divider, Stack } from "@mui/material"
 import { indumadClient, indumadRoutes } from "api"
 import { ViewerJob } from "components/job/ViewerJob"
 import { MainLayout } from "components/layouts"
 import { DotFlash } from "components/loaders/DotFlash"
 import { CustomTitle } from "components/ui"
+import { AlertClose } from "components/ui/alert/AlertClose"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import toast, { Toaster, useToaster } from "react-hot-toast"
@@ -52,6 +53,18 @@ export default function JobDetailPage() {
 
       {job && (
         <Container disableGutters maxWidth="md">
+          <Stack mt={1} spacing={1} aria-label="alerts-box">
+            {job.unreadMessages > 0 && (
+              <AlertClose
+                severity="warning"
+                // title={messages.ui.job.followupNote}
+                text={messages.deliverynote.unreadMessages.replace(
+                  "XX",
+                  job.unreadMessages
+                )}
+              />
+            )}
+          </Stack>
           <Toaster position="top-center" reverseOrder={false} />
           <ViewerJob job={job} />
         </Container>

@@ -18,7 +18,8 @@ export const messages = {
       client: "Cliente",
       contact: "Contacto",
       createdAt: "Abierto",
-      showDeliveryNote: "Mostrar Albarán",
+      showDeliveryNote: "Descargar Albarán",
+      loadingDeliveryNote: "Generando Albarán",
       description: "Descripción",
       detail: "Ver Detalles",
       edit: "Editar",
@@ -37,7 +38,12 @@ export const messages = {
       worker: "Profesional",
       workerEmpty: "Sin Asignar",
     },
-    pdf: { deliveryNote: "Albarán de Trabajo" },
+    pdf: {
+      deliveryNote: "Albarán de Trabajo",
+      deliveryNoteNamePdf: "Albaran-trabajo-",
+      sign: "Firma cliente:",
+      service: "Servicio",
+    },
     profile: {
       changePassword: "Cambiar Contraseña",
     },
@@ -143,7 +149,7 @@ export const messages = {
     },
     empty: "Aún no hay notas de seguimiento",
     read: {
-      success: "Nota marcada como leída",
+      success: "Nota de Seguimiento leída",
       error: "No se ha podido leer, intente de nuevo!",
     },
   },
@@ -168,5 +174,8 @@ export const messages = {
       "En estos momentos no se puede mostrar el albarán solicitado, vuelva a intentar en unos minutos",
     notFound:
       "Albarán no encontrado o no está autorizado para ver esta información",
+    dontHasDeliveryNote:
+      "Este trabajo está pendiente de asignación por lo que no es posible generar un Albarán",
+    unreadMessages: "Tiene XX notas de seguimiento por leer",
   },
 }

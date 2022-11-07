@@ -1,4 +1,14 @@
-import { Box, Button, Paper, Skeleton, Stack, Typography } from "@mui/material"
+import {
+  Badge,
+  Box,
+  Button,
+  Paper,
+  Skeleton,
+  Stack,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material"
 import Link from "next/link"
 import { useEffect, useRef, useState } from "react"
 import ViewerEditor from "components/editor/ViewerEditor"
@@ -7,12 +17,17 @@ import { getDate } from "utils/date"
 import { JobCaption } from "./JobCaption"
 import { useAuthContext } from "hooks/context"
 import { messages } from "utils/messages"
+import { LazyDownloadPdfButton } from "components/pdf/LazyDownloadPdfButton"
+import { DeliveryNotePdf } from "components/pdf/DeliveryNotePdf"
 
 export const ListJobItem = ({ job = {} }) => {
   const { isGestor } = useAuthContext()
   const ref = useRef()
   const refValue = useOnScreen(ref)
   const [isRef, setIsRef] = useState(false)
+
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"))
 
   useEffect(() => {
     if (!isRef) setIsRef(refValue)
@@ -100,7 +115,7 @@ export const ListJobItem = ({ job = {} }) => {
           <div className="info">
             <div>
               <JobCaption text={messages.ui.job.reference} />
-              {job.reference.name}
+              {`${job.reference.name} - ${job.guild.name}`}
             </div>
             <div>
               <JobCaption text={messages.ui.job.description} component="p" />
@@ -117,16 +132,22 @@ export const ListJobItem = ({ job = {} }) => {
                 </Button>
               </Link>
             )}
-
             <Link href={`/job/notes/${job.id}`} passHref>
-              <Button
-                variant="outlined"
-                size="small"
+              <Badge
+                color="secondary"
+                badgeContent={job.unreadMessages}
                 sx={{ display: { xs: "none", sm: "block" } }}
-                component="a"
               >
-                {messages.ui.job.followupNote}
-              </Button>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  fullWidth
+                  sx={{ display: { xs: "none", sm: "block" } }}
+                  component="a"
+                >
+                  {messages.ui.job.followupNote}
+                </Button>
+              </Badge>
             </Link>
             <Link href={`/job/evidences/${job.id}`} passHref>
               <Button
@@ -138,26 +159,26 @@ export const ListJobItem = ({ job = {} }) => {
                 {messages.ui.job.evidence}
               </Button>
             </Link>
-            <Link
-              href={{
-                pathname: "/deliverynote/",
-                query: { jobId: job.id },
-              }}
-              passHref
+
+            <LazyDownloadPdfButton
+              filename={`${messages.ui.pdf.deliveryNoteNamePdf}${job.id}`}
+              text={messages.ui.job.showDeliveryNote}
+              loadingText={messages.ui.job.loadingDeliveryNote}
+              hasDeliveryNote={job.hasDeliveryNote}
             >
-              <Button
-                variant="outlined"
-                size="small"
-                sx={{ display: { xs: "none", sm: "block" } }}
-                component="a"
-              >
-                {messages.ui.job.showDeliveryNote}
-              </Button>
-            </Link>
+              <DeliveryNotePdf job={job} />
+            </LazyDownloadPdfButton>
+
             <Link href={`/job/${job.id}`} passHref>
-              <Button variant="outlined" size="small" component="a">
-                {messages.ui.job.detail}
-              </Button>
+              <Badge
+                color="secondary"
+                badgeContent={job.unreadMessages}
+                invisible={!isMobile}
+              >
+                <Button variant="outlined" size="small" component="a" fullWidth>
+                  {messages.ui.job.detail}
+                </Button>
+              </Badge>
             </Link>
           </div>
         </Paper>
