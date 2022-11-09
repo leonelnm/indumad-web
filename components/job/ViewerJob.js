@@ -9,25 +9,28 @@ import { messages } from "utils/messages"
 import { CaptionData } from "./CaptionData"
 import { ViewerJobEvidences } from "./ViewerJobEvidences"
 import { ViewerJobNotasSeguimiento } from "./ViewerJobNotasSeguimiento"
+import { ScheduleButton } from "components/calendar/ScheduleButton"
 
 export const ViewerJob = ({ job = {} }) => {
   return (
-    <Box pt={1} sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+    <Stack pt={1} spacing={2}>
+      <Stack flexDirection="row" justifyContent="space-between">
+        <LazyDownloadPdfButton
+          filename={`${messages.ui.pdf.deliveryNoteNamePdf}${job.id}`}
+          text={messages.ui.job.showDeliveryNote}
+          loadingText={messages.ui.job.loadingDeliveryNote}
+          hasDeliveryNote={job.hasDeliveryNote}
+          color="secondary"
+        >
+          <DeliveryNotePdf job={job} />
+        </LazyDownloadPdfButton>
+
+        <ScheduleButton job={job.id} sx={{}} color="secondary" />
+      </Stack>
+
       <CardCollapse title="Información General" variant="outlined">
         {/* Info */}
         <Box p={1}>
-          <Stack alignItems="flex-end">
-            <LazyDownloadPdfButton
-              filename={`${messages.ui.pdf.deliveryNoteNamePdf}${job.id}`}
-              text={messages.ui.job.showDeliveryNote}
-              loadingText={messages.ui.job.loadingDeliveryNote}
-              hasDeliveryNote={job.hasDeliveryNote}
-              color="secondary"
-            >
-              <DeliveryNotePdf job={job} />
-            </LazyDownloadPdfButton>
-          </Stack>
-
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
             <CaptionData title={messages.ui.job.id} data={`#${job.id}`} />
             <CaptionData
@@ -77,6 +80,6 @@ export const ViewerJob = ({ job = {} }) => {
       </CardCollapse>
       <ViewerJobNotasSeguimiento jobId={job.id} />
       <ViewerJobEvidences jobId={job.id} />
-    </Box>
+    </Stack>
   )
 }
