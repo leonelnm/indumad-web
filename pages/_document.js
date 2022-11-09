@@ -13,6 +13,7 @@ export default function Document() {
       <body>
         <Main />
         <div id="loadingScreen" />
+        <div id="modal-indumad" />
         <NextScript />
       </body>
     </Html>

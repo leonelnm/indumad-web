@@ -37,6 +37,7 @@ export const messages = {
       deliveryNote: "Albarán",
       worker: "Profesional",
       workerEmpty: "Sin Asignar",
+      job: "Trabajo",
     },
     pdf: {
       deliveryNote: "Albarán de Trabajo",
@@ -46,6 +47,10 @@ export const messages = {
     },
     profile: {
       changePassword: "Cambiar Contraseña",
+    },
+    schedule: {
+      visit: "Visita",
+      visitJob: "Visita Servicio ",
     },
   },
   user: {
@@ -177,5 +182,10 @@ export const messages = {
     dontHasDeliveryNote:
       "Este trabajo está pendiente de asignación por lo que no es posible generar un Albarán",
     unreadMessages: "Tiene XX notas de seguimiento por leer",
+  },
+  schedule: {
+    beforeError: "La fecha seleccionada es anterior al día de hoy",
+    success: "Se ha guardado la cita correctamente",
+    error: "No se ha podido guardar la cita, vuelva a intentar",
   },
 }

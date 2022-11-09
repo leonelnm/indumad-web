@@ -19,6 +19,7 @@ import { useAuthContext } from "hooks/context"
 import { messages } from "utils/messages"
 import { LazyDownloadPdfButton } from "components/pdf/LazyDownloadPdfButton"
 import { DeliveryNotePdf } from "components/pdf/DeliveryNotePdf"
+import { ScheduleButton } from "components/calendar/ScheduleButton"
 
 export const ListJobItem = ({ job = {} }) => {
   const { isGestor } = useAuthContext()
@@ -132,6 +133,9 @@ export const ListJobItem = ({ job = {} }) => {
                 </Button>
               </Link>
             )}
+
+            <ScheduleButton job={job.id} />
+
             <Link href={`/job/notes/${job.id}`} passHref>
               <Badge
                 color="secondary"

@@ -1,4 +1,6 @@
 import "../styles/globals.css"
+import "@fullcalendar/common/main.css"
+import "@fullcalendar/daygrid/main.css"
 
 import { CssBaseline, ThemeProvider } from "@mui/material"
 import { SWRConfig } from "swr"
@@ -42,6 +44,7 @@ const Noop = ({ children }) => <>{children}</>
 
 function MyApp({ Component, pageProps }) {
   const Auth = Component.Auth === false ? Noop : WithPrivateRoute
+  const ComponentProvider = Component.provider || Noop
 
   return (
     <>
@@ -59,7 +62,9 @@ function MyApp({ Component, pageProps }) {
             <ThemeProvider theme={lightTheme}>
               <CssBaseline />
               <Auth>
-                <Component {...pageProps} />
+                <ComponentProvider>
+                  <Component {...pageProps} />
+                </ComponentProvider>
               </Auth>
             </ThemeProvider>
           </UIProvider>

@@ -1,10 +1,12 @@
 import { Alert, AlertTitle, Container, Divider, Stack } from "@mui/material"
 import { indumadClient, indumadRoutes } from "api"
+import { ScheduleModal } from "components/calendar/ScheduleModal"
 import { ViewerJob } from "components/job/ViewerJob"
 import { MainLayout } from "components/layouts"
 import { DotFlash } from "components/loaders/DotFlash"
 import { CustomTitle } from "components/ui"
 import { AlertClose } from "components/ui/alert/AlertClose"
+import { JobProvider } from "context/job"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import toast, { Toaster, useToaster } from "react-hot-toast"
@@ -67,8 +69,11 @@ export default function JobDetailPage() {
           </Stack>
           <Toaster position="top-center" reverseOrder={false} />
           <ViewerJob job={job} />
+          <ScheduleModal />
         </Container>
       )}
     </MainLayout>
   )
 }
+
+JobDetailPage.provider = JobProvider

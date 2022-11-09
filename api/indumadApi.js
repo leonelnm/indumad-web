@@ -36,6 +36,9 @@ export const indumadRoutes = {
     delete: "/evidence",
     findAll: "/evidence",
   },
+  schedule: {
+    path: "/schedule",
+  },
 }
 
 export const indumadClient = async ({
