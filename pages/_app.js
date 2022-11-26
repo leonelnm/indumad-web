@@ -7,7 +7,7 @@ import { SWRConfig } from "swr"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
 
-import { AuthProvider, UIProvider } from "context"
+import { AuthProvider, JobProvider, UIProvider } from "context"
 import { lightTheme } from "themes"
 import { indumadApi } from "api"
 import { LoadingScreen } from "components/LoadingScreen"
@@ -44,7 +44,7 @@ const Noop = ({ children }) => <>{children}</>
 
 function MyApp({ Component, pageProps }) {
   const Auth = Component.Auth === false ? Noop : WithPrivateRoute
-  const ComponentProvider = Component.provider || Noop
+  const CustomProvider = Component.provider || Noop
 
   return (
     <>
@@ -62,9 +62,11 @@ function MyApp({ Component, pageProps }) {
             <ThemeProvider theme={lightTheme}>
               <CssBaseline />
               <Auth>
-                <ComponentProvider>
-                  <Component {...pageProps} />
-                </ComponentProvider>
+                <JobProvider>
+                  <CustomProvider>
+                    <Component {...pageProps} />
+                  </CustomProvider>
+                </JobProvider>
               </Auth>
             </ThemeProvider>
           </UIProvider>

@@ -2,34 +2,28 @@ import { createContext, useState } from "react"
 
 export const JobContext = createContext()
 
-const INITIAL_STATE = {
-  showModal: false,
-  id: undefined,
-}
-
 export const JobProvider = ({ children }) => {
-  const [job, setJob] = useState(INITIAL_STATE)
+  const [jobs, setJobs] = useState([])
 
-  const openModal = (jobId) => {
-    setJob({
-      showModal: true,
-      id: jobId,
-    })
+  const cleanJobs = () => setJobs([])
+
+  const getJobs = () => {
+    setJobs([])
   }
 
-  const closeModal = () => {
-    console.log("close modal")
-    setJob(INITIAL_STATE)
+  const filterJobs = (filter) => {
+    setJobs([])
   }
 
   return (
     <JobContext.Provider
       value={{
-        job,
+        jobs,
 
         // methods
-        openModal,
-        closeModal,
+        cleanJobs,
+        getJobs,
+        filterJobs,
       }}
     >
       {children}
