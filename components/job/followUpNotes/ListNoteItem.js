@@ -17,7 +17,7 @@ export const ListNoteItem = ({ note = {} }) => {
     isGestor ? note.readByGestor : note.readByEmployee
   )
 
-  const owner = isGestor || user.id === note.ownerId
+  const owner = user.id === note.ownerId
 
   const handlerMarkAsRead = async (noteId) => {
     if (markAsRead) {
