@@ -10,8 +10,27 @@ import { CaptionData } from "./CaptionData"
 import { ViewerJobEvidences } from "./ViewerJobEvidences"
 import { ViewerJobNotasSeguimiento } from "./ViewerJobNotasSeguimiento"
 import { ScheduleButton } from "components/calendar/ScheduleButton"
+import { ScheduleModal } from "components/calendar/ScheduleModal"
+import { useState } from "react"
+
+const INITIAL_STATE_MODAL_SCHEDULE = {
+  showModal: false,
+  id: undefined,
+}
 
 export const ViewerJob = ({ job = {} }) => {
+  const [showModal, setShowModal] = useState(INITIAL_STATE_MODAL_SCHEDULE)
+  const closeModal = () => {
+    setShowModal(INITIAL_STATE_MODAL_SCHEDULE)
+  }
+
+  const openModal = (jobId) => {
+    setShowModal({
+      showModal: true,
+      jobId,
+    })
+  }
+
   return (
     <Stack pt={1} spacing={2}>
       <Stack flexDirection="row" justifyContent="space-between">
@@ -25,7 +44,12 @@ export const ViewerJob = ({ job = {} }) => {
           <DeliveryNotePdf job={job} />
         </LazyDownloadPdfButton>
 
-        <ScheduleButton job={job.id} sx={{}} color="secondary" />
+        <ScheduleButton
+          job={job.id}
+          sx={{}}
+          color="secondary"
+          openModal={openModal}
+        />
       </Stack>
 
       <CardCollapse title="Información General" variant="outlined">
@@ -78,8 +102,12 @@ export const ViewerJob = ({ job = {} }) => {
           </div>
         </InnerCardCollapse>
       </CardCollapse>
-      <ViewerJobNotasSeguimiento jobId={job.id} />
+
+      <ViewerJobNotasSeguimiento jobId={job.id} job={job} />
+
       <ViewerJobEvidences jobId={job.id} />
+
+      <ScheduleModal state={showModal} handleOpen={closeModal} />
     </Stack>
   )
 }

@@ -38,6 +38,7 @@ export const messages = {
       worker: "Profesional",
       workerEmpty: "Sin Asignar",
       job: "Trabajo",
+      completed: "Terminar Trabajo",
     },
     pdf: {
       deliveryNote: "Albarán de Trabajo",
@@ -51,6 +52,25 @@ export const messages = {
     schedule: {
       visit: "Visita",
       visitJob: "Visita Servicio ",
+      modalTitle: "Agendar Cita",
+    },
+    budget: {
+      send: "Enviar Presupuesto",
+      notValid: "El presupuesto no es válido",
+      add: "Detalles de presupuesto",
+      total: "Presupuesto Total",
+      title: "Presupuesto",
+      accept: "Aceptar Presupuesto",
+      reject: "Rechazar presupuesto",
+    },
+    deliveryNote: {
+      add: "Añadir notas de seguimiento",
+      title: "Nota de Seguimiento",
+    },
+    commons: {
+      send: "Enviar",
+      add: "Añadir",
+      save: "Guardar",
     },
   },
   user: {
@@ -141,6 +161,10 @@ export const messages = {
       error:
         "En estos momentos no es posible elimnar trabajos, espere unos minutos y vuelva a intentar",
     },
+    completed: {
+      success: "Se ha marcado el trabajo como finalizado",
+      fail: "No se ha podido realizar la acción, vuelva a intentar!",
+    },
   },
   notes: {
     error_list:
@@ -152,9 +176,18 @@ export const messages = {
       error:
         "En estos momentos no es posible crear Notas de Seguimiento, espere unos minutos y vuelva a intentar",
     },
+    budget: {
+      sucess: "Presupuesto enviado!",
+      fail: "No se pudo añadir el presupuesto, vuelva a intentar",
+      error:
+        "En estos momentos no es posible añadir presupuesto, espere unos minutos y vuelva a intentar",
+      approved: "Presupuesto aprobado",
+      rejected: "Presupuesto rechazado!",
+      failApprove: "No se pudo validar el presupuesto, vuelva a intentar!",
+    },
     empty: "Aún no hay notas de seguimiento",
     read: {
-      success: "Nota de Seguimiento leída",
+      success: "Nota leída",
       error: "No se ha podido leer, intente de nuevo!",
     },
   },
@@ -187,5 +220,8 @@ export const messages = {
     beforeError: "La fecha seleccionada es anterior al día de hoy",
     success: "Se ha guardado la cita correctamente",
     error: "No se ha podido guardar la cita, vuelva a intentar",
+  },
+  budget: {
+    pendingApproval: "Presupuesto pendiente de aprobación",
   },
 }

@@ -21,11 +21,9 @@ import {
 import { messages } from "utils/messages"
 import { createSchedule } from "services/scheduleService"
 import toast from "react-hot-toast"
-import { useJobContext } from "hooks/context"
 
-export default function ScheduleVisit({ jobId = undefined }) {
+export default function ScheduleVisit({ jobId = undefined, closeModal }) {
   const [error, setError] = useState("")
-  const { closeModal } = useJobContext()
 
   const initialSchedule = {
     date: dayjs(new Date()),

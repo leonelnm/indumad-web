@@ -8,7 +8,7 @@ import { messages } from "utils/messages"
 import { JobSearcher } from "./JobSearcher"
 import { ListJobItem } from "./ListJobItem"
 
-export const ListJobByEmployee = () => {
+export const ListJobByEmployee = ({ handleOpenScheduleModal }) => {
   const [jobsFiltered, setJobsFiltered] = useState([])
   const [loading, setLoading] = useState(false)
   const [showReset, setShowReset] = useState(false)
@@ -63,7 +63,7 @@ export const ListJobByEmployee = () => {
       setShowReset(true)
     }
 
-    if (query.length < 2) {
+    if (query.length < 1) {
       setLoading(false)
       return
     }
@@ -71,6 +71,7 @@ export const ListJobByEmployee = () => {
     setJobsFiltered(
       jobs.filter((job) => {
         return (
+          `${job.id}` === query ||
           job.contact.address.toLowerCase().includes(query) ||
           job.contact.name.toLowerCase().includes(query)
         )
@@ -100,7 +101,7 @@ export const ListJobByEmployee = () => {
           showReset={showReset}
         />
       </Container>
-      {query && query.length >= 2 && (
+      {query && query.length >= 1 && (
         <Box>
           <Typography variant="body2">{`Busqueda por ${query}: (${jobsFiltered.length})`}</Typography>
         </Box>
@@ -116,7 +117,13 @@ export const ListJobByEmployee = () => {
       {(loading || isLoading) && <DotFlash />}
 
       {Array.isArray(jobsFiltered) &&
-        jobsFiltered.map((job) => <ListJobItem key={job.id} job={job} />)}
+        jobsFiltered.map((job) => (
+          <ListJobItem
+            key={job.id}
+            job={job}
+            handleOpenScheduleModal={handleOpenScheduleModal}
+          />
+        ))}
       {/* </Container> */}
     </Container>
   )

@@ -26,10 +26,13 @@ export const indumadRoutes = {
   job: {
     path: "/job",
     deliveryNote: "/job/deliverynote",
+    completed: "/job/completed",
   },
   notes: {
     basePath: "/followupnotes",
     markAsRead: "/followupnotes/markasread",
+    sendBudget: "/followupnotes/budget",
+    approveBudget: "/followupnotes/budget/approve",
   },
   evidences: {
     add: "/evidence/upload",

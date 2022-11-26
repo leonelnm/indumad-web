@@ -11,14 +11,13 @@ import { indumadClient, indumadRoutes } from "api"
 import { messages } from "utils/messages"
 
 export const ListNoteItem = ({ note = {} }) => {
-  const { isGestor } = useAuthContext()
+  const { isGestor, user } = useAuthContext()
 
   const [markAsRead, setMarkAsRead] = useState(
     isGestor ? note.readByGestor : note.readByEmployee
   )
 
-  const { user } = useAuthContext()
-  const owner = user.id === note.ownerId
+  const owner = isGestor || user.id === note.ownerId
 
   const handlerMarkAsRead = async (noteId) => {
     if (markAsRead) {

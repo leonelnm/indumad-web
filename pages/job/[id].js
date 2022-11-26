@@ -1,12 +1,11 @@
 import { Alert, AlertTitle, Container, Divider, Stack } from "@mui/material"
 import { indumadClient, indumadRoutes } from "api"
-import { ScheduleModal } from "components/calendar/ScheduleModal"
 import { ViewerJob } from "components/job/ViewerJob"
 import { MainLayout } from "components/layouts"
 import { DotFlash } from "components/loaders/DotFlash"
 import { CustomTitle } from "components/ui"
 import { AlertClose } from "components/ui/alert/AlertClose"
-import { JobProvider } from "context/job"
+import { JobDetailProvider } from "context"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import toast, { Toaster, useToaster } from "react-hot-toast"
@@ -56,6 +55,14 @@ export default function JobDetailPage() {
       {job && (
         <Container disableGutters maxWidth="md">
           <Stack mt={1} spacing={1} aria-label="alerts-box">
+            {job.pendingApproval && (
+              <AlertClose
+                severity="info"
+                // title={messages.ui.job.followupNote}
+                text={messages.budget.pendingApproval}
+              />
+            )}
+
             {job.unreadMessages > 0 && (
               <AlertClose
                 severity="warning"
@@ -68,12 +75,12 @@ export default function JobDetailPage() {
             )}
           </Stack>
           <Toaster position="top-center" reverseOrder={false} />
-          <ViewerJob job={job} />
-          <ScheduleModal />
+
+          <JobDetailProvider id={id} job={job}>
+            <ViewerJob job={job} />
+          </JobDetailProvider>
         </Container>
       )}
     </MainLayout>
   )
 }
-
-JobDetailPage.provider = JobProvider

@@ -21,7 +21,7 @@ import { LazyDownloadPdfButton } from "components/pdf/LazyDownloadPdfButton"
 import { DeliveryNotePdf } from "components/pdf/DeliveryNotePdf"
 import { ScheduleButton } from "components/calendar/ScheduleButton"
 
-export const ListJobItem = ({ job = {} }) => {
+export const ListJobItem = ({ job = {}, handleOpenScheduleModal }) => {
   const { isGestor } = useAuthContext()
   const ref = useRef()
   const refValue = useOnScreen(ref)
@@ -134,9 +134,15 @@ export const ListJobItem = ({ job = {} }) => {
               </Link>
             )}
 
-            <ScheduleButton job={job.id} />
+            <ScheduleButton job={job.id} openModal={handleOpenScheduleModal} />
 
-            <Link href={`/job/notes/${job.id}`} passHref>
+            <Link
+              href={{
+                pathname: `/job/notes/${job.id}`,
+                query: { pendingApproval: job.pendingApproval },
+              }}
+              passHref
+            >
               <Badge
                 color="secondary"
                 badgeContent={job.unreadMessages}

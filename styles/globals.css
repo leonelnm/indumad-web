@@ -302,7 +302,7 @@
 
 .followUpNote-editor > .ql-container.ql-snow {
   min-height: 10rem;
-  max-height: 80vh;
+  max-height: 60vh;
   overflow-y: auto;
   border-radius: 0 0 5px 5px;
 }
@@ -404,8 +404,8 @@
   }
 
   .job > .id-ext-date {
-    min-width: 7rem;
-    max-width: 7rem;
+    min-width: 8rem;
+    max-width: 10rem;
     padding: 0;
     flex-direction: column;
     justify-content: space-between;
@@ -455,5 +455,11 @@
     justify-content: center;
     text-align: center;
     padding-right: 0.8rem;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .job > .buttons {
+    flex-wrap: wrap;
   }
 }

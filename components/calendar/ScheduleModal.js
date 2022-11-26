@@ -1,18 +1,16 @@
 import { ModalIndumad } from "components/modal/Modal"
-import { useJobContext } from "hooks/context"
+import { messages } from "utils/messages"
 import ScheduleVisit from "./ScheduleVisit"
 
-export const ScheduleModal = () => {
-  const { job, closeModal } = useJobContext()
-
+export const ScheduleModal = ({ handleOpen, state }) => {
   return (
     <ModalIndumad
-      title="Agendar Cita"
-      handleOpen={closeModal}
+      title={messages.ui.schedule.modalTitle}
+      handleOpen={handleOpen}
       big={true}
-      show={job.showModal}
+      show={state.showModal}
     >
-      <ScheduleVisit jobId={job.id} />
+      <ScheduleVisit jobId={state.jobId} closeModal={handleOpen} />
     </ModalIndumad>
   )
 }
