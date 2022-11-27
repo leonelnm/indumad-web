@@ -42,6 +42,9 @@ export const indumadRoutes = {
   schedule: {
     path: "/schedule",
   },
+  billing: {
+    path: "/billing",
+  },
 }
 
 export const indumadClient = async ({

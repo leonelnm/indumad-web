@@ -8,6 +8,7 @@ export const useAxios = ({
   url,
   body = {},
   config = {},
+  params = {},
   token = "",
 }) => {
   const [data, setData] = useState(null)
@@ -17,7 +18,7 @@ export const useAxios = ({
   indumadApi.defaults.headers.Authorization = `Bearer ${getToken()}`
 
   useEffect(() => {
-    indumadApi[method](url, body, config)
+    indumadApi[method](url, method === "get" ? { params } : body, config)
       .then((res) => {
         setData(res.data)
       })

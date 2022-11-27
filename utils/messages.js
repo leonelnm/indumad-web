@@ -224,4 +224,11 @@ export const messages = {
   budget: {
     pendingApproval: "Presupuesto pendiente de aprobación",
   },
+  billing: {
+    search: {
+      error:
+        "En estos momentos no es posible encontrar facturas, espere unos minutos y vuelva a intentar. Si el error continúa, póngase en contacto con el administrador!",
+      empty: "No hay facturas disponibles",
+    },
+  },
 }
