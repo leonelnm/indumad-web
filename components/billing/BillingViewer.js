@@ -16,6 +16,10 @@ import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 import { useEffect, useState } from "react"
 import { BillingFilter } from "./BillingFilter"
+import { DownloadPdfIconButton } from "components/pdf/billing/DownloadPdfIconButton"
+import { InvoicePdf } from "components/pdf/billing/InvoicePdf"
+import { formatCurrency } from "utils/utils"
+import { useAuthContext } from "hooks/context"
 
 const getInvoiceByYearMonth = ({ year, month, list = [] }) => {
   return list.find((invoice) => {
@@ -24,16 +28,10 @@ const getInvoiceByYearMonth = ({ year, month, list = [] }) => {
   })
 }
 
-const format = new Intl.NumberFormat("es-ES", {
-  style: "currency",
-  currency: "EUR",
-})
-
 const months = getListMonths()
 
 export const BillingViewer = () => {
   const [year, setYear] = useState(() => new Date().getFullYear())
-
   const { data, isLoading, error, setData, setError } = useAxios({
     url: indumadRoutes.billing.path,
     params: { year },
@@ -113,34 +111,57 @@ function InvoiceRow({ year, monthName, invoice = undefined }) {
       key={`${year}${monthName}`}
       sx={{
         td: { p: 0, pt: 1, pb: 1 },
-        "td:first-child": { pl: 2 },
+        "td:first-of-type": { pl: 2 },
         "&:last-child td, &:last-child th": { border: 0 },
       }}
     >
       <TableCell align="left">{`${monthName}, ${year}`}</TableCell>
       <TableCell align="center">{invoice ? invoice.amountJobs : "-"}</TableCell>
       <TableCell align="right">
-        {invoice ? format.format(invoice.total) : "-"}
+        {invoice ? formatCurrency.format(invoice.total) : "-"}
       </TableCell>
       <TableCell align="center">
         {invoice ? (
-          <IconButton aria-label="descargar remesa">
-            <ReceiptIcon />
-          </IconButton>
+          <DownloadInvoice
+            invoice={invoice}
+            icon={ReceiptIcon}
+            date={`${monthName} ${year}`}
+          />
         ) : (
           <DisabledButton />
         )}
       </TableCell>
       <TableCell align="center">
         {invoice ? (
-          <IconButton aria-label="descargar factura">
-            <BorderColorIcon />
-          </IconButton>
+          <DownloadInvoice
+            invoice={invoice}
+            isRemesa={false}
+            icon={BorderColorIcon}
+            date={`${monthName} ${year}`}
+          />
         ) : (
           <DisabledButton />
         )}
       </TableCell>
     </TableRow>
+  )
+}
+
+function DownloadInvoice({ invoice, isRemesa = true, icon, date }) {
+  const filename = isRemesa ? "remesa" : "factura"
+  const { isGestor } = useAuthContext()
+  return (
+    <DownloadPdfIconButton
+      IconComponent={icon}
+      filename={`${filename}-${invoice.invoiceDate}`}
+    >
+      <InvoicePdf
+        invoice={invoice}
+        isRemesa={isRemesa}
+        date={date}
+        isGestor={isGestor}
+      />
+    </DownloadPdfIconButton>
   )
 }
 

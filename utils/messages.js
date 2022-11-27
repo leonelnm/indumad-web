@@ -45,6 +45,11 @@ export const messages = {
       deliveryNoteNamePdf: "Albaran-trabajo-",
       sign: "Firma cliente:",
       service: "Servicio",
+      billing: {
+        invoice: "Factura",
+        remesaDetails: "Documento de liquidación para emisión de factura.",
+        detail: "Detalle de Trabajos Finalizados durante ",
+      },
     },
     profile: {
       changePassword: "Cambiar Contraseña",

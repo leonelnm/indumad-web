@@ -9,3 +9,8 @@ export const range = (start, end) => {
     .fill()
     .map((_, idx) => start + idx)
 }
+
+export const formatCurrency = new Intl.NumberFormat("es-ES", {
+  style: "currency",
+  currency: "EUR",
+})
