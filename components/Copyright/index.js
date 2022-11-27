@@ -9,7 +9,7 @@ export const Copyright = (props) => {
       align="center"
       {...props}
     >
-      {"Copyright © "}
+      {"© "}
       <Typography variant="body2" component={"strong"} sx={{ fontWeight: 900 }}>
         {messages.ui.appName}
       </Typography>{" "}

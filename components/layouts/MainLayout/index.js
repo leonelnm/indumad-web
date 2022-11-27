@@ -1,14 +1,14 @@
-import { Box } from "@mui/material"
+import { Box, Stack } from "@mui/material"
 import { DotFlash } from "components/loaders/DotFlash"
 import { useAuthContext } from "hooks/context"
 import Head from "next/head"
-import { Navbar, Sidebar } from "../../ui"
+import { Footer, Navbar, Sidebar } from "../../ui"
 
 export const MainLayout = ({ children, title = "Servicios Navalpar SL" }) => {
   const { user } = useAuthContext()
 
   return (
-    <Box sx={{ flexFlow: 1 }}>
+    <Stack>
       <Head>
         <title>{title}</title>
       </Head>
@@ -27,6 +27,8 @@ export const MainLayout = ({ children, title = "Servicios Navalpar SL" }) => {
       ) : (
         <DotFlash />
       )}
-    </Box>
+
+      <Footer />
+    </Stack>
   )
 }
