@@ -148,6 +148,7 @@ export const messages = {
     error_list:
       "En estos momentos no es posible encontrar TRABAJOS, espere unos minutos y vuelva a intentar. Si el error continúa, póngase en contacto con el administrador!",
     search: "En estos momentos no es posible mostrar el trabajo seleccionado",
+    empty: "No se han encontrado trabajos",
     created: {
       sucess: "Trabajo creado correctamente",
       fail: "No se pudo crear el trabajo",
