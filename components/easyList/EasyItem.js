@@ -38,7 +38,7 @@ export const EasyItem = ({
         toast.success(msg.sucess)
         handlerDelete(name)
       } else {
-        toast.error(`${msg.fail}.\n${error.error}!`, {
+        toast.error(`${msg.fail}.\n${error.translate}!`, {
           duration: 6000,
         })
       }
