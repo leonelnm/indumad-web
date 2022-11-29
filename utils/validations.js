@@ -62,6 +62,26 @@ export const schemaEditUser = object().shape({
     ),
 })
 
+export const schemaEditProfile = object().shape({
+  username: string()
+    .required("Usuario es requerido")
+    .atLeast(5, "Debe tener al menos 5 caracteres")
+    .atMost(10, "Usuario es muy largo, máximo 10 caracteres"),
+  name: string()
+    .required("Nombre es requerido")
+    .atLeast(2, "Debe tener al menos 2 caracteres")
+    .atMost(30, "Usuario es muy largo, máximo 30 caracteres"),
+  lastname: string()
+    .required("Apellido es requerido")
+    .atLeast(2, "Debe tener al menos 2 caracteres")
+    .atMost(50, "Usuario es muy largo, máximo 50 caracteres"),
+  phone: number("No válido")
+    .required("Teléfono es requerido")
+    .positive("No válido")
+    .min(10000, "Teléfono no válido")
+    .max(1000000000, "Teléfono no válido"),
+})
+
 export const schemaChangePassword = object().shape({
   newpassword: string()
     .required("Nueva contraseña es requerida")
