@@ -6,7 +6,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker"
 import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker"
-import { esES } from "@mui/x-date-pickers/locales"
+import "dayjs/locale/es"
 import {
   Button,
   Container,
@@ -89,12 +89,7 @@ export default function ScheduleVisit({ jobId = undefined, closeModal }) {
 
   return (
     <Container maxWidth="sm">
-      <LocalizationProvider
-        dateAdapter={AdapterDayjs}
-        localeText={
-          esES.components.MuiLocalizationProvider.defaultProps.localeText
-        }
-      >
+      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={"es"}>
         <Stack spacing={3} component="form" noValidate autoComplete="off">
           <Typography
             variant="body1"

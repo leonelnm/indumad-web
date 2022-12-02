@@ -1,13 +1,14 @@
 const getCurrentTimeZone = () =>
   Intl.DateTimeFormat().resolvedOptions().timeZone
 
-export const getDate = (date = undefined) => {
+export const getDate = (date = undefined, long = false) => {
   return date
     ? new Date(date).toLocaleDateString("es-ES", {
         timeZone: getCurrentTimeZone(),
         year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
+        month: `${long ? "long" : "2-digit"}`,
+        day: `${long ? "numeric" : "2-digit"}`,
+        ...(long && { weekday: "long" }),
       })
     : ""
 }
@@ -22,8 +23,8 @@ export const getTime = (date = undefined) => {
     : ""
 }
 
-export const getDateTime = (date = new Date()) => {
-  return `${getDate(date)} ${getTime(date)}`
+export const getDateTime = (date = new Date(), long = false) => {
+  return `${getDate(date, long)}${long ? " a la " : " "}${getTime(date)}`
 }
 
 export const getDateToShow = (date) => {
@@ -31,6 +32,13 @@ export const getDateToShow = (date) => {
     return getTime(date)
   }
   return getDateTime(date)
+}
+
+export const getDateToShowLong = (date) => {
+  if (getDate(new Date()) === getDate(date)) {
+    return getTime(date)
+  }
+  return getDateTime(date, true)
 }
 
 export const getListMonths = () => {
