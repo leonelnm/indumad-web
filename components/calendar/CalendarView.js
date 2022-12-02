@@ -1,16 +1,16 @@
 import FullCalendar from "@fullcalendar/react" // must go before plugins
 import timeGridPlugin from "@fullcalendar/timegrid" // a plugin!
 import dayGridPlugin from "@fullcalendar/daygrid" // a plugin!
-import { getDateToShowLong } from "utils/date"
+import { dateGMTToShowLong } from "utils/date"
 
 export const CalendarView = ({ list = [], setOpen, setEvent }) => {
   const handleClickEvent = (info) => {
-    info.jsEvent.preventDefault()
     const { end } = info.event?._instance.range
+
     setEvent({
       title: info.event.title,
-      date: getDateToShowLong(info.event.start),
-      end: getDateToShowLong(end),
+      date: dateGMTToShowLong(info.event.start),
+      end: dateGMTToShowLong(end),
     })
     setOpen(true)
   }

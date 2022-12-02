@@ -22,6 +22,7 @@ export default function EventModal({ event, open, setOpen }) {
   return (
     <div>
       <Modal
+        keepMounted
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"

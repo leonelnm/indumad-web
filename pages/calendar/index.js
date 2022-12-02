@@ -8,15 +8,15 @@ import { useFetchSwr } from "hooks/useFetchSwr"
 import EventModal from "components/calendar/EventModal"
 
 const getEndDate = (startDate, duration) => {
-  const unitToAdd = duration > 1 ? "h" : "m"
+  const unitToAdd = "h"
 
   return dayjs(new Date(startDate))
     .add(duration, unitToAdd)
-    .format("YYYY-MM-DD HH:ss")
+    .format("YYYY-MM-DD HH:mm")
 }
 
 const getStartDate = (startDate) => {
-  return dayjs(new Date(startDate)).format("YYYY-MM-DD HH:ss")
+  return dayjs(new Date(startDate)).format("YYYY-MM-DD HH:mm")
 }
 
 export default function CalendarPage() {

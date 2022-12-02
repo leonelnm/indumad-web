@@ -41,6 +41,23 @@ export const getDateToShowLong = (date) => {
   return getDateTime(date, true)
 }
 
+export const dateGMTToShowLong = (date) => {
+  let newDate
+  if (date instanceof Date) {
+    newDate = new Date(
+      date.getUTCFullYear(),
+      date.getUTCMonth(),
+      date.getUTCDate(),
+      date.getUTCHours(),
+      date.getUTCMinutes(),
+      date.getUTCSeconds()
+    )
+  } else {
+    newDate = new Date()
+  }
+  return getDateToShowLong(newDate)
+}
+
 export const getListMonths = () => {
   // return [...Array(12).keys()].map((key) =>
   //   new Date(0, key).toLocaleString("es", { month: "long" })
