@@ -17,14 +17,12 @@ import { useRouter } from "next/router"
 
 // custom
 import { LoadingButton } from "components/ui"
-import { schemaCreateUser } from "utils/validations"
+import { schemaEditProfile } from "utils/validations"
 import { indumadClient, indumadRoutes } from "api"
 import { messages } from "utils/messages"
 
 export const ProfilePersonalData = ({ user = undefined }) => {
   const router = useRouter()
-
-  console.log(user)
 
   // recuperar los roles que puede administrar
   const [loadingOnSubmit, setLoadingOnSubmit] = useState(false)
@@ -36,7 +34,7 @@ export const ProfilePersonalData = ({ user = undefined }) => {
   } = useForm({
     mode: "onChange",
     defaultValues: { ...user },
-    resolver: nopeResolver(schemaCreateUser),
+    resolver: nopeResolver(schemaEditProfile),
   })
 
   const onSubmit = async (data) => {
@@ -190,7 +188,7 @@ export const ProfilePersonalData = ({ user = undefined }) => {
             alignItems="center"
             spacing={1}
           >
-            <Grid item xs={7} sm={4} md={3} lg={2}>
+            <Grid item xs={7} sm={4}>
               <LoadingButton
                 type="submit"
                 color="primary"

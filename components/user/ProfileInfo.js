@@ -18,7 +18,7 @@ export const ProfileInfo = () => {
   })
 
   return (
-    <Container disableGutters>
+    <Container disableGutters maxWidth="sm">
       {isLoading && <DotFlash />}
       {error && (
         <Box>

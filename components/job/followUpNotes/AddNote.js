@@ -1,4 +1,10 @@
-import { Button, Typography } from "@mui/material"
+import {
+  Button,
+  InputAdornment,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material"
 import SendIcon from "@mui/icons-material/Send"
 import { Box } from "@mui/system"
 import Editor from "components/editor/Editor"
@@ -7,13 +13,20 @@ import {
   getStringLengthWithoutHtmlTags,
   validateIncidentInfo,
 } from "utils/validationJob"
+import { messages } from "utils/messages"
 
-export const AddNote = ({ handlerSubmit = async () => {} }) => {
+export const AddNote = ({
+  handlerSubmit = async () => {},
+  isBudget = false,
+}) => {
   const maxLength = 2500
   const [information, setInformation] = useState("")
   const [errorInfo, setErrorInfo] = useState({ error: false, msg: "" })
   const [counter, setCounter] = useState(0)
   const [disableSubmit, setDisableSubmit] = useState(true)
+  const [budget, setBudget] = useState("0.00")
+  const [errorBudget, setErrorBudget] = useState({ error: false, msg: "" })
+  const [disableSubmitByBudget, setDisableSubmitByBudget] = useState(isBudget)
 
   const onChangeInformation = (data) => {
     setInformation(data)
@@ -21,11 +34,24 @@ export const AddNote = ({ handlerSubmit = async () => {} }) => {
     isInfoError(data)
   }
 
+  const onChangeBudget = (event) => {
+    const value = event.target.value
+    setBudget(value)
+
+    if (isNaN(value) || value === "" || value * 1 <= 0) {
+      setErrorBudget({ error: true, msg: messages.ui.budget.notValid })
+      setDisableSubmitByBudget(true)
+    } else {
+      setErrorBudget({ error: false, msg: "" })
+      setDisableSubmitByBudget(false)
+    }
+  }
+
   const isInfoError = (data) => {
     const { error, msg } = validateIncidentInfo(
       data,
       maxLength,
-      "Nota de Seguimiento"
+      isBudget ? messages.ui.budget.add : messages.ui.deliveryNote.title
     )
     setErrorInfo({ error, msg })
     setDisableSubmit(error)
@@ -34,21 +60,32 @@ export const AddNote = ({ handlerSubmit = async () => {} }) => {
   const submitClick = async (e) => {
     setDisableSubmit(true)
     e.preventDefault()
-    const { error } = await handlerSubmit(information)
+    const { error } = await handlerSubmit(
+      isBudget ? { information, budget } : information
+    )
     if (!error) {
-      setInformation(">")
+      setInformation("-")
+
+      if (isBudget) {
+        setDisableSubmitByBudget(true)
+        setBudget("0.00")
+      }
     }
-    setDisableSubmit(false)
   }
 
   return (
-    <Box component="form" onSubmit={submitClick} p={1} mb={3}>
+    <Stack component="form" onSubmit={submitClick} p={1} mb={3} spacing={2}>
       <Box sx={{ display: "flex", flexDirection: "column" }}>
+        {isBudget && (
+          <Typography variant="caption">{messages.ui.budget.add}</Typography>
+        )}
         <Editor
           setText={onChangeInformation}
           text={information}
           validation={errorInfo}
-          placeholder="Añadir notas de seguimiento"
+          placeholder={
+            isBudget ? messages.ui.budget.add : messages.ui.deliveryNote.title
+          }
           heightConfig="followUpNote-editor"
         />
         {counter > maxLength - 100 && (
@@ -67,11 +104,34 @@ export const AddNote = ({ handlerSubmit = async () => {} }) => {
           </Typography>
         )}
       </Box>
-      <Box m={1} sx={{ textAlign: "right" }}>
-        <Button type="submit" disabled={disableSubmit} endIcon={<SendIcon />}>
-          Enviar Nota de Seguimiento
+
+      {isBudget && (
+        <TextField
+          label={messages.ui.budget.total}
+          name="budgetTotal"
+          type="text"
+          value={budget}
+          onChange={onChangeBudget}
+          error={errorBudget.error}
+          helperText={errorBudget.msg}
+          InputProps={{
+            endAdornment: <InputAdornment position="end">€</InputAdornment>,
+            inputProps: {
+              style: { textAlign: "right" },
+            },
+          }}
+        />
+      )}
+
+      <Box sx={{ textAlign: "right" }}>
+        <Button
+          type="submit"
+          disabled={disableSubmit || disableSubmitByBudget}
+          endIcon={<SendIcon />}
+        >
+          {isBudget ? messages.ui.budget.send : messages.ui.commons.send}
         </Button>
       </Box>
-    </Box>
+    </Stack>
   )
 }

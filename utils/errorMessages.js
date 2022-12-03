@@ -25,4 +25,12 @@ export const errorMessages = {
     translate:
       "Este NIF/DNI/NIE ya fue registrado con otro usuario, revise la información!",
   },
+  guildWithJobs: {
+    msg: "Guild associated with jobs",
+    translate: "Gremio asociado a trabajos",
+  },
+  referenceWithJobs: {
+    msg: "Reference associated with jobs",
+    translate: "Referencia asociada a trabajos",
+  },
 }

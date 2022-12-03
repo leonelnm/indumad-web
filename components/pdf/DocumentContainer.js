@@ -11,11 +11,14 @@ const styles = StyleSheet.create({
   },
 })
 
-export default function DocumentContainer({ children }) {
+export default function DocumentContainer({
+  children,
+  orientation = "portrait",
+}) {
   const appname = messages.ui.appName
   return (
     <Document language="es-ES" creator={appname} producer={appname}>
-      <Page size="A4" style={styles.body}>
+      <Page size="A4" orientation={orientation} style={styles.body}>
         {children}
       </Page>
     </Document>

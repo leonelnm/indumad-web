@@ -1,5 +1,4 @@
 import { Button } from "@mui/material"
-import { useJobContext } from "hooks/context"
 import EventIcon from "@mui/icons-material/Event"
 
 export const ScheduleButton = ({
@@ -8,8 +7,8 @@ export const ScheduleButton = ({
   job,
   sx = { display: { xs: "none", sm: "inline-flex" } },
   disabled = false,
+  openModal,
 }) => {
-  const { openModal } = useJobContext()
   return (
     <Button
       variant={variant}

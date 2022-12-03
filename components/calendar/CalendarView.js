@@ -1,15 +1,19 @@
 import FullCalendar from "@fullcalendar/react" // must go before plugins
 import timeGridPlugin from "@fullcalendar/timegrid" // a plugin!
 import dayGridPlugin from "@fullcalendar/daygrid" // a plugin!
+import { dateGMTToShowLong } from "utils/date"
 
-export const CalendarView = ({ list = [] }) => {
-  // const handleClickEvent = (info) => {
-  //   info.jsEvent.preventDefault()
-  //   console.log(info.event)
-  //   console.log(info.event.title)
-  //   console.log(info.event.start)
-  //   console.log(info.event.end)
-  // }
+export const CalendarView = ({ list = [], setOpen, setEvent }) => {
+  const handleClickEvent = (info) => {
+    const { end } = info.event?._instance.range
+
+    setEvent({
+      title: info.event.title,
+      date: dateGMTToShowLong(info.event.start),
+      end: dateGMTToShowLong(end),
+    })
+    setOpen(true)
+  }
 
   return (
     <FullCalendar
@@ -25,7 +29,7 @@ export const CalendarView = ({ list = [] }) => {
       dayHeaderClassNames="calendardayheader"
       dayHeaderFormat={{ weekday: "narrow", day: "numeric" }}
       events={list}
-      // eventClick={handleClickEvent}
+      eventClick={handleClickEvent}
       firstDay={1}
       height={"85vh"}
       initialView="timeGridWeek"

@@ -1,6 +1,6 @@
 import { Alert, AlertTitle, Container, Typography } from "@mui/material"
 import { Box } from "@mui/system"
-import { indumadRoutes } from "api"
+import { indumadClient, indumadRoutes } from "api"
 import { DotFlash } from "components/loaders/DotFlash"
 import { useAxios } from "hooks/useAxios"
 import { useEffect, useState } from "react"
@@ -8,27 +8,46 @@ import { messages } from "utils/messages"
 import { JobSearcher } from "./JobSearcher"
 import { ListJobItem } from "./ListJobItem"
 
-export const ListJobByEmployee = () => {
+export const ListJobByEmployee = ({ handleOpenScheduleModal }) => {
+  const [status, setStatus] = useState("*")
   const [jobsFiltered, setJobsFiltered] = useState([])
-  const [loading, setLoading] = useState(false)
   const [showReset, setShowReset] = useState(false)
   const [query, setQuery] = useState("")
+  const [filterLoading, setFilterLoading] = useState(false)
 
   const {
     error,
     isLoading,
     data: jobs,
+    setData: setJobs,
+    setError,
   } = useAxios({
     url: indumadRoutes.job.path,
   })
 
   useEffect(() => {
     if (jobs) {
-      setLoading(true)
       setJobsFiltered(jobs)
-      setLoading(false)
     }
   }, [jobs])
+
+  const searchJobByState = async () => {
+    const { error, data: jobs } = await indumadClient({
+      url: `${indumadRoutes.job.path}${
+        status !== "*" ? `?state=${status}` : ""
+      }`,
+    })
+
+    if (error) {
+      setError(error)
+    } else {
+      setJobs(jobs)
+    }
+  }
+
+  useEffect(() => {
+    searchJobByState()
+  }, [status])
 
   if (error) {
     return (
@@ -44,15 +63,13 @@ export const ListJobByEmployee = () => {
   }
 
   const resetSearcher = () => {
-    setLoading(true)
     setShowReset(false)
     setQuery("")
     setJobsFiltered(jobs)
-    setLoading(false)
   }
 
   const filter = (query) => {
-    setLoading(true)
+    setFilterLoading(true)
     setQuery(query)
 
     if (!query) {
@@ -63,20 +80,21 @@ export const ListJobByEmployee = () => {
       setShowReset(true)
     }
 
-    if (query.length < 2) {
-      setLoading(false)
+    if (query.length < 1) {
+      setFilterLoading(false)
       return
     }
 
     setJobsFiltered(
       jobs.filter((job) => {
         return (
+          `${job.id}` === query ||
           job.contact.address.toLowerCase().includes(query) ||
           job.contact.name.toLowerCase().includes(query)
         )
       })
     )
-    setLoading(false)
+    setFilterLoading(false)
   }
 
   return (
@@ -91,16 +109,16 @@ export const ListJobByEmployee = () => {
         gap: "1rem",
       }}
     >
-      {/* <Container maxWidth="sm"> */}
-      <Container disableGutters maxWidth="xs">
-        <JobSearcher
-          onChange={filter}
-          value={query}
-          reset={resetSearcher}
-          showReset={showReset}
-        />
-      </Container>
-      {query && query.length >= 2 && (
+      <JobSearcher
+        onChange={filter}
+        value={query}
+        reset={resetSearcher}
+        showReset={showReset}
+        status={status}
+        setStatus={setStatus}
+      />
+
+      {query && query.length >= 1 && (
         <Box>
           <Typography variant="body2">{`Busqueda por ${query}: (${jobsFiltered.length})`}</Typography>
         </Box>
@@ -113,11 +131,22 @@ export const ListJobByEmployee = () => {
         </Alert>
       )}
 
-      {(loading || isLoading) && <DotFlash />}
+      {filterLoading && <DotFlash />}
+
+      {Array.isArray(jobsFiltered) && jobsFiltered.length === 0 && (
+        <Alert severity="info" variant="outlined">
+          {`${messages.job.empty} ${status}`}
+        </Alert>
+      )}
 
       {Array.isArray(jobsFiltered) &&
-        jobsFiltered.map((job) => <ListJobItem key={job.id} job={job} />)}
-      {/* </Container> */}
+        jobsFiltered.map((job) => (
+          <ListJobItem
+            key={job.id}
+            job={job}
+            handleOpenScheduleModal={handleOpenScheduleModal}
+          />
+        ))}
     </Container>
   )
 }
